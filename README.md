@@ -4,7 +4,7 @@
 ## Features:
 - Minimal DOM manipulations
 - Uses CSS3 transitions
-- CSS transitions not DOM injected but defined in separate Stylesheet
+- CSS transitions NOT injected. They are just defined in a separate Stylesheet
 - Degrades gracefully on old browsers 
 - Handles multiple off-canvas elements
 - Left/right off-canvas
@@ -15,7 +15,7 @@
 - [jQuery 1.9+](http://jquery.com/)
 
 ## Demos
-Lorem ipsum
+@TODO: add demos links.
 
 ## Usage instructions
 
