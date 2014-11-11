@@ -1,0 +1,20 @@
+/* Off-canvas element CSS */
+.offside {
+    position: fixed;
+    width: 200px;
+    height: 100%;
+    top: 0;
+    z-index: 9999;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch; /* enables momentum scrolling in iOS overflow elements */
+}
+
+/* Right off-canvas element status: out of the page */
+.offside-right {
+    right: 0; /*Stick menu on right side*/
+}
+
+/* Body overflow */
+body.offside-init {
+    overflow-x: hidden;
+}

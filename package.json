@@ -1,0 +1,20 @@
+{
+  "name": "offside.js",
+  "version": "1.0.0",
+  "description": "Minimal js kit to push things off-canvas using CSS transforms & transitions.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/toomuchdesign/offside.js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/toomuchdesign/offside/issues"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.x",
+    "grunt-contrib-copy": "~0.6.x",
+    "grunt-contrib-watch": "~0.6.x",
+    "grunt-contrib-uglify": "~0.6.x",
+    "grunt-replace": "~0.8.x",
+    "grunt-contrib-jshint": "~0.10.x"
+  }
+}
