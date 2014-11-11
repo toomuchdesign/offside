@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <title>Offside 2.0; Multiple elements demo</title>
         <meta name="viewport" content="width=device-width,initial-scale=1">
-        <link rel="stylesheet" href="../../dist/offside-no-css-3d-transforms.css">
+        <link rel="stylesheet" href="../../dist/offside-test-no-css-3d-transforms.css">
         <link rel="stylesheet" href="../css/demo.css">
     </head>
 
@@ -73,11 +73,6 @@
 
             buttonsSelector: '.menu-btn-1',             // String: Menu toggle buttons selectors
             slidingSide: 'left',                        // String: Off canvas menu on left or right
-            init: function(){},                         // Function: After init callback
-            beforeOpen: function(){},                   // Function: Before open callback
-            afterOpen: function(){},                    // Function: After open callback
-            beforeClose: function(){},                  // Function: Before close callback
-            afterClose: function(){},                   // Function: After close callback
         });
 
         var offsideMenu2 = $.offside( '#menu-2', {
@@ -92,11 +87,6 @@
             slidingSide: 'right',                       // String: Off canvas menu on left or right
             offsideWidth: '100px',
         });
-
-        console.log(offsideMenu1);
-        console.log(offsideMenu2);
-        console.log(offsideMenu3);
-
     </script>
 
     </body>

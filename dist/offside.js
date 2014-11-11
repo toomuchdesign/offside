@@ -45,14 +45,14 @@
                 transitionsClass = 'offside-transitions',           // Class appended to body when ready to turn on Offside CSS transitions (Added when first menu interaction happens)
                 instantiatedOffsides = new Array(),                 // Array containing all instantiated offside elements
                 firstInteraction = 1,                               // Keep track of first Offside interaction
+                has3d = factorySettings.disableCss3dTransforms ? false : _has3d(),       // Browser supports CSS 3d Transforms
                 openOffsideId = undefined;                          // Tracks opened Offside instances
 
             // Factory properties shared with each Offside instance
             factorySharedProperties = {
 
                 $body: $( 'body' ),
-                $slidingElements: $( factorySettings.slidingElementsSelector ),                         // Sliding elements
-                has3d: factorySettings.disableCss3dTransforms ? false : _has3d(),  // Browser supports CSS 3d Transforms
+                $slidingElements: $( factorySettings.slidingElementsSelector ),         // Sliding elements
                 debug: factorySettings.debug,
             };
 
@@ -64,10 +64,9 @@
                 factorySharedProperties.$slidingElements.addClass( slidingElementsClass );
 
                 // DOM Fallbacks when CSS transform 3d not available
-                if( !factorySharedProperties.has3d ) {
+                if( !has3d ) {
 
-                    // jQuery fallback
-                    factorySharedProperties.$slidingElements.css({ 'overflow-x' : 'hidden', 'position' : 'relative' }); //Fixes IE scrollbar issue
+                    // No CSS 3d Transform fallback
                     $('html').addClass( 'no-csstransforms3d' ); //Adds Modernizr-like class when CSS 3D Transforms not available
                 };
 
@@ -126,7 +125,6 @@
 
                     buttonsSelector: '',                // String: Offside toggle buttons selectors ('#foo, #bar')
                     slidingSide: 'left',                // String: Offside element pushed on left or right
-                    offsideWidth: '',                   // Offside instance width: only if CSS 3D Transforms fallback needed
                     init: function(){},                 // Function: After init callback
                     beforeOpen: function(){},           // Function: Before open callback
                     afterOpen: function(){},            // Function: After open callback
@@ -149,9 +147,7 @@
                     offsideClass = 'offside offside-' + slidingSide,                            // Class added to Offside instance it is intialized (eg. offside offside-left)
                     offsideOpenClass = 'offside-open',                                          // Class appended to Offside instance when open
                     offsideBodyOpenClass = offsideOpenClass + '-' + slidingSide,                // Class appended to body when Offside instance is open (offside-left-open / offside-right-open)
-                    offsideWidth = '',
 
-                    propertyObject = {},                                                        // Just used to dynamically set keys on property objects
                     id = id || 0;                                                               // Set Offside instance id
 
                 // Offside instance private methods
@@ -179,9 +175,6 @@
                     //Add Offside instance open class
                     $offside.addClass( offsideOpenClass );
 
-                    // Call open fallback method if CSS 3D Transform not supported
-                    if ( !factorySharedProperties.has3d ) _openOffsideFallback();
-
                     //Update open Offside instances tracker
                     factorySharedProperties.openOffsideId = id;
 
@@ -200,33 +193,11 @@
                     // Remove Offside instance open class
                     $offside.removeClass( offsideOpenClass );
 
-                    // Call close fallback method if CSS 3D Transform not supported
-                    if( !factorySharedProperties.has3d ) _closeOffsideFallback();
-
                     // Update open Offside instance tracker (use undefined!!)
                     factorySharedProperties.openOffsideId = undefined;
 
                     // Before close callback
                     offsideSettings.afterClose();
-                }
-
-                // Open/close fallback methods for browser which
-                // do not support CSS Transitions
-                function _openOffsideFallback() {
-                    $offside.css( _compilePropertyObject(slidingSide, '0px') );
-                    $slidingElements.css( _compilePropertyObject(slidingSide, offsideWidth) );
-                }
-
-                function _closeOffsideFallback() {
-                    $offside.css( _compilePropertyObject(slidingSide, '-' + offsideWidth) );
-                    $slidingElements.css( _compilePropertyObject(slidingSide, '') );
-                }
-
-                // Helper function which makes easier to dynamically
-                // compile an object to be used as jQuery option
-                function _compilePropertyObject( property, value ) {
-                    propertyObject[ property ] = value;
-                    return propertyObject;
                 }
 
                 // Get Offside instance unique ID
@@ -241,16 +212,6 @@
 
                     //Add classes to Offside instance (.offside and .offside{slidingSide})
                     $offside.addClass( offsideClass );
-
-                    // jQuery fallback
-                    if( !factorySharedProperties.has3d ) {
-
-                        //Get Offside instance width
-                        offsideWidth = $offside[0].offsetWidth + 'px';
-
-                        //Push Offside out by default
-                        $offside.css( _compilePropertyObject(slidingSide, '-' + offsideWidth) );
-                    };
 
                     // Toggle Offside
                     $offsideButtons.on('click', function() {

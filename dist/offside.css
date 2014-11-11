@@ -17,7 +17,7 @@
     -webkit-overflow-scrolling: touch; /* enables momentum scrolling in iOS overflow elements */
 }
 
-/* Off-canvas elements placement */
+/* Place off-canvas elements */
 
 /* Left off-canvas element status: out of the page */
 .offside, .offside-left {
@@ -36,12 +36,6 @@
     -ms-transform: translate3d(200px,0,0);
     -o-transform: translate3d(200px,0,0);
     transform: translate3d(200px,0,0);
-}
-
-/* Modernizr false negative csstransforms3d fix */
-.no-csstransforms3d .offside {
-    -webkit-transform: translate3d(0,0,0);
-    transform: translate3d(0,0,0);
 }
 
 /* Element is open: off-canvas element slides in */
@@ -85,4 +79,47 @@
 /* Body overflow */
 body.offside-init {
     overflow-x: hidden;
+}
+
+
+
+/* Fallback movements for browser not supporting CSS 3d Transitions
+----------------------------------------------- */
+
+/* Modernizr false negative csstransforms3d fix */
+.no-csstransforms3d .offside {
+    -webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
+}
+
+/* Place off-canvas elements */
+.no-csstransforms3d .offside-left {
+    left: -200px;
+}
+
+.no-csstransforms3d .offside-right {
+    right: -200px;
+}
+
+.no-csstransforms3d .offside-sliding-element {
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Element is open: off-canvas element slides in */
+.no-csstransforms3d > .offside-open-left .offside-left.offside-open{
+    left: 0;
+}
+
+.no-csstransforms3d > .offside-open-right .offside-right.offside-open {
+    right: 0;
+}
+
+/* Element is open: container elements slide out */
+.no-csstransforms3d > .offside-open-left .offside-sliding-element {
+    right: -200px;
+}
+
+.no-csstransforms3d > .offside-open-right .offside-sliding-element {
+    left: -200px;
 }
