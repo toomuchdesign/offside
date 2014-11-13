@@ -4,7 +4,7 @@
   "description": "Minimal js kit to push things off-canvas using CSS transforms & transitions.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/toomuchdesign/offside.js.git"
+    "url": "https://github.com/toomuchdesign/offside.git"
   },
   "bugs": {
     "url": "https://github.com/toomuchdesign/offside/issues"

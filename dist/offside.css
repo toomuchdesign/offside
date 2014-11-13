@@ -1,4 +1,4 @@
-/* offside.js 1.0.0 11-11-2014
+/* offside.js 1.0.0 13-11-2014
 * Minimal js kit to push things off-canvas using CSS transforms & transitions.
 * https://github.com/toomuchdesign/offside.js.git
 *

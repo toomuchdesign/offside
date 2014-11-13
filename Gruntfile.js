@@ -4,11 +4,6 @@ module.exports = function(grunt) {
   grunt.initConfig({
 
     pkg : grunt.file.readJSON('package.json'),
-    meta : {
-      banner : "/*<%= pkg.name %>*/",
-      output : "client/dist/responsive-nav.js",
-      outputMin : "client/dist/responsive-nav.min.js"
-    },
 
     replace : {
       options : {
@@ -40,7 +35,7 @@ module.exports = function(grunt) {
     uglify: {
       javascript: {
         files: {
-          'dist/offside.min.js': ['dist/offside.js'],
+          'dist/jquery.offside.min.js': ['dist/jquery.offside.js'],
         }
       }
     }, //end Uglify
