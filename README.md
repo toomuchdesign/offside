@@ -113,6 +113,23 @@ Offside plays well with your application. Each Offside instance exposes the foll
 - Set **off-canvas elements** width directly into `offside.css` stylesheet.
 - Link `offside-no-css-3d-transforms.css` stylesheet and and set `disableCss3dTransforms` setting to `false` to try the fallback.
 
+## Known bugs
+### Off-canvas elements blocked on the page
+
+On some old mobile browsers ( as Android 2.2.2 FroYo ) off-canvas elements won't get out the page on page load.
+
+This happens because their internal browser do not officially support CSS transitions (see [can I use chart](http://caniuse.com/#feat=transforms3d)), but, according to my experience, they only support it partially. Infact these browser are able to pass Offside CSS 3dTransform test and do not activate Offside fallback strategy.
+
+Offside instances are normally set to `position: fixed` and these browser are not able to apply `translate3d` transform to fixed positioned element.
+
+An easy - but simplistic - fix, is to switch `.offside` position to `absolute` and properly set a relative position to a parent element (of course, it might  have an impact on your page layout):
+
+```css
+.offside {
+    position: absolute;
+}
+```
+
 
 ## To do's
 

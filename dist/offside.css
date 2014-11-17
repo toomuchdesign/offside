@@ -8,7 +8,7 @@
 
 /* Off-canvas element CSS */
 .offside {
-    position: fixed;
+    position: fixed; /* Does not play well with some old browsers (see:; README) */
     width: 200px;
     height: 100%;
     top: 0;
