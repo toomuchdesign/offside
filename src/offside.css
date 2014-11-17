@@ -12,6 +12,7 @@
     width: 200px;
     height: 100%;
     top: 0;
+    left: 0;
     z-index: 9999;
     overflow: auto;
     -webkit-overflow-scrolling: touch; /* enables momentum scrolling in iOS overflow elements */
@@ -31,6 +32,7 @@
 /* Right off-canvas element status: out of the page */
 .offside-right {
     right: 0; /*Stick menu on right side*/
+    left: auto;
     -webkit-transform: translate3d(200px,0,0);
     -moz-transform: translate3d(200px,0,0);
     -ms-transform: translate3d(200px,0,0);
