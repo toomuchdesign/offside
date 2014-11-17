@@ -50,6 +50,7 @@ module.exports = function(grunt) {
   // load the tasks
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-newer');
   grunt.loadNpmTasks('grunt-replace');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -61,8 +62,8 @@ module.exports = function(grunt) {
   );
 
   grunt.registerTask(
-    'build', 
+    'build',
     'Exports static files.', 
-    [ 'replace', 'uglify' ]
+    [ 'newer:replace', 'uglify' ]
   );
 };
