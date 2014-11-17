@@ -12,7 +12,7 @@
 - No need of extra classes or any specific markup.
 
 ##Requirements
-- [jQuery 1.9+](http://jquery.com/)
+- [jQuery 1.7+](http://jquery.com/)
 
 ## Demos
 @TODO: add demos links.
