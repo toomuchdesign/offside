@@ -1,10 +1,13 @@
 # Offside.js
-**Offside.js** is minimal JavaScript kit to push things off-canvas using CSS 3D transforms & transitions.
+**Offside.js** is a minimal JavaScript kit to push things off-canvas using CSS 3D transforms & transitions. It's goal is to provide a super-lightweigth, efficient and customizable way of handling off-canvas menus/elements on modern website and web applications.
+
+**Offside.js** comes with its own default stylesheet, but you can write your own CSS hooking your style with Offside classes. This ensures super flexibility and completely decouples Offside.js from your page style/markup.
+
 
 ## Features:
 - Minimal DOM manipulations
-- Uses CSS3 transitions
-- CSS transitions NOT injected. They are just defined in a separate Stylesheet
+- Uses CSS3 3D transitions
+- No injected style. Offside entirely relies on classes manipulations
 - Degrades gracefully on old browsers 
 - Handles multiple off-canvas elements
 - Left/right off-canvas
@@ -71,7 +74,9 @@ It **doesn't pre-requires any specific markup**. When Offside initializes It jus
   </script>
 ```
 
-`slidingElementsSelector` is a selector list of all elements which slide out when an off-canvas element slides-in. It's usually the page wrapper.
+#### What "sliding elements" are?
+`slidingElementsSelector` is a selector list of all elements which slide out when an off-canvas element slides in. It's usually the page wrapper.
+
 
 ### 4. Customizable options:
 ```javascript
@@ -84,7 +89,7 @@ It **doesn't pre-requires any specific markup**. When Offside initializes It jus
       
       // Offside instance options: affect only this offside instance
       buttonsSelector: '#my-button, #another-button',   // String: Offside toggle buttons selectors ('#foo, #bar')
-      slidingSide: 'left',                              // String: Offside element pushed on left or right
+      slidingSide: 'right',                             // String: Offside element pushed on left or right
       init: function(){},                               // Function: After init callback
       beforeOpen: function(){},                         // Function: Before open callback
       afterOpen: function(){},                          // Function: After open callback
@@ -107,11 +112,10 @@ Offside plays well with your application. Each Offside instance exposes the foll
 `myOffside.close();`
 
 
-
 ## Tips and Tricks
 
 - Set **off-canvas elements** width directly into `offside.css` stylesheet.
-- Link `offside-no-css-3d-transforms.css` stylesheet and and set `disableCss3dTransforms` setting to `false` to try the fallback.
+- Link `offside-no-css-3d-transforms.css` stylesheet and and set `disableCss3dTransforms` setting to `true` to try the fallback.
 
 ## Known bugs
 ### Off-canvas elements blocked on the page
@@ -130,6 +134,25 @@ An easy - but simplistic - fix, is to switch `.offside` position to `absolute` a
 }
 ```
 
+### Off-canvas elements inside a sliding element
+
+Like this:
+
+```html
+
+  <!-- Sliding element -->
+  <div id="my-page-wrapper">
+
+    <!-- Off-canvas element  -->
+    <nav id="my-offside-element">
+      ...
+    </nav>
+    ...
+  </div> 
+```
+
+When an element receives a 3D transform style, It creates a containing block for all its descendants that have been set to `position: fixed` or `position: absolute`. Read more [here](http://meyerweb.com/eric/thoughts/2011/09/12/un-fixing-fixed-elements-with-css-transforms).
+
 
 ## To do's
 
@@ -138,6 +161,8 @@ An easy - but simplistic - fix, is to switch `.offside` position to `absolute` a
 - Set up Grunt->Jshint
 
 ## Working on the repository
+
+Contributions and ideas to make Offside.js a better tool are welcome.
 
 [GruntJS](http://gruntjs.com/) is used for the build process, which means node and npm are required. If you already have those on your machine, you can install Grunt and all dependencies required for the build using:
 
