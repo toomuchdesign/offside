@@ -25,6 +25,15 @@
 
 ## Usage instructions
 
+### Bower:
+You can install **Offside.js** as a [Bower](http://bower.io) dependency.
+
+```sh
+bower install offside
+# or
+bower install offside --save-dev
+```
+
 ### 1. Link files:
 
 ```html
