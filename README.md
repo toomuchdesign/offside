@@ -161,7 +161,6 @@ When an element receives a 3D transform style, It creates a containing block for
 
 - Remove JQuery dependency
 - Expose Offside factory initialization method
-- Set up Grunt->Jshint
 
 ## Working on the repository
 

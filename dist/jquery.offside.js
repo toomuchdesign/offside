@@ -1,10 +1,14 @@
-/* offside.js 1.0.0 13-11-2014
+/* offside.js 1.0.0 23-06-2015
 * Minimal js kit to push things off-canvas using CSS transforms & transitions.
-* https://github.com/toomuchdesign/offside.js.git
+* https://github.com/toomuchdesign/offside.git
 *
 * by Andrea Carraro
 * Available under the MIT license
 */
+
+/*jslint browser: true*/
+/*jshint -W093 */
+/*global jQuery */
 
 ;(function ( $, window, document, undefined ) {
 
@@ -17,8 +21,10 @@
     * - Centralized Offside instances management and initialization
     */
 
+    'use strict';
+
     $.fn.offside = (function () {
-        
+
         // Global Offside singleton-factory constructor
         function initOffsideFactory( options ) {
 
@@ -36,17 +42,19 @@
 
             // User defined factory settings
             for ( i in options ) {
-                if ( factorySettings.hasOwnProperty( i ) ) factorySettings[i] = options[i];
-            };
+                if ( factorySettings.hasOwnProperty( i ) ) {
+                    factorySettings[i] = options[i];
+                }
+            }
 
             // Private factory properties
             var initClass = 'offside-init',                         // Class appended to body when Offside is intialized
                 slidingElementsClass = 'offside-sliding-element',   // Class appended to sliding elements
                 transitionsClass = 'offside-transitions',           // Class appended to body when ready to turn on Offside CSS transitions (Added when first menu interaction happens)
-                instantiatedOffsides = new Array(),                 // Array containing all instantiated offside elements
+                instantiatedOffsides = [],                          // Array containing all instantiated offside elements
                 firstInteraction = 1,                               // Keep track of first Offside interaction
                 has3d = factorySettings.disableCss3dTransforms ? false : _has3d(),       // Browser supports CSS 3d Transforms
-                openOffsideId = undefined;                          // Tracks opened Offside instances
+                openOffsideId;                                      // Tracks opened Offside instances
 
             // Factory properties shared with each Offside instance
             factorySharedProperties = {
@@ -68,7 +76,7 @@
 
                     // No CSS 3d Transform fallback
                     $('html').addClass( 'no-csstransforms3d' ); //Adds Modernizr-like class when CSS 3D Transforms not available
-                };
+                }
 
                 // Add init class to body
                 factorySharedProperties.$body.addClass( initClass );
@@ -115,7 +123,7 @@
             // Offside instances constructor
             // Set up and initialize a new Offside instance
             // Called trough Offside factory "getOffsideInstance()" method
-            function OffsideInstance( el, factorySharedProperties, options, id ){
+            function OffsideInstance( el, factorySharedProperties, options, offsideId ){
 
                 var i,
                     offsideSettings;
@@ -134,8 +142,10 @@
 
                 // User defined Offside instance settings
                 for ( i in options ) {
-                    if ( offsideSettings.hasOwnProperty( i ) ) offsideSettings[i] = options[i];
-                };
+                    if ( offsideSettings.hasOwnProperty( i ) ){
+                        offsideSettings[i] = options[i];
+                    }
+                }
 
                 // Offside instance private properties
                 var $body = factorySharedProperties.$body,                                      // Get body reference from factory
@@ -148,7 +158,7 @@
                     offsideOpenClass = 'offside-open',                                          // Class appended to Offside instance when open
                     offsideBodyOpenClass = offsideOpenClass + '-' + slidingSide,                // Class appended to body when Offside instance is open (offside-left-open / offside-right-open)
 
-                    id = id || 0;                                                               // Set Offside instance id
+                    id = offsideId || 0;                                                               // Set Offside instance id
 
                 // Offside instance private methods
 
@@ -200,15 +210,19 @@
                     offsideSettings.afterClose();
                 }
 
+                /*
                 // Get Offside instance unique ID
                 function _getId() {
                     return id;
                 }
+                */
 
                 // Initialize Offside instance in the DOM
                 function _offsideInit() {
 
-                    if ( factorySharedProperties.debug ) _offsideCheckElements();
+                    if ( factorySharedProperties.debug ) {
+                        _offsideCheckElements();
+                    }
 
                     //Add classes to Offside instance (.offside and .offside{slidingSide})
                     $offside.addClass( offsideClass );
@@ -241,15 +255,15 @@
                 // Offside instances public methods
                 this.toggle = function() {
                     _toggleOffside();
-                }
+                };
 
                 this.open = function() {
                     _openOffside();
-                }
+                };
 
                 this.close = function() {
                     _closeOffside();
-                }
+                };
 
                 // Ok, init Offside instance
                 _offsideInit();
@@ -269,14 +283,16 @@
                 setOpenOffsideId: function( offsideId ) {
 
                     // If there are no open offside
-                    if ( !isNaN( offsideId ) ) openOffsideId = offsideId;
+                    if ( !isNaN( offsideId ) ) {
+                        openOffsideId = offsideId;
+                    }
 
                     // Turn on CSS transitions on first interaction with an Offside instance
                     if ( firstInteraction ) {
 
                         firstInteraction = 0;
                         _turnOnCssTransitions();
-                    };
+                    }
                 },
 
                 // Check if there is an open Offside instance
@@ -303,7 +319,7 @@
 
             };
 
-        }; // initOffsideFactory() end
+        } // initOffsideFactory() end
      
         return {
 
