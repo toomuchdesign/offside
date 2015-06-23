@@ -3,6 +3,11 @@
 
 **Offside.js** comes with its own default stylesheet, but you can write your own CSS hooking your style with Offside classes. This ensures super flexibility and completely decouples Offside.js from your page style/markup.
 
+## Demos
+- [Single element](http://toomuchdesign.github.io/offside/demos/single-element)
+- [Single element (without css 3dtransforms)](http://toomuchdesign.github.io/offside/demos/single-element-no-css-3d-transforms)
+- [Multiple elements](http://toomuchdesign.github.io/offside/demos/multiple-elements)
+- [Multiple elements (without css 3dtransforms)](http://toomuchdesign.github.io/offside/demos/multiple-elements-no-css-3d-transforms)
 
 ## Features:
 - Minimal DOM manipulations
@@ -17,11 +22,6 @@
 ##Requirements
 - [jQuery 1.7+](http://jquery.com/)
 
-## Demos
-- [Single element](http://toomuchdesign.github.io/offside/demos/single-element)
-- [Single element (without css 3dtransforms)](http://toomuchdesign.github.io/offside/demos/single-element-no-css-3d-transforms)
-- [Multiple elements](http://toomuchdesign.github.io/offside/demos/multiple-elements)
-- [Multiple elements (without css 3dtransforms)](http://toomuchdesign.github.io/offside/demos/multiple-elements-no-css-3d-transforms)
 
 ## Usage instructions
 
