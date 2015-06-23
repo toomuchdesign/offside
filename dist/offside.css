@@ -1,4 +1,4 @@
-/* offside.js 1.0.0 17-11-2014
+/* offside.js 1.0.0 23-06-2015
 * Minimal js kit to push things off-canvas using CSS transforms & transitions.
 * https://github.com/toomuchdesign/offside.git
 *
@@ -8,7 +8,7 @@
 
 /* Off-canvas element CSS */
 .offside {
-    position: fixed; /* Does not play well with some old browsers (see:; README) */
+    position: fixed; /* Does not play well with some old browsers (see: README) */
     width: 200px;
     height: 100%;
     top: 0;
