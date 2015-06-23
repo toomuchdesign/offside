@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Offside 2.0; Single element demo - No CSS 3d Transforms</title>
+        <title>Offside - Single element demo - No CSS 3d Transforms</title>
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <link rel="stylesheet" href="../../dist/offside-test-no-css-3d-transforms.css">
         <link rel="stylesheet" href="../css/demo.css">
@@ -10,44 +10,44 @@
 
     <body>
 
-    <!-- Off-canvas Element 1 -->
-    <nav id="menu1" class="offside">
-        <ul>
-            <li><a href="#">Menu 1</a></li>
-            <li><a href="#">Menu 1</a></li>
-            <li><a href="#">Menu 1</a></li>
-            <li><a href="#">Menu 1</a></li>
-            <li><a href="#">Menu 1</a></li>
-            <li><a href="#">Menu 1</a></li>
-        </ul>
-    </nav>
+        <!-- Off-canvas Element 1 -->
+        <nav id="menu1" class="offside">
+            <ul>
+                <li>Page menu</li>
+                <li><a href="#">...</a></li>
+                <li><a href="#">...</a></li>
+                <li><a href="#">...</a></li>
+                <li><a href="#">...</a></li>
+                <li><a href="#">...</a></li>
+            </ul>
+        </nav>
 
-    <!-- Your Content -->
-    <div id="container">
+        <!-- Your Content -->
+        <div id="container">
 
-        <!-- Menu Button -->
-        <div class="menu-btn-1 offside-button">Menu 1</div>
+            <h1>Offside - Single element - No CSS 3d Transforms fallback</h1>
 
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer pharetra neque a diam cursus pulvinar. Suspendisse faucibus mi id accumsan lobortis. Pellentesque consectetur varius turpis, nec viverra justo pellentesque sit amet. Vestibulum convallis leo non purus vehicula, non faucibus libero rhoncus. Morbi aliquam tincidunt facilisis. Aenean sodales nulla ac semper consectetur. Vivamus commodo massa convallis justo posuere vestibulum. Aenean congue non mauris ac auctor. Ut suscipit et eros nec suscipit. Nulla congue, mauris nec bibendum sagittis, urna orci tincidunt massa, in vulputate velit nulla vitae nunc. Etiam urna justo, imperdiet nec orci sollicitudin, tempus feugiat erat. Vivamus id lectus nulla. Vestibulum sagittis cursus metus vel ultricies. Suspendisse viverra interdum metus eu placerat. Quisque tristique velit nisi, scelerisque consectetur tortor vehicula ut. Donec id fermentum mi, nec venenatis felis.</p>
+            <p><strong>Open your DOM inspector and see how the off-canvas stuff is handled just by updating classes names.</strong></p>
 
-        <p>Praesent id metus imperdiet, congue leo sed, eleifend purus. Donec congue scelerisque tempus. Maecenas eget nunc pharetra, laoreet enim sed, dictum odio. Sed non mollis purus. Aliquam aliquet, risus eget dictum commodo, neque mi dapibus ipsum, tempus iaculis elit lorem pharetra mauris. Vivamus pulvinar scelerisque lectus a congue. Sed vitae odio massa. Pellentesque condimentum sit amet arcu in convallis.</p>
+            <!-- Menu Button -->
+            <div class="menu-btn-1 offside-button">Page menu<br/>&#8592;</div>
 
-    </div>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer pharetra neque a diam cursus pulvinar. Suspendisse faucibus mi id accumsan lobortis. Pellentesque consectetur varius turpis, nec viverra justo pellentesque sit amet. Vestibulum convallis leo non purus vehicula, non faucibus libero rhoncus. Morbi aliquam tincidunt facilisis. Aenean sodales nulla ac semper consectetur. Vivamus commodo massa convallis justo posuere vestibulum. Aenean congue non mauris ac auctor.</p>
 
-    <script src='../../libs/jquery-1.10.1.min.js'></script>
-    <script src='../../dist/jquery.offside.js'></script>
+            <p>Ut suscipit et eros nec suscipit. Nulla congue, mauris nec bibendum sagittis, urna orci tincidunt massa, in vulputate velit nulla vitae nunc. Etiam urna justo, imperdiet nec orci sollicitudin, tempus feugiat erat. Vivamus id lectus nulla. Vestibulum sagittis cursus metus vel ultricies. Suspendisse viverra interdum metus eu placerat. Quisque tristique velit nisi, scelerisque consectetur tortor vehicula ut. Donec id fermentum mi, nec venenatis felis.</p>
+        </div>
 
-    <script>
+        <script src='../../libs/jquery-1.10.1.min.js'></script>
+        <script src='../../dist/jquery.offside.js'></script>
 
-        var offsideMenu1 = $.offside( '#menu1', {
-            
-            slidingElementsSelector:'#container',
-            buttonsSelector: '.menu-btn-1',
-            slidingSide: 'right',
-            disableCss3dTransforms: true,
-        });
-
-    </script>
+        <script>
+            var offsideMenu1 = $.offside( '#menu1', {
+                
+                slidingElementsSelector:'#container',
+                buttonsSelector: '.menu-btn-1',
+                disableCss3dTransforms: true,
+            });
+        </script>
 
     </body>
 </html>
