@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Offside - Multiple elements demo</title>
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <link rel="stylesheet" href="../../dist/offside-test-no-css-3d-transforms.css">
+        <link rel="stylesheet" href="../css/demo.css">
+    </head>
+
+    <body>
+
+        <!-- Off-canvas Elements -->
+        <nav id="menu-1" class="offside">
+            <ul>
+                <li>First menu</li>
+                <li><a href="#">...</a></li>
+                <li><a href="#">...</a></li>
+                <li><a href="#">...</a></li>
+                <li><a href="#">...</a></li>
+                <li><a href="#">...</a></li>
+            </ul>
+        </nav>
+
+        <nav id="menu-2" class="offside">
+            <ul>
+            <li>Second menu</li>
+            <li><a href="#">...</a></li>
+            <li><a href="#">...</a></li>
+            <li><a href="#">...</a></li>
+            <li><a href="#">...</a></li>
+            <li><a href="#">...</a></li>
+            </ul>
+        </nav>
+
+        <nav id="menu-3" class="offside">
+            <ul>
+            <li>Third menu</li>
+            <li><a href="#">...</a></li>
+            <li><a href="#">...</a></li>
+            <li><a href="#">...</a></li>
+            <li><a href="#">...</a></li>
+            <li><a href="#">...</a></li>
+            </ul>
+        </nav>
+        
+        <!-- Site Overlay -->
+        <div class="site-overlay"></div>
+
+        <!-- Your Content -->
+        <div id="container">
+
+            <h1>Offside - Multiple elements - No CSS 3d Transforms fallback</h1>
+
+            <p><strong>Open your DOM inspector and see how the off-canvas stuff is handled just by updating classes names.</strong></p>
+
+            <!-- Menu Button -->
+            <div class="menu-btn-1 offside-button">First menu<br/>&#8592;</div>
+            <div class="menu-btn-2 offside-button">Second menu<br/>&#8594;</div>
+            <div class="menu-btn-3 offside-button">Third menu<br/>&#8594;</div>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer pharetra neque a diam cursus pulvinar. Suspendisse faucibus mi id accumsan lobortis. Pellentesque consectetur varius turpis, nec viverra justo pellentesque sit amet. Vestibulum convallis leo non purus vehicula, non faucibus libero rhoncus. Morbi aliquam tincidunt facilisis. Aenean sodales nulla ac semper consectetur. Vivamus commodo massa convallis justo posuere vestibulum. Aenean congue non mauris ac auctor.</p>
+
+            <p>Ut suscipit et eros nec suscipit. Nulla congue, mauris nec bibendum sagittis, urna orci tincidunt massa, in vulputate velit nulla vitae nunc. Etiam urna justo, imperdiet nec orci sollicitudin, tempus feugiat erat. Vivamus id lectus nulla. Vestibulum sagittis cursus metus vel ultricies. Suspendisse viverra interdum metus eu placerat. Quisque tristique velit nisi, scelerisque consectetur tortor vehicula ut. Donec id fermentum mi, nec venenatis felis.</p>
+        </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+        <script src="../../dist/jquery.offside.js"></script>
+
+        <script>
+            var offsideMenu1 = $.offside( '#menu-1', {
+
+                slidingElementsSelector: '#container',      // String: Sliding elements selectors
+                disableCss3dTransforms: true,
+                debug: true,                                // Boolean: If true, print errors in console
+
+                buttonsSelector: '.menu-btn-1',             // String: Menu toggle buttons selectors
+                slidingSide: 'left',                        // String: Off canvas menu on left or right
+            });
+
+            var offsideMenu2 = $.offside( '#menu-2', {
+
+                buttonsSelector: '.menu-btn-2',             // String: Menu toggle buttons selectors
+                slidingSide: 'right',                       // String: Off canvas menu on left or right
+            });
+
+            var offsideMenu3 = $.offside( '#menu-3', {
+
+                buttonsSelector: '.menu-btn-3',             // String: Menu toggle buttons selectors
+                slidingSide: 'right',                       // String: Off canvas menu on left or right
+                offsideWidth: '100px',
+            });
+        </script>
+
+    </body>
+</html>

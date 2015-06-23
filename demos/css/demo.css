@@ -1,0 +1,52 @@
+html, body {
+    -webkit-tap-highlight-color: rgba(0,0,0,0); /* disable webkit tap highlight */
+    height: 100%; /* fixes focus scrolling in Safari (OS X) */
+}
+
+
+/* =Cosmetic CSS for demo purpose
+   ----------------------------------------------- */
+
+/* Container */
+#container {
+    position: relative;
+    padding: 20px 40px;
+    text-align: justify;
+}
+
+/* Offside instances */
+.offside {
+    width: 200px;
+    background-color: #F0F0F0;
+}
+
+/* Lists */
+ul {
+    margin: 0;
+    padding: 20px;
+}
+
+li {
+    list-style: none;
+}
+
+li > a{
+    text-decoration: none;
+    color: #000;
+}
+
+/* Offside buttons */
+.offside-button {
+    width: 100px;
+    padding: 10px;
+    margin: 0 auto 10px auto;
+    background: #000;
+    color: #FFF;
+    text-align: center;
+    cursor: pointer;
+}
+
+.offside-button:hover {
+    background: #00b4ff;
+    color: #FFF;
+}
