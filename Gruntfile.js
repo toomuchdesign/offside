@@ -42,9 +42,9 @@ module.exports = function(grunt) {
         }, //end replace
 
         uglify: {
-            javascript: {
+            dist: {
                 files: {
-                    'dist/jquery.offside.min.js': ['dist/jquery.offside.js'],
+                    'dist/jquery.offside.min.js': 'dist/jquery.offside.js',
                 }
             }
         }, //end uglify
