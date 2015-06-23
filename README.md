@@ -18,7 +18,10 @@
 - [jQuery 1.7+](http://jquery.com/)
 
 ## Demos
-@TODO: add demos links.
+- [Single element](http://toomuchdesign.github.io/offside/demos/single-element)
+- [Single element (without css 3dtransforms)](http://toomuchdesign.github.io/offside/demos/single-element-no-css-3d-transforms)
+- [Multiple elements](http://toomuchdesign.github.io/offside/demos/multiple-elements)
+- [Multiple elements (without css 3dtransforms)](http://toomuchdesign.github.io/offside/demos/multiple-elements-no-css-3d-transforms)
 
 ## Usage instructions
 
@@ -177,6 +180,13 @@ Once everything is set up, work in `src` directory and let Grunt build `dist` fi
 grunt
 # or
 grunt build
+```
+
+### Updating gh-pages branch (just a reminder)
+```sh
+git checkout gh-pages
+git checkout master demos
+git checkout master dist
 ```
 
 ##Thanks to
