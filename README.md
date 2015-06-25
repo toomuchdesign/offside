@@ -4,24 +4,32 @@
 **Offside.js** comes with its own default stylesheet, but you can write your own CSS hooking your style with Offside classes. This ensures super flexibility and completely decouples Offside.js from your page style/markup.
 
 ## Demos
+
 - [Single element](http://toomuchdesign.github.io/offside/demos/single-element)
 - [Single element (without css 3dtransforms)](http://toomuchdesign.github.io/offside/demos/single-element-no-css-3d-transforms)
 - [Multiple elements](http://toomuchdesign.github.io/offside/demos/multiple-elements)
 - [Multiple elements (without css 3dtransforms)](http://toomuchdesign.github.io/offside/demos/multiple-elements-no-css-3d-transforms)
 
 ## Features:
+
 - Minimal DOM manipulations
-- Uses CSS3 3D transitions
+- Uses CSS3 3D transforms
 - No injected style. Offside entirely relies on classes manipulations
-- Degrades gracefully on old browsers 
+- Degrades gracefully on browsers not supporting CSS3 3D transforms
 - Handles multiple off-canvas elements
 - Left/right off-canvas
 - Style agnostic
 - No need of extra classes or any specific markup.
 
-##Requirements
-- [jQuery 1.7+](http://jquery.com/)
+## Browser Compatibility
 
+All **modern browsers** and **ie9+**.
+
+Offside relies on **EventTarget.addEventListener / removeEventListener** and **querySelector / querySelectorAll** methods without any fallback.
+
+Check relative browser compatibility:
+- [EventTarget.addEventListener / removeEventListener](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#Browser_compatibility)
+- [querySelector / querySelectorAll](http://caniuse.com/#search=queryselectorAll)
 
 ## Usage instructions
 
@@ -78,19 +86,21 @@ It **doesn't pre-requires any specific markup**. When Offside initializes It jus
   <script>
 
     //Offside minimal setup
-    var myOffside = $.offside( '#my-menu', {
+    var myOffside = offside( '#my-menu', {
         
         slidingElementsSelector:'#my-content-container',
-        buttonsSelector: '#my-button',
+        buttonsSelector: '#my-button, .another-button',
     });
   </script>
 ```
 
 #### What "sliding elements" are?
+
 `slidingElementsSelector` is a selector list of all elements which slide out when an off-canvas element slides in. It's usually the page wrapper.
 
 
 ### 4. Customizable options:
+
 ```javascript
   var myOffside = $.offside( '#my-menu', {
       
@@ -100,7 +110,7 @@ It **doesn't pre-requires any specific markup**. When Offside initializes It jus
       debug: true,                                      // Boolean: If true, print errors in console
       
       // Offside instance options: affect only this offside instance
-      buttonsSelector: '#my-button, #another-button',   // String: Offside toggle buttons selectors ('#foo, #bar')
+      buttonsSelector: '#my-button, .another-button',   // String: Offside toggle buttons selectors ('#foo, #bar')
       slidingSide: 'right',                             // String: Offside element pushed on left or right
       init: function(){},                               // Function: After init callback
       beforeOpen: function(){},                         // Function: Before open callback
@@ -123,6 +133,8 @@ Offside plays well with your application. Each Offside instance exposes the foll
 
 `myOffside.close();`
 
+`myOffside.destroy();`
+
 
 ## Tips and Tricks
 
@@ -130,11 +142,12 @@ Offside plays well with your application. Each Offside instance exposes the foll
 - Link `offside-no-css-3d-transforms.css` stylesheet and and set `disableCss3dTransforms` setting to `true` to try the fallback.
 
 ## Known bugs
+
 ### Off-canvas elements blocked on the page
 
 On some old mobile browsers ( as Android 2.2.2 FroYo ) off-canvas elements won't get out the page on page load.
 
-This happens because their internal browser do not officially support CSS transitions (see [can I use chart](http://caniuse.com/#feat=transforms3d)), but, according to my experience, they only support it partially. Infact these browser are able to pass Offside CSS 3dTransform test and do not activate Offside fallback strategy.
+This happens because their internal browser do not officially support CSS transforms (see [can I use chart](http://caniuse.com/#feat=transforms3d)), but, according to my experience, they only support it partially. Infact these browser are able to pass Offside CSS 3dTransform test and do not activate Offside fallback strategy.
 
 Offside instances are normally set to `position: fixed` and these browser are not able to apply `translate3d` transform to fixed positioned element.
 
@@ -168,7 +181,6 @@ When an element receives a 3D transform style, It creates a containing block for
 
 ## To do's
 
-- Remove JQuery dependency
 - Expose Offside factory initialization method
 
 ## Working on the repository
@@ -191,13 +203,24 @@ grunt build
 ```
 
 ### Updating gh-pages branch (just a reminder)
+
 ```sh
 git checkout gh-pages
 git checkout master demos
 git checkout master dist
 ```
 
-##Thanks to
+## Version history
+
+1.1.0
+- Removed JQuery dependency.
+- Dropped support for IE 7 & 8.
+- Minor optimizations.
+
+1.0.0
+- Initial release
+
+## Thanks to
 
 - [Christopher Yee's pushy.js](https://github.com/christophery/pushy)
 - [Viljami Salminen's responsive-nav.js](https://github.com/viljamis/responsive-nav.js)
