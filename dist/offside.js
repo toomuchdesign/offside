@@ -109,11 +109,20 @@
                 return ( has3d !== undefined && has3d.length > 0 && has3d !== 'none' );
             }
 
+            // Check for an open Offside instance. If so close it.
+            function closeOpenOffside() {
+
+                // Look for an open Offside id
+                if ( !isNaN( openOffsideId ) ) {
+                    instantiatedOffsides[ openOffsideId ].close();
+                }
+            }
+
             // Append a class to body in order to turn on elements CSS 3D transitions
             // only when happens the first interation with an Offside instance.
             // Otherwise we would see Offside instances being smoothly pushed
             // out of the screen during DOM initialization.
-            function _turnOnCssTransitions() {
+            function turnOnCssTransitions() {
                 addClass( body, transitionsClass );
             }
 
@@ -197,7 +206,7 @@
                 function _toggleOffside() {
 
                     // Check if there is any open Offside
-                    !isNaN( openOffsideId ) ? window.offside.factory.closeOpenOffside() : _openOffside();
+                    !isNaN( openOffsideId ) ? closeOpenOffside() : _openOffside();
                 }
 
                 function _openOffside() {
@@ -205,19 +214,25 @@
                     // Before open callback
                     offsideSettings.beforeOpen();
 
+                    // Turn on CSS transitions on first interaction with an Offside instance
+                    if ( firstInteraction ) {
+                        firstInteraction = 0;
+                        turnOnCssTransitions();
+                    }
+
                     // If another Offside instance is already open,
                     // close it before going on
-                    window.offside.factory.setOpenOffsideId( id );
+                    closeOpenOffside();
 
-                    //Reset body active class and add body active class
+                    // Reset body active class and add body active class
                     removeClass( body, 'offside-open-left' );
                     removeClass( body, 'offside-open-right' );
                     addClass( body, offsideBodyOpenClass );
 
-                    //Add Offside instance open class
+                    // Add Offside instance open class
                     addClass( offside, offsideOpenClass );
 
-                    //Update open Offside instances tracker
+                    // Update open Offside instances tracker
                     openOffsideId = id;
 
                     // After open callback
@@ -336,31 +351,8 @@
             return {
 
                 //Offside factory public methods
-
-                //@TODO solve logic problems here
-                setOpenOffsideId: function( offsideId ) {
-
-                    // If there are no open offside
-                    if ( !isNaN( offsideId ) ) {
-                        openOffsideId = offsideId;
-                    }
-
-                    // Turn on CSS transitions on first interaction with an Offside instance
-                    if ( firstInteraction ) {
-
-                        firstInteraction = 0;
-                        _turnOnCssTransitions();
-                    }
-                },
-
-                // Check if there is an open Offside instance
-                // If so close it.
                 closeOpenOffside: function() {
-
-                    // Look for an open Offside id
-                    if ( !isNaN( openOffsideId ) ) {
-                        instantiatedOffsides[ openOffsideId ].close();
-                    }
+                    closeOpenOffside();
                 },
 
                 // This is the method responsible for creating a new Offside instance
