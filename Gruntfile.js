@@ -30,12 +30,21 @@ module.exports = function(grunt) {
                     }
                 }],
             },
-            dist: {
+            js: {
                 files: [{
                     expand: true,
                     flatten: true,
                     filter: 'isFile',
-                    src : ['src/**'],
+                    src : ['src/*.js'],
+                    dest : 'dist/',
+                }]
+            },
+            css: {
+                files: [{
+                    expand: true,
+                    flatten: true,
+                    filter: 'isFile',
+                    src : ['src/*.css'],
                     dest : 'dist/',
                 }]
             }
@@ -50,8 +59,14 @@ module.exports = function(grunt) {
         }, //end uglify
 
         watch: {
-            files: [ 'src/**' ],
-            tasks: [ 'build' ]
+            js: {
+                files: [ 'src/*.js' ],
+                tasks: [ 'buildJs' ]
+            },
+            css: {
+                files: [ 'src/.*css' ],
+                tasks: [ 'buildCss' ]
+            }
         }, //end watch
 
     });
@@ -66,8 +81,20 @@ module.exports = function(grunt) {
     );
 
     grunt.registerTask(
+        'buildCss',
+        'Exports CSS files.', 
+        [ 'replace:css' ]
+    );
+
+    grunt.registerTask(
+        'buildJs',
+        'Exports JS files.', 
+        [ 'jshint', 'replace:js', 'uglify' ]
+    );
+
+    grunt.registerTask(
         'build',
         'Exports static files.', 
-        [ 'jshint', 'newer:replace', 'uglify' ]
+        [ 'buildJs', 'buildCss' ]
     );
 };
