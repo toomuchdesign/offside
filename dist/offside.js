@@ -65,10 +65,9 @@
             function _factoryDomInit() {
 
                 // Add class to sliding elements
-                // @TODO, switch between multiple
-                for( i = 0; i < slidingElements.length; i++ ){
-                    addClass( slidingElements[i], slidingElementsClass );
-                }
+                forEach( slidingElements, function( item ){
+                    addClass( item, slidingElementsClass );
+                });
 
                 // DOM Fallbacks when CSS transform 3d not available
                 if( !has3d ) {
@@ -119,8 +118,8 @@
             }
 
             // Utility functions
-            // Used by factory and Offside instances, too
-            // Set up and initialize a new Offside instance
+            // Shared among factory and Offside instances, too
+
             function addClass( el, c ){
                 if( el.classList ) {
                     el.classList.add(c);
@@ -143,6 +142,13 @@
 
             function removeEvent( el, eventName, eventHandler ){
                 el.removeEventListener( eventName, eventHandler );
+            }
+
+            //forEach method shared
+            function forEach( array, fn ) {
+                for ( var i = 0; i < array.length; i++ ) {
+                    fn( array[i], i );
+                }
             }
 
             // Offside instances constructor
@@ -246,9 +252,9 @@
                     _closeOffside();
 
                     // Remove click event from Offside buttons
-                    for( i = 0; i < offsideButtons.length; i++ ){
-                        removeEvent( offsideButtons[i], 'click', _toggleOffside );
-                    }
+                    forEach( offsideButtons, function( item ){
+                        removeEvent( item, 'click', _toggleOffside );
+                    });
 
                     // After destroy callback
                     offsideSettings.afterDestroy();
@@ -260,8 +266,8 @@
                     return id;
                 }
                 */
-
-                // Initialize Offside instance in the DOM
+               
+                // Set up and initialize a new Offside instance
                 function _offsideInit() {
 
                     if ( debug ) {
@@ -273,9 +279,9 @@
                     addClass( offside, offsideSideClass );
 
                     // Toggle Offside on click event
-                    for( i = 0; i < offsideButtons.length; i++ ){
-                        addEvent( offsideButtons[i], 'click', _toggleOffside );
-                    }
+                    forEach( offsideButtons, function( item ){
+                        addEvent( item, 'click', _toggleOffside );
+                    });
 
                     // Init callback
                     offsideSettings.init();
