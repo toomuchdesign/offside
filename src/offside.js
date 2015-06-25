@@ -268,7 +268,7 @@
 
                     // Remove click event from Offside buttons
                     forEach( offsideButtons, function( item ){
-                        removeEvent( item, 'click', _toggleOffside );
+                        removeEvent( item, 'click', _onButtonClick );
                     });
 
                     // Destroy Offside instance
@@ -276,6 +276,13 @@
 
                     // After destroy callback
                     offsideSettings.afterDestroy();
+                }
+
+                // Offside buttons click handler
+                function _onButtonClick( e ) {
+
+                    e.preventDefault();
+                    _toggleOffside();
                 }
 
                 /*
@@ -298,7 +305,7 @@
 
                     // Toggle Offside on click event
                     forEach( offsideButtons, function( item ){
-                        addEvent( item, 'click', _toggleOffside );
+                        addEvent( item, 'click', _onButtonClick );
                     });
 
                     // Init callback
