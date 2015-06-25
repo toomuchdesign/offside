@@ -1,4 +1,4 @@
-/* offside.js 1.0.0 25-06-2015
+/* offside.js 1.1.0 25-06-2015
 * Minimal js kit to push things off-canvas using CSS transforms & transitions.
 * https://github.com/toomuchdesign/offside.git
 *
@@ -110,59 +110,59 @@
             }
 
             // Check for an open Offside instance. If so close it.
-            function closeOpenOffside() {
+            var closeOpenOffside = function() {
 
                 // Look for an open Offside id
                 if ( !isNaN( openOffsideId ) ) {
                     instantiatedOffsides[ openOffsideId ].close();
                 }
-            }
+            },
 
             // Append a class to body in order to turn on elements CSS 3D transitions
             // only when happens the first interation with an Offside instance.
             // Otherwise we would see Offside instances being smoothly pushed
             // out of the screen during DOM initialization.
-            function turnOnCssTransitions() {
+            turnOnCssTransitions = function() {
                 addClass( body, transitionsClass );
-            }
+            },
 
             // Utility functions
             // Shared among factory and Offside instances, too
 
-            function addClass( el, c ){
+            addClass = function( el, c ) {
                 if( el.classList ) {
                     el.classList.add(c);
                 }else {
                     el.className = ( el.className + ' ' + c ).trim();
                 }
-            }
+            },
 
-            function removeClass( el, c ){
+            removeClass = function( el, c ) {
                 if( el.classList ) {
                     el.classList.remove(c);
                 }else {
                     el.className = el.className.replace( new RegExp( '(^|\\b)' + c.split(' ').join('|') + '(\\b|$)', 'gi' ), ' ' );
                 }
-            }
+            },
 
-            function addEvent( el, eventName, eventHandler ){
+            addEvent = function( el, eventName, eventHandler ) {
                 el.addEventListener( eventName, eventHandler );
-            }
+            },
 
-            function removeEvent( el, eventName, eventHandler ){
+            removeEvent = function( el, eventName, eventHandler ) {
                 el.removeEventListener( eventName, eventHandler );
-            }
+            },
 
             //forEach method shared
-            function forEach( array, fn ) {
+            forEach = function( array, fn ) {
                 for ( var i = 0; i < array.length; i++ ) {
                     fn( array[i], i );
                 }
-            }
+            };
 
-            // Offside instances constructor
+            // Offside constructor
             // Set up and initialize a new Offside instance
-            // Called trough Offside factory "getOffsideInstance()" method
+            // Called by Offside factory "getOffsideInstance()" method
             function OffsideInstance( el, options, offsideId ){
 
                 var i,
@@ -184,7 +184,7 @@
 
                 // User defined Offside instance settings
                 for ( i in options ) {
-                    if ( offsideSettings.hasOwnProperty( i ) ){
+                    if ( offsideSettings.hasOwnProperty( i ) ) {
                         offsideSettings[i] = options[i];
                     }
                 }
@@ -203,13 +203,13 @@
 
                 // Offside instance private methods
 
-                function _toggleOffside() {
+                var _toggleOffside = function() {
 
                     // Check if there is any open Offside
                     !isNaN( openOffsideId ) ? closeOpenOffside() : _openOffside();
-                }
+                },
 
-                function _openOffside() {
+                _openOffside = function() {
 
                     // Before open callback
                     offsideSettings.beforeOpen();
@@ -237,9 +237,9 @@
 
                     // After open callback
                     offsideSettings.afterOpen();
-                }
+                },
 
-                function _closeOffside() {
+                _closeOffside = function() {
 
                     // Before close callback
                     offsideSettings.beforeClose();
@@ -256,9 +256,9 @@
 
                     // Before close callback
                     offsideSettings.afterClose();
-                }
+                },
 
-                function _destroyOffside() {
+                _destroyOffside = function() {
 
                     // Before destroy callback
                     offsideSettings.beforeDestroy();
@@ -267,7 +267,7 @@
                     _closeOffside();
 
                     // Remove click event from Offside buttons
-                    forEach( offsideButtons, function( item ){
+                    forEach( offsideButtons, function( item ) {
                         removeEvent( item, 'click', _onButtonClick );
                     });
 
@@ -276,24 +276,24 @@
 
                     // After destroy callback
                     offsideSettings.afterDestroy();
-                }
+                },
 
                 // Offside buttons click handler
-                function _onButtonClick( e ) {
+                _onButtonClick = function( e ) {
 
                     e.preventDefault();
                     _toggleOffside();
-                }
+                },
 
                 /*
                 // Get Offside instance unique ID
-                function _getId() {
+                _getId = function() {
                     return id;
                 }
                 */
                
                 // Set up and initialize a new Offside instance
-                function _offsideInit() {
+                _offsideInit = function() {
 
                     if ( debug ) {
                         _offsideCheckElements();
@@ -304,16 +304,16 @@
                     addClass( offside, offsideSideClass );
 
                     // Toggle Offside on click event
-                    forEach( offsideButtons, function( item ){
+                    forEach( offsideButtons, function( item ) {
                         addEvent( item, 'click', _onButtonClick );
                     });
 
                     // Init callback
                     offsideSettings.init();
-                }
+                },
 
                 // Fire console errors if DOM elements are missing
-                function _offsideCheckElements() {
+                _offsideCheckElements = function() {
 
                     if( !offside ) {
                         console.error( 'Offside alert: "offside" selector could not match any element' );
@@ -326,7 +326,7 @@
                     if( !slidingElements.length ) {
                         console.error( 'Offside alert: "slidingElements" selector could not match any element' );
                     }
-                }
+                };
 
                 // Offside instances public methods
                 this.toggle = function() {
@@ -395,7 +395,7 @@
     })();
 
     // Store in window a reference to the Offside singleton factory
-    if (typeof module !== "undefined" && module.exports) {
+    if ( typeof module !== "undefined" && module.exports ) {
         module.exports = offside.getInstance;
     } else {
         window.offside = offside.getInstance;
