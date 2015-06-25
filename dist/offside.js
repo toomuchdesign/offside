@@ -140,11 +140,11 @@
             function addEvent( el, eventName, eventHandler ){
                 el.addEventListener( eventName, eventHandler );
             }
-/*
+
             function removeEvent( el, eventName, eventHandler ){
                 el.removeEventListener( eventName, eventHandler );
             }
-*/
+
             // Offside instances constructor
             // Set up and initialize a new Offside instance
             // Called trough Offside factory "getOffsideInstance()" method
@@ -163,6 +163,8 @@
                     afterOpen: function(){},            // Function: After open callback
                     beforeClose: function(){},          // Function: Before close callback
                     afterClose: function(){},           // Function: After close callback
+                    beforeDestroy: function(){},        // Function: After destroy callback
+                    afterDestroy: function(){},         // Function: After destroy callback
                 };
 
                 // User defined Offside instance settings
@@ -235,6 +237,23 @@
                     offsideSettings.afterClose();
                 }
 
+                function _destroyOffside() {
+
+                    // Before destroy callback
+                    offsideSettings.beforeDestroy();
+
+                    //Close Offside intance before destroy
+                    _closeOffside();
+
+                    // Remove click event from Offside buttons
+                    for( i = 0; i < offsideButtons.length; i++ ){
+                        removeEvent( offsideButtons[i], 'click', _toggleOffside );
+                    }
+
+                    // After destroy callback
+                    offsideSettings.afterDestroy();
+                }
+
                 /*
                 // Get Offside instance unique ID
                 function _getId() {
@@ -253,7 +272,7 @@
                     addClass( offside, offsideClass );
                     addClass( offside, offsideSideClass );
 
-                    // Toggle Offside
+                    // Toggle Offside on click event
                     for( i = 0; i < offsideButtons.length; i++ ){
                         addEvent( offsideButtons[i], 'click', _toggleOffside );
                     }
@@ -289,6 +308,10 @@
 
                 this.close = function() {
                     _closeOffside();
+                };
+
+                this.destroy = function() {
+                    _destroyOffside();
                 };
 
                 // Ok, init Offside instance
