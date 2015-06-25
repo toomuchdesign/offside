@@ -256,6 +256,9 @@
                         removeEvent( item, 'click', _toggleOffside );
                     });
 
+                    // Destroy Offside instance
+                    delete instantiatedOffsides[id];
+
                     // After destroy callback
                     offsideSettings.afterDestroy();
                 }
