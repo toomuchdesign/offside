@@ -31,20 +31,20 @@
 
             <!-- Menu Button -->
             <div class="menu-btn-1 offside-button">Page menu<br/>&#8592;</div>
+            <div class="menu-btn-2 offside-button">Page menu<br/>&#8592;</div>
 
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer pharetra neque a diam cursus pulvinar. Suspendisse faucibus mi id accumsan lobortis. Pellentesque consectetur varius turpis, nec viverra justo pellentesque sit amet. Vestibulum convallis leo non purus vehicula, non faucibus libero rhoncus. Morbi aliquam tincidunt facilisis. Aenean sodales nulla ac semper consectetur. Vivamus commodo massa convallis justo posuere vestibulum. Aenean congue non mauris ac auctor.</p>
 
             <p>Ut suscipit et eros nec suscipit. Nulla congue, mauris nec bibendum sagittis, urna orci tincidunt massa, in vulputate velit nulla vitae nunc. Etiam urna justo, imperdiet nec orci sollicitudin, tempus feugiat erat. Vivamus id lectus nulla. Vestibulum sagittis cursus metus vel ultricies. Suspendisse viverra interdum metus eu placerat. Quisque tristique velit nisi, scelerisque consectetur tortor vehicula ut. Donec id fermentum mi, nec venenatis felis.</p>
         </div>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-        <script src='../../dist/jquery.offside.js'></script>
+        <script src='../../dist/offside.js'></script>
 
         <script>
-            var offsideMenu1 = $.offside( '#menu1', {
+            var offsideMenu1 = offside( '#menu1', {
 
                 slidingElementsSelector:'#container',
-                buttonsSelector: '.menu-btn-1',
+                buttonsSelector: '.menu-btn-1, .menu-btn-2',
                 slidingSide: 'left',
                 afterOpen: function(){console.log("afterOffsideOpen")},
             });

@@ -44,7 +44,7 @@ module.exports = function(grunt) {
         uglify: {
             dist: {
                 files: {
-                    'dist/jquery.offside.min.js': 'dist/jquery.offside.js',
+                    'dist/offside.min.js': 'dist/offside.js',
                 }
             }
         }, //end uglify

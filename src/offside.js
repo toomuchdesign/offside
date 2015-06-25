@@ -8,13 +8,12 @@
 
 /*jslint browser: true*/
 /*jshint -W093 */
-/*global jQuery */
 
-;(function ( $, window, document, undefined ) {
+;(function ( window, document, undefined ) {
 
     /*
     * The first time Offside is called, it creates a singleton-factory object
-    * and place it into "window.offside".
+    * and place it into "window.offside.factory".
     *
     * Offside factory serves the following purposes:
     * - DOM initialization
@@ -23,14 +22,16 @@
 
     'use strict';
 
-    $.fn.offside = (function () {
+    // Self-invoking function returning the object which contains
+    // the "getInstance" method used for initializing
+    // the Offside sigleton factory
+    var offside = (function () {
 
         // Global Offside singleton-factory constructor
         function initOffsideFactory( options ) {
 
             var i,
-                factorySettings,                                    // Offside factory private settings
-                factorySharedProperties;                            // Offside factory setting shared with each Offside instance
+                factorySettings;                                    // Offside factory private settings
 
             // Default factory settings
             factorySettings = {
@@ -54,32 +55,29 @@
                 instantiatedOffsides = [],                          // Array containing all instantiated offside elements
                 firstInteraction = 1,                               // Keep track of first Offside interaction
                 has3d = factorySettings.disableCss3dTransforms ? false : _has3d(),       // Browser supports CSS 3d Transforms
-                openOffsideId;                                      // Tracks opened Offside instances
-
-            // Factory properties shared with each Offside instance
-            factorySharedProperties = {
-
-                $body: $( 'body' ),
-                $slidingElements: $( factorySettings.slidingElementsSelector ),         // Sliding elements
-                debug: factorySettings.debug,
-            };
+                openOffsideId,                                      // Tracks opened Offside instances
+                body = document.body,
+                slidingElements = document.querySelectorAll( factorySettings.slidingElementsSelector ),         // Sliding elements
+                debug = factorySettings.debug;
 
             // Offside singleton-factory Dom initialization
             // It's called just once on Offside singleton-factory init.
             function _factoryDomInit() {
 
                 // Add class to sliding elements
-                factorySharedProperties.$slidingElements.addClass( slidingElementsClass );
+                // @TODO, switch between multiple
+                for( i = 0; i < slidingElements.length; i++ ){
+                    addClass( slidingElements[i], slidingElementsClass );
+                }
 
                 // DOM Fallbacks when CSS transform 3d not available
                 if( !has3d ) {
-
                     // No CSS 3d Transform fallback
-                    $('html').addClass( 'no-csstransforms3d' ); //Adds Modernizr-like class when CSS 3D Transforms not available
+                    addClass( document.documentElement, 'no-csstransforms3d' ); //Adds Modernizr-like class to HTML element when CSS 3D Transforms not available
                 }
 
                 // Add init class to body
-                factorySharedProperties.$body.addClass( initClass );
+                addClass( body, initClass );
             }
 
             // Private Offside factory methods
@@ -117,13 +115,40 @@
             // Otherwise we would see Offside instances being smoothly pushed
             // out of the screen during DOM initialization.
             function _turnOnCssTransitions() {
-                factorySharedProperties.$body.addClass( transitionsClass );
+                addClass( body, transitionsClass );
             }
 
+            // Utility functions
+            // Used by factory and Offside instances, too
+            // Set up and initialize a new Offside instance
+            function addClass( el, c ){
+                if( el.classList ) {
+                    el.classList.add(c);
+                }else {
+                    el.className = ( el.className + ' ' + c ).trim();
+                }
+            }
+
+            function removeClass( el, c ){
+                if( el.classList ) {
+                    el.classList.remove(c);
+                }else {
+                    el.className = el.className.replace( new RegExp( '(^|\\b)' + c.split(' ').join('|') + '(\\b|$)', 'gi' ), ' ' );
+                }
+            }
+
+            function addEvent( el, eventName, eventHandler ){
+                el.addEventListener( eventName, eventHandler );
+            }
+/*
+            function removeEvent( el, eventName, eventHandler ){
+                el.removeEventListener( eventName, eventHandler );
+            }
+*/
             // Offside instances constructor
             // Set up and initialize a new Offside instance
             // Called trough Offside factory "getOffsideInstance()" method
-            function OffsideInstance( el, factorySharedProperties, options, offsideId ){
+            function OffsideInstance( el, options, offsideId ){
 
                 var i,
                     offsideSettings;
@@ -148,13 +173,12 @@
                 }
 
                 // Offside instance private properties
-                var $body = factorySharedProperties.$body,                                      // Get body reference from factory
-                    $offside = $( el || '.offside' ),                                           // Hello, I'm the Offside instance
-                    $offsideButtons = $(offsideSettings.buttonsSelector),                       // Offside toggle buttons 
-                    $slidingElements = factorySharedProperties.$slidingElements,                // Get sliding elements reference from Offside factory
+                var offside = document.querySelector(el) || document.querySelector( 'offside' ),                                             // Hello, I'm the Offside instance
+                    offsideButtons = document.querySelectorAll( offsideSettings.buttonsSelector ),  // Offside toggle buttons 
 
                     slidingSide = offsideSettings.slidingSide === 'right' ? 'right' : 'left',   // Sanitize slidingSide var
-                    offsideClass = 'offside offside-' + slidingSide,                            // Class added to Offside instance it is intialized (eg. offside offside-left)
+                    offsideClass = 'offside',                                                   // Class added to Offside instance it is intialized (eg. offside offside-left)
+                    offsideSideClass = 'offside-' + slidingSide,                                // Class added to Offside instance it is intialized (eg. offside offside-left)
                     offsideOpenClass = 'offside-open',                                          // Class appended to Offside instance when open
                     offsideBodyOpenClass = offsideOpenClass + '-' + slidingSide,                // Class appended to body when Offside instance is open (offside-left-open / offside-right-open)
 
@@ -165,7 +189,7 @@
                 function _toggleOffside() {
 
                     // Check if there is any open Offside
-                    !isNaN( factorySharedProperties.openOffsideId ) ? window.offside.closeOpenOffside() : _openOffside();
+                    !isNaN( openOffsideId ) ? window.offside.factory.closeOpenOffside() : _openOffside();
                 }
 
                 function _openOffside() {
@@ -175,18 +199,18 @@
 
                     // If another Offside instance is already open,
                     // close it before going on
-                    window.offside.setOpenOffsideId( id );
+                    window.offside.factory.setOpenOffsideId( id );
 
                     //Reset body active class and add body active class
-                    $body
-                        .removeClass( 'offside-open-left offside-open-right' )
-                        .addClass( offsideBodyOpenClass );
+                    removeClass( body, 'offside-open-left' );
+                    removeClass( body, 'offside-open-right' );
+                    addClass( body, offsideBodyOpenClass );
 
                     //Add Offside instance open class
-                    $offside.addClass( offsideOpenClass );
+                    addClass( offside, offsideOpenClass );
 
                     //Update open Offside instances tracker
-                    factorySharedProperties.openOffsideId = id;
+                    openOffsideId = id;
 
                     // After open callback
                     offsideSettings.afterOpen();
@@ -198,13 +222,14 @@
                     offsideSettings.beforeClose();
 
                     // Reset body active class
-                    $body.removeClass( 'offside-open-left offside-open-right' );
+                    removeClass( body, 'offside-open-left' );
+                    removeClass( body, 'offside-open-right' );
 
                     // Remove Offside instance open class
-                    $offside.removeClass( offsideOpenClass );
+                    removeClass( offside, offsideOpenClass );
 
                     // Update open Offside instance tracker (use undefined!!)
-                    factorySharedProperties.openOffsideId = undefined;
+                    openOffsideId = undefined;
 
                     // Before close callback
                     offsideSettings.afterClose();
@@ -220,17 +245,18 @@
                 // Initialize Offside instance in the DOM
                 function _offsideInit() {
 
-                    if ( factorySharedProperties.debug ) {
+                    if ( debug ) {
                         _offsideCheckElements();
                     }
 
                     //Add classes to Offside instance (.offside and .offside{slidingSide})
-                    $offside.addClass( offsideClass );
+                    addClass( offside, offsideClass );
+                    addClass( offside, offsideSideClass );
 
                     // Toggle Offside
-                    $offsideButtons.on('click', function() {
-                        _toggleOffside();
-                    });
+                    for( i = 0; i < offsideButtons.length; i++ ){
+                        addEvent( offsideButtons[i], 'click', _toggleOffside );
+                    }
 
                     // Init callback
                     offsideSettings.init();
@@ -239,15 +265,15 @@
                 // Fire console errors if DOM elements are missing
                 function _offsideCheckElements() {
 
-                    if( !$offside.length ) {
+                    if( !offside ) {
                         console.error( 'Offside alert: "offside" selector could not match any element' );
                     }
 
-                    if( !$offsideButtons.length ) {
+                    if( !offsideButtons.length ) {
                         console.error( 'Offside alert: "buttonsSelector" selector could not match any element' );
                     }
 
-                    if( !$slidingElements.length ) {
+                    if( !slidingElements.length ) {
                         console.error( 'Offside alert: "slidingElements" selector could not match any element' );
                     }
                 }
@@ -314,35 +340,34 @@
 
                     // Instantiate new Offside instance,
                     // push it into "instantiatedOffsides" array and return it
-                    return instantiatedOffsides[ offsideId ] = new OffsideInstance( el, factorySharedProperties, options, offsideId );
+                    return instantiatedOffsides[ offsideId ] = new OffsideInstance( el, options, offsideId );
                 }
 
             };
 
         } // initOffsideFactory() end
-     
+
         return {
 
             // Get the Singleton instance if one exists
             // or create one if it doesn't
             getInstance: function ( el, options ) {
 
-                if ( !window.offside ) {
-                    window.offside = initOffsideFactory( options );
+                if ( !window.offside.factory ) {
+                    window.offside.factory = initOffsideFactory( options );
                 }
 
-                return window.offside.getOffsideInstance( el, options );
+                return window.offside.factory.getOffsideInstance( el, options );
             }
         };
      
     })();
 
     // Store in window a reference to the Offside singleton factory
-    window.offside;
+    if (typeof module !== "undefined" && module.exports) {
+        module.exports = offside.getInstance;
+    } else {
+        window.offside = offside.getInstance;
+    }
 
-    // Jquery function wrapper
-    $.offside = function( el, options ) {
-        return $.fn.offside.getInstance( el, options );
-    };
-
-})( jQuery, window, document );
+})( window, document );

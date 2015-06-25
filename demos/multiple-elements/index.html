@@ -63,11 +63,10 @@
             <p>Ut suscipit et eros nec suscipit. Nulla congue, mauris nec bibendum sagittis, urna orci tincidunt massa, in vulputate velit nulla vitae nunc. Etiam urna justo, imperdiet nec orci sollicitudin, tempus feugiat erat. Vivamus id lectus nulla. Vestibulum sagittis cursus metus vel ultricies. Suspendisse viverra interdum metus eu placerat. Quisque tristique velit nisi, scelerisque consectetur tortor vehicula ut. Donec id fermentum mi, nec venenatis felis.</p>
         </div>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-        <script src="../../dist/jquery.offside.js"></script>
+        <script src="../../dist/offside.js"></script>
 
         <script>
-            var offsideMenu1 = $.offside( '#menu-1', {
+            var offsideMenu1 = offside( '#menu-1', {
 
                 slidingElementsSelector: '#container, #results',    // String: Sliding elements selectors
                 debug: true,                                        // Boolean: If true, print errors in console
@@ -82,13 +81,13 @@
                 afterClose: function(){},                           // Function: After close callback
             });
 
-            var offsideMenu2 = $.offside( '#menu-2', {
+            var offsideMenu2 = offside( '#menu-2', {
 
                 buttonsSelector: '.menu-btn-2',                     // String: Menu toggle buttons selectors
                 slidingSide: 'right',                               // String: Off canvas menu on left or right
             });
 
-            var offsideMenu3 = $.offside( '#menu-3', {
+            var offsideMenu3 = offside( '#menu-3', {
 
                 buttonsSelector: '.menu-btn-3',                     // String: Menu toggle buttons selectors
                 slidingSide: 'right',                               // String: Off canvas menu on left or right
