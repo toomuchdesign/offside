@@ -1,7 +1,7 @@
 # Offside.js
-**Offside.js** is a minimal JavaScript kit to push things off-canvas using CSS 3D transforms & transitions. It's goal is to provide a super-lightweigth, efficient and customizable way of handling off-canvas menus/elements on modern website and web applications.
+**Offside.js** is a minimal JavaScript kit to push things off-canvas **using just class manipulation**. It's goal is to provide a super-lightweigth, efficient and customizable way of handling off-canvas menus/elements on modern website and web applications.
 
-**Offside.js** comes with its own default stylesheet, but you can write your own CSS hooking your style with Offside classes. This ensures super flexibility and completely decouples Offside.js from your page style/markup.
+**Offside.js** comes with its own default stylesheet which make use of **CSS 3D transforms & transitions**, but you can write your own CSS hooking your style with Offside classes. This ensures **super flexibility** and completely **decouples Offside.js from your page style/markup**.
 
 ## Demos
 
@@ -185,9 +185,9 @@ When an element receives a 3D transform style, It creates a containing block for
 
 ## Working on the repository
 
-Contributions and ideas to make Offside.js a better tool are welcome.
+**Offside.js** is currently actively mantained. Any open issue, pull request, contribution and idea to make Offside.js a better tool are of course welcome!
 
-[GruntJS](http://gruntjs.com/) is used for the build process, which means node and npm are required. If you already have those on your machine, you can install Grunt and all dependencies required for the build using:
+[GruntJS](http://gruntjs.com/) is used for the build process, which means **node** and **npm** are required. If you already have those on your machine, you can install Grunt and all dependencies required for the build using:
 
 ```sh
 npm install -g grunt-cli
