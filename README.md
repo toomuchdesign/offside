@@ -1,5 +1,5 @@
 # Offside.js
-**Offside.js** is a minimal JavaScript kit to push things off-canvas **using just class manipulation**. It's goal is to provide a super-lightweigth, efficient and customizable way of handling off-canvas menus/elements on modern website and web applications.
+**Offside.js** is a minimal JavaScript kit **without library dependencies** to push things off-canvas **using just class manipulation**. It's goal is to provide a super-lightweigth, efficient and customizable way of handling off-canvas menus/elements on modern website and web applications.
 
 **Offside.js** comes with its own default stylesheet which make use of **CSS 3D transforms & transitions**, but you can write your own CSS hooking your style with Offside classes. This ensures **super flexibility** and completely **decouples Offside.js from your page style/markup**.
 
@@ -13,7 +13,8 @@
 ## Features:
 
 - Minimal DOM manipulations
-- Uses CSS3 3D transforms
+- No library dependencies
+- Uses CSS3 3D transforms (if you want to)
 - No injected style. Offside entirely relies on classes manipulations
 - Degrades gracefully on browsers not supporting CSS3 3D transforms
 - Handles multiple off-canvas elements
