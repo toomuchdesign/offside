@@ -1,12 +1,12 @@
 {
   "name": "offside",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "homepage": "https://github.com/toomuchdesign/offside",
   "authors": [
-    "Andrea Carraro <toomuchdesign@gmail.com>"
+    "Andrea Carraro <me@andreacarraro.it>"
   ],
   "description": "Minimal JavaScript kit to push things off-canvas using CSS 3D transforms & transitions",
-  "main": "dist/jquery.offside.js",
+  "main": "dist/offside.js",
   "keywords": [
     "off-canvas",
     "offcanvas",
