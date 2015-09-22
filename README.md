@@ -60,7 +60,7 @@ bower install offside --save-dev
   <button type="button" id="my-button">Offside toggle</button>
    
   <!-- Off-canvas element  -->
-  <nav id="my-offside">
+  <nav id="my-menu">
     <ul>
       <li><a href="#">Home</a></li>
       <li><a href="#">About</a></li>
