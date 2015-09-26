@@ -190,7 +190,7 @@
                 }
 
                 // Offside instance private properties
-                var offside = document.querySelector(el) || document.querySelector( 'offside' ),                                             // Hello, I'm the Offside instance
+                var offside = document.querySelector(el) || document.querySelector( '.offside' ),                                             // Hello, I'm the Offside instance
                     offsideButtons = document.querySelectorAll( offsideSettings.buttonsSelector ),  // Offside toggle buttons 
 
                     slidingSide = offsideSettings.slidingSide === 'right' ? 'right' : 'left',   // Sanitize slidingSide var
