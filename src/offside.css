@@ -12,62 +12,54 @@
     width: 200px;
     height: 100%;
     top: 0;
-    left: 0;
     z-index: 9999;
     overflow: auto;
     -webkit-overflow-scrolling: touch; /* enables momentum scrolling in iOS overflow elements */
 }
 
-/* Place off-canvas elements */
-
-/* Left off-canvas element status: out of the page */
-.offside, .offside-left {
-    -webkit-transform: translate3d(-200px,0,0);
-    -moz-transform: translate3d(-200px,0,0);
-    -ms-transform: translate3d(-200px,0,0);
-    -o-transform: translate3d(-200px,0,0);
-    transform: translate3d(-200px,0,0);
+/* Left off-canvas elements default status: out of the page */
+.offside,
+.offside-left {
+    left: -200px;
 }
 
-/* Right off-canvas element status: out of the page */
+/* Right off-canvas elements default status: out of the page */
 .offside-right {
-    right: 0; /*Stick menu on right side*/
     left: auto;
-    -webkit-transform: translate3d(200px,0,0);
-    -moz-transform: translate3d(200px,0,0);
-    -ms-transform: translate3d(200px,0,0);
-    -o-transform: translate3d(200px,0,0);
-    transform: translate3d(200px,0,0);
+    right: -200px;
 }
 
-/* Element is open: off-canvas element slides in */
+/*
+ * Left off-canvas element is open:
+ * - off-canvas element slides in
+ * - container elements slides out
+ */
 .offside-open-left .offside-left.offside-open,
-.offside-open-right .offside-right.offside-open {
-    -webkit-transform: translate3d(0,0,0);
-    -moz-transform: translate3d(0,0,0);
-    -ms-transform: translate3d(0,0,0);
-    -o-transform: translate3d(0,0,0);
-    transform: translate3d(0,0,0);
+.offside-open-left .offside-sliding-element {
+    -webkit-transform: translate3d(200px, 0, 0);
+    -moz-transform: translate3d(200px, 0, 0);
+    -ms-transform: translate3d(200px, 0, 0);
+    -o-transform: translate3d(200px, 0, 0);
+    transform: translate3d(200px, 0, 0);
 }
 
-/* Element is open: container elements slide out */
-.offside-open-left .offside-sliding-element {
-    -webkit-transform: translate3d(200px,0,0);
-    -moz-transform: translate3d(200px,0,0);
-    -ms-transform: translate3d(200px,0,0);
-    -o-transform: translate3d(200px,0,0);
-    transform: translate3d(200px,0,0);
-}
+/*
+ * Right off-canvas element is open:
+ * - off-canvas element slides in
+ * - container elements slides out
+ */
+.offside-open-right .offside-right.offside-open,
 .offside-open-right .offside-sliding-element {
-    -webkit-transform: translate3d(-200px,0,0);
-    -moz-transform: translate3d(-200px,0,0);
-    -ms-transform: translate3d(-200px,0,0);
-    -o-transform: translate3d(-200px,0,0);
-    transform: translate3d(-200px,0,0);
+    -webkit-transform: translate3d(-200px, 0, 0);
+    -moz-transform: translate3d(-200px, 0, 0);
+    -ms-transform: translate3d(-200px, 0, 0);
+    -o-transform: translate3d(-200px, 0, 0);
+    transform: translate3d(-200px, 0, 0);
 }
 
 /* Elements Transitions */
-.offside-transitions .offside, .offside-transitions .offside-sliding-element {
+.offside-transitions .offside,
+.offside-transitions .offside-sliding-element {
     -webkit-transition: -webkit-transform .2s cubic-bezier(.16, .68, .43, .99);
     -moz-transition: -moz-transform .2s cubic-bezier(.16, .68, .43, .99);
     -o-transition: -o-transform .2s cubic-bezier(.16, .68, .43, .99);
@@ -88,19 +80,10 @@ body.offside-init {
 /* Fallback movements for browser not supporting CSS 3d Transitions
 ----------------------------------------------- */
 
-/* Modernizr false negative csstransforms3d fix */
+/* Modernizr false negative csstransforms3d fix, reset CSS 3d Transitions */
 .no-csstransforms3d .offside {
-    -webkit-transform: translate3d(0,0,0);
-    transform: translate3d(0,0,0);
-}
-
-/* Place off-canvas elements */
-.no-csstransforms3d .offside-left {
-    left: -200px;
-}
-
-.no-csstransforms3d .offside-right {
-    right: -200px;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
 }
 
 .no-csstransforms3d .offside-sliding-element {

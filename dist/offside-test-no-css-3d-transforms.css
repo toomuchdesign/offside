@@ -9,37 +9,29 @@
     -webkit-overflow-scrolling: touch; /* enables momentum scrolling in iOS overflow elements */
 }
 
-/* Right off-canvas element status: out of the page */
-.offside-right {
-    right: 0; /*Stick menu on right side*/
+/* Left off-canvas elements default status: out of the page */
+.offside,
+.offside-left {
+    left: -200px;
 }
 
-/* Body overflow */
-body.offside-init {
-    overflow-x: hidden;
+/* Right off-canvas elements default status: out of the page */
+.offside-right {
+    left: auto;
+    right: -200px;
 }
 
 
 
 /* Fallback movements for browser not supporting CSS 3d Transitions
 ----------------------------------------------- */
-
-/* Place off-canvas elements */
-.no-csstransforms3d .offside-left {
-    left: -200px;
-}
-
-.no-csstransforms3d .offside-right {
-    right: -200px;
-}
-
 .no-csstransforms3d .offside-sliding-element {
     overflow-x: hidden;
     position: relative;
 }
 
 /* Element is open: off-canvas element slides in */
-.no-csstransforms3d > .offside-open-left .offside-left.offside-open{
+.no-csstransforms3d > .offside-open-left .offside-left.offside-open {
     left: 0;
 }
 
