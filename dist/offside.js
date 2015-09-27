@@ -1,4 +1,4 @@
-/* offside.js 1.1.1 26-09-2015
+/* offside.js 1.1.2 27-09-2015
 * Minimal js kit to push things off-canvas using CSS transforms & transitions.
 * https://github.com/toomuchdesign/offside.git
 *
@@ -205,8 +205,9 @@
 
                 var _toggleOffside = function() {
 
-                    // Check if there is any open Offside
-                    !isNaN( openOffsideId ) ? closeOpenOffside() : _openOffside();
+                    // Premise: Just 1 Offside instance at time can be open.
+                    // If currently toggling Offside is not already open
+                    id !== openOffsideId ? _openOffside() : _closeOffside();
                 },
 
                 _openOffside = function() {

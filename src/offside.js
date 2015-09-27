@@ -205,8 +205,9 @@
 
                 var _toggleOffside = function() {
 
-                    // Check if there is any open Offside
-                    !isNaN( openOffsideId ) ? closeOpenOffside() : _openOffside();
+                    // Premise: Just 1 Offside instance at time can be open.
+                    // If currently toggling Offside is not already open
+                    id !== openOffsideId ? _openOffside() : _closeOffside();
                 },
 
                 _openOffside = function() {
