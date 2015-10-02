@@ -1,4 +1,4 @@
-/* offside.js 1.1.1 26-09-2015
+/* offside.js 1.2.0 03-10-2015
 * Minimal js kit to push things off-canvas using CSS transforms & transitions.
 * https://github.com/toomuchdesign/offside.git
 *
@@ -52,7 +52,7 @@
             var globalClass = 'offside-js',                         // Global Offside classes namespace
                 initClass = globalClass + '--init',                 // Class appended to body when Offside is intialized
                 slidingElementsClass = 'offside-sliding-element',   // Class appended to sliding elements
-                transitionsClass = globalClass + '--transitions',   // Class appended to body when ready to turn on Offside CSS transitions (Added when first menu interaction happens)
+                transitionsClass = globalClass + '--interact',      // Class appended to body when ready to turn on Offside CSS transitions (Added when first menu interaction happens)
                 instantiatedOffsides = [],                          // Array containing all instantiated offside elements
                 firstInteraction = 1,                               // Keep track of first Offside interaction
                 has3d = factorySettings.disableCss3dTransforms ? false : _has3d(),       // Browser supports CSS 3d Transforms
