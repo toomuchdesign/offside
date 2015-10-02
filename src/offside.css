@@ -58,8 +58,8 @@
 }
 
 /* Elements Transitions */
-.offside-js--transitions .offside,
-.offside-js--transitions .offside-sliding-element {
+.offside-js--interact .offside,
+.offside-js--interact .offside-sliding-element {
     -webkit-transition: -webkit-transform .2s cubic-bezier(.16, .68, .43, .99);
     -moz-transition: -moz-transform .2s cubic-bezier(.16, .68, .43, .99);
     -o-transition: -o-transform .2s cubic-bezier(.16, .68, .43, .99);
