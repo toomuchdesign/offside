@@ -9,6 +9,7 @@
 - [Single element (without css 3dtransforms)](http://toomuchdesign.github.io/offside/demos/single-element-no-css-3d-transforms)
 - [Multiple elements](http://toomuchdesign.github.io/offside/demos/multiple-elements)
 - [Multiple elements (without css 3dtransforms)](http://toomuchdesign.github.io/offside/demos/multiple-elements-no-css-3d-transforms)
+- [Typical setting](http://toomuchdesign.github.io/offside/demos/typical)
 
 ## Features:
 
@@ -16,6 +17,7 @@
 - No library dependencies
 - Uses CSS3 3D transforms (if you want to)
 - No injected style. Offside entirely relies on classes manipulations
+- BEM-like style
 - Degrades gracefully on browsers not supporting CSS3 3D transforms
 - Handles multiple off-canvas elements
 - Left/right off-canvas
@@ -55,7 +57,6 @@ bower install offside --save-dev
 ### 2. Markup example:
 
 ```html
-  
   <!-- Off-canvas toggle button -->
   <button type="button" id="my-button">Offside toggle</button>
    
@@ -120,9 +121,9 @@ It **doesn't pre-requires any specific markup**. When Offside initializes It jus
       afterClose: function(){},                         // Function: After close callback    
   
   });
-  
 ```
 **Global offside options** are set when first Offside instance is created. This happens because **Offside factory** is created when the first `$.offside()` call occurs.
+
 
 ## Public methods
 
@@ -137,10 +138,76 @@ Offside plays well with your application. Each Offside instance exposes the foll
 `myOffside.destroy();`
 
 
+## How does it work?
+
+When the first Offside element is initialized, a **singleton Offside factory** is created and used to return the first Offside instance. The factory keeps track of all initialized Offside elements.
+
+Offside is entirely based on **classes injection** and **custom callbacks**. No style is DOM injected. Never!
+
+Classes are injected in **just 3 elements**:
+  - <code>body</code>
+  - <code>off-canvas elements</code>
+  - <code>sliding elements</code>
+
+Here a brief explanation.
+
+### 1. Initialization
+
+#### Callbacks fired:
+- <code>init()</code>
+
+#### Injected classes:
+```html
+  <body class="offside-js--init">
+
+    <!-- Off-canvas element -->
+    <div class="offside offside--left">
+
+    <!-- Sliding element -->
+    <div class="offside-sliding-element>
+```
+
+### 2. First offside open
+
+On first interaction with an Offside instance, <code>offside-js--interact</code> class is added to body. Sometime useful to avoid unespected CSS behaviours on startup.
+
+#### Injected classes:
+```html
+  <body class="offside-js--init offside-js--interact">
+```
+
+### 3. Offside open
+
+#### Callbacks fired:
+- <code>beforeOpen()</code>
+- <code>afterOpen()</code>
+
+#### Injected classes:
+```html
+  <body class="offside-js--init offside-js--transitions offside-js--is-open offside-js--is-left">
+
+  <!-- Off-canvas element -->
+  <div class="offside offside--left">
+```
+
+### 4. Offside closed
+
+#### Callbacks fired:
+- <code>beforeClose()</code>
+- <code>afterClose()</code>
+
+#### Injected classes:
+```html
+  <body class="offside-js--init offside-js--transitions">
+
+  <!-- Off-canvas element -->
+  <div class="offside offside--left is-open">
+```
+
 ## Tips and Tricks
 
-- Set **off-canvas elements** width directly into `offside.css` stylesheet.
-- Link `offside-no-css-3d-transforms.css` stylesheet and and set `disableCss3dTransforms` setting to `true` to try the fallback.
+- Set **off-canvas elements width** directly into `offside.css` stylesheet.
+- Replace `offside.css` with `offside-no-css-3d-transforms.css` stylesheet and and set `disableCss3dTransforms` setting to `true` to try the fallback.
 
 ### Do you really need a JS plugin?
 If you need to set up a simple off-canvas menu, you might not need JS! [This Chris Coyer's post](https://css-tricks.com/off-canvas-menu-with-css-target/) explains a nice solution which relies on **CSS :target selector**. ie9+ only!
@@ -169,7 +236,6 @@ An easy - but simplistic - fix, is to switch `.offside` position to `absolute` a
 Like this:
 
 ```html
-
   <!-- Sliding element -->
   <div id="my-page-wrapper">
 
@@ -186,7 +252,11 @@ When an element receives a 3D transform style, It creates a containing block for
 
 ## To do's
 
+Some ideas for the future. If you'd like to see any of the following realized, please contribute or open an issue.
+
 - Expose Offside factory initialization method
+- Customizable Offside classes
+- Replace callbacks with global events (maybe)
 
 ## Working on the repository
 
