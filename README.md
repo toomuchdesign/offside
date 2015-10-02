@@ -142,6 +142,10 @@ Offside plays well with your application. Each Offside instance exposes the foll
 - Set **off-canvas elements** width directly into `offside.css` stylesheet.
 - Link `offside-no-css-3d-transforms.css` stylesheet and and set `disableCss3dTransforms` setting to `true` to try the fallback.
 
+### Do you really need a JS plugin?
+If you need to set up a simple off-canvas menu, you might not need JS! [This Chris Coyer's post](https://css-tricks.com/off-canvas-menu-with-css-target/) explains a nice solution which relies on **CSS :target selector**. ie9+ only!
+
+
 ## Known bugs
 
 ### Off-canvas elements blocked on the page
