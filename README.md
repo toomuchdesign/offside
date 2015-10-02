@@ -187,7 +187,7 @@ On first interaction with an Offside instance, <code>offside-js--interact</code>
   <body class="offside-js--init offside-js--transitions offside-js--is-open offside-js--is-left">
 
   <!-- Off-canvas element -->
-  <div class="offside offside--left">
+  <div class="offside offside--left is-open">
 ```
 
 ### 4. Offside closed
