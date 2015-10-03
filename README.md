@@ -1,7 +1,7 @@
 # Offside.js
 **Offside.js** is a minimal JavaScript kit **without library dependencies** to push things off-canvas **using just class manipulation**. It's goal is to provide a super-lightweigth, efficient and customizable way of handling off-canvas menus/elements on modern website and web applications.
 
-**Offside.js** comes with its own default stylesheet which make use of **CSS 3D transforms & transitions**, but you can write your own CSS hooking your style with Offside classes. This ensures **super flexibility** and completely **decouples Offside.js from your page style/markup**.
+**Offside.js** comes with its own default stylesheet which make use of **CSS 3D transform**, but **you can write your own CSS** hooking your style with Offside classes. This ensures **super flexibility** and completely **decouples Offside.js from your style/markup**.
 
 ## Demos
 
@@ -254,15 +254,16 @@ When an element receives a 3D transform style, It creates a containing block for
 
 Some ideas for the future. If you'd like to see any of the following realized, please contribute or open an issue.
 
-- Expose Offside factory initialization method
+- Expose Offside factory initialization method *(now called on first Offside instance initialization)*
 - Customizable Offside classes
-- Replace callbacks with global events (maybe)
+- Replace callbacks with global events *(maybe)*
+- Let **slidingSide** option accept any value *(now only left/right)* *(maybe)*
 
 ## Working on the repository
 
-**Offside.js** is currently actively mantained. Any open issue, pull request, contribution and idea to make Offside.js a better tool are of course welcome!
+**Offside.js is currently actively mantained**. Any open issue, pull request, contribution, idea to make Offside.js a better tool are welcome!
 
-[GruntJS](http://gruntjs.com/) is used for the build process, which means **node** and **npm** are required. If you already have those on your machine, you can install Grunt and all dependencies required for the build using:
+[GruntJS](http://gruntjs.com/) is used for the build process, which means **node** and **npm** are required. If you already have them on your machine, you can install Grunt and all build dependencies using:
 
 ```sh
 npm install -g grunt-cli
@@ -287,12 +288,20 @@ git checkout master dist
 
 ## Version history
 
-1.1.0
-- Removed JQuery dependency.
-- Dropped support for IE 7 & 8.
-- Minor optimizations.
+###1.2.0 <small>*(03/10/2015)*</small>
 
-1.0.0
+- New CSS classes, BEM style
+- Can directly switch from an open Offside instance to another
+- offside.css optimized
+
+###1.1.0 <small>*(25/06/2015)*</small>
+
+- Removed JQuery dependency
+- Dropped support for IE 7 & 8
+- Minor optimizations
+
+###1.0.0 <small>*(17/11/2014)*</small>
+
 - Initial release
 
 ## Thanks to
