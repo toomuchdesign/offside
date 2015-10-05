@@ -2,17 +2,20 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Offside - Multiple elements demo</title>
+        <title>Offside - Typical demo</title>
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="../../dist/offside-test-no-css-3d-transforms.css">
+        <link rel="stylesheet" href="../../dist/offside.css">
         <link rel="stylesheet" href="../css/demo.css">
     </head>
 
     <body>
-
         <!-- Off-canvas Elements -->
         <nav id="menu-1" class="offside">
+            <a href="#" class="icon icon--cross menu-btn-1--close h--right">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
             <ul>
                 <li>First menu</li>
                 <li><a href="#">...</a></li>
@@ -24,38 +27,47 @@
         </nav>
 
         <nav id="menu-2" class="offside">
+            <a href="#" class="icon icon--cross menu-btn-2--close h--left">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
             <ul>
-            <li>Second menu</li>
-            <li><a href="#">...</a></li>
-            <li><a href="#">...</a></li>
-            <li><a href="#">...</a></li>
-            <li><a href="#">...</a></li>
-            <li><a href="#">...</a></li>
+                <li>Second menu</li>
+                <li><a href="#">...</a></li>
+                <li><a href="#">...</a></li>
+                <li><a href="#">...</a></li>
+                <li><a href="#">...</a></li>
+                <li><a href="#">...</a></li>
             </ul>
         </nav>
-
-        <nav id="menu-3" class="offside">
-            <ul>
-            <li>Third menu</li>
-            <li><a href="#">...</a></li>
-            <li><a href="#">...</a></li>
-            <li><a href="#">...</a></li>
-            <li><a href="#">...</a></li>
-            <li><a href="#">...</a></li>
-            </ul>
-        </nav>
+        
+        <!-- Site Overlay -->
+        <div class="site-overlay"></div>
 
         <!-- Your Content -->
         <div id="container">
 
-            <h1>Offside - Multiple elements - No CSS 3d Transforms fallback</h1>
+            <header>
+                <a href="#" class="icon icon--hamburger menu-btn-1 h--left">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                
+                <a href="#" class="icon icon--hamburger menu-btn-2 h--right">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+            </header>
+
+            <h1>Offside - Overlay and close button</h1>
 
             <p><strong>Open your DOM inspector and see how the off-canvas stuff is handled just by updating classes names.</strong></p>
 
             <!-- Menu Button -->
             <div class="menu-btn-1 offside-button">First menu<br/>&#8592;</div>
             <div class="menu-btn-2 offside-button">Second menu<br/>&#8594;</div>
-            <div class="menu-btn-3 offside-button">Third menu<br/>&#8594;</div>
 
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer pharetra neque a diam cursus pulvinar. Suspendisse faucibus mi id accumsan lobortis. Pellentesque consectetur varius turpis, nec viverra justo pellentesque sit amet. Vestibulum convallis leo non purus vehicula, non faucibus libero rhoncus. Morbi aliquam tincidunt facilisis. Aenean sodales nulla ac semper consectetur. Vivamus commodo massa convallis justo posuere vestibulum. Aenean congue non mauris ac auctor.</p>
 
@@ -67,25 +79,30 @@
         <script>
             var offsideMenu1 = offside( '#menu-1', {
 
-                slidingElementsSelector: '#container',      // String: Sliding elements selectors
-                disableCss3dTransforms: true,
-                debug: true,                                // Boolean: If true, print errors in console
-
-                buttonsSelector: '.menu-btn-1',             // String: Menu toggle buttons selectors
-                slidingSide: 'left',                        // String: Off canvas menu on left or right
+                slidingElementsSelector: '#container, #results',
+                debug: true, 
+                buttonsSelector: '.menu-btn-1, .menu-btn-1--close',
+                slidingSide: 'left',
+                beforeOpen: function(){},
+                beforeClose: function(){},
             });
 
             var offsideMenu2 = offside( '#menu-2', {
 
-                buttonsSelector: '.menu-btn-2',             // String: Menu toggle buttons selectors
-                slidingSide: 'right',                       // String: Off canvas menu on left or right
+                slidingElementsSelector: '#container, #results',
+                debug: true, 
+                buttonsSelector: '.menu-btn-2, .menu-btn-2--close',
+                slidingSide: 'right',
+                beforeOpen: function(){},
+                beforeClose: function(){},
             });
 
-            var offsideMenu3 = offside( '#menu-3', {
+            var overlay = document.querySelector('.site-overlay')
+                .addEventListener( 'click', window.offside.factory.closeOpenOffside );
 
-                buttonsSelector: '.menu-btn-3',             // String: Menu toggle buttons selectors
-                slidingSide: 'right',                       // String: Off canvas menu on left or right
-            });
+            console.log(offsideMenu1);
+            console.log(offsideMenu2);
+
         </script>
 
     </body>

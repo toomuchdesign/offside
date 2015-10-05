@@ -1,11 +1,25 @@
-html, body {
+html {
+    height: 100%;
+}
+
+body {
+    position: relative;
+    min-height: 100%; /* fixes focus scrolling in Safari (OS X) */
+    margin: 0;
+    padding: 0;
+
     -webkit-tap-highlight-color: rgba(0,0,0,0); /* disable webkit tap highlight */
-    height: 100%; /* fixes focus scrolling in Safari (OS X) */
+    color: #313131;
+    font-family: 'Lato', sans-serif;
 }
 
 
 /* =Cosmetic CSS for demo purpose
    ----------------------------------------------- */
+
+header {
+    overflow: hidden;
+}
 
 /* Container */
 #container {
@@ -16,14 +30,16 @@ html, body {
 
 /* Offside instances */
 .offside {
+    padding: 20px 0;
     width: 200px;
     background-color: #F0F0F0;
 }
 
 /* Lists */
 ul {
+    clear: both;
     margin: 0;
-    padding: 20px;
+    padding: 0 20px;
 }
 
 li {
@@ -37,7 +53,8 @@ li > a{
 
 /* Offside buttons */
 .offside-button {
-    width: 100px;
+    width: 100%;
+    max-width: 350px;
     padding: 10px;
     margin: 0 auto 10px auto;
     background: #000;
@@ -49,4 +66,96 @@ li > a{
 .offside-button:hover {
     background: #00b4ff;
     color: #FFF;
+}
+
+.site-overlay {
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: #121212;
+    visibility: hidden;
+    opacity: 0;
+    cursor: pointer;
+
+    -webkit-transition: visibility 0s ease, opacity .2s ease;
+    -moz-transition: visibility 0s ease, opacity .2s ease;
+    -o-transition: visibility 0s ease, opacity .2s ease;
+    transition: visibility 0s ease, opacity .2s ease;
+}
+
+/* Abstract icon class*/
+.icon {
+    display: block;
+    position: relative;
+    padding: 10px 0;
+    background-color: transparent;
+    background-image: none;
+    border: 1px solid transparent;
+}
+
+.icon .icon-bar {
+    display: block;
+    width: 22px;
+    height: 2px;
+    border-radius: 1px;
+    background-color: #313131;
+}
+
+.icon:hover .icon-bar {
+    background-color: #00b4ff;
+}
+
+.icon:focus {
+    outline: 0;
+}
+
+/* Hamburger button */
+.icon--hamburger .icon-bar + .icon-bar {
+    margin-top: 4px;
+}
+
+/* Close button */
+.icon--cross {
+    padding: 20px;
+}
+
+.icon--cross > .icon-bar + .icon-bar {
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.icon--cross > .icon-bar{
+    -webkit-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+
+    margin-top: -2px;
+}
+
+
+
+/* Helpers */
+.h--left{
+    float: left;
+}
+
+.h--right{
+    float: right;
+}
+
+/* Demo specific: typical */
+
+/* Just few cosmetic CSS for overlay fade in/out */
+.offside-js--is-open .site-overlay {
+    visibility: visible;
+    opacity: .4;
+    -webkit-transition-delay: delay 0s;
+    -o-transition-delay: delay 0s;
+    transition-delay: delay 0s;
 }
