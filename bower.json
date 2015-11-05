@@ -1,6 +1,6 @@
 {
   "name": "offside",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "homepage": "https://github.com/toomuchdesign/offside",
   "authors": [
     "Andrea Carraro <me@andreacarraro.it>"
@@ -18,7 +18,9 @@
     "**/.*",
     "node_modules",
     "bower_components",
-    "test",
-    "tests"
+    "demos"
+    "Gruntfile.js",
+    "package.json",
+    "src",
   ]
 }
