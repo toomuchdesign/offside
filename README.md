@@ -42,7 +42,7 @@ You can install **Offside.js** as a [Bower](http://bower.io) dependency.
 ```sh
 bower install offside
 # or
-bower install offside --save-dev
+bower install offside --save
 ```
 
 ### 1. Link files:
