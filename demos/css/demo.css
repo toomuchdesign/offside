@@ -21,6 +21,11 @@ header {
     overflow: hidden;
 }
 
+.logo {
+    text-align: center;
+    padding: 10px;
+}
+
 /* Container */
 #container {
     position: relative;
