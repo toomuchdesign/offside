@@ -54,7 +54,7 @@
                 slidingElementsClass = 'offside-sliding-element',   // Class appended to sliding elements
                 transitionsClass = globalClass + '--interact',      // Class appended to body when ready to turn on Offside CSS transitions (Added when first menu interaction happens)
                 instantiatedOffsides = [],                          // Array containing all instantiated offside elements
-                firstInteraction = 1,                               // Keep track of first Offside interaction
+                firstInteraction = true,                            // Keep track of first Offside interaction
                 has3d = factorySettings.disableCss3dTransforms ? false : _has3d(),       // Browser supports CSS 3d Transforms
                 openOffsideId,                                      // Tracks opened Offside instances
                 body = document.body,
@@ -219,7 +219,7 @@
 
                     // Turn on CSS transitions on first interaction with an Offside instance
                     if ( firstInteraction ) {
-                        firstInteraction = 0;
+                        firstInteraction = false;
                         turnOnCssTransitions();
                     }
 
