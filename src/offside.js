@@ -38,7 +38,7 @@
 
                 slidingElementsSelector: 'offside-sliding-element', // String: Sliding elements selectors ('#foo, #bar')
                 disableCss3dTransforms: false,                      // Disable CSS 3d Transforms support (for testing purposes)
-                debug: true,                                        // Boolean: If true, print errors in console
+                debug: false,                                       // Boolean: If true, print errors in console
             };
 
             // User defined factory settings

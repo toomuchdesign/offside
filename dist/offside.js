@@ -1,4 +1,4 @@
-/* offside.js 1.2.0 03-10-2015
+/* offside.js 1.2.0 08-11-2015
 * Minimal js kit to push things off-canvas using CSS transforms & transitions.
 * https://github.com/toomuchdesign/offside.git
 *
@@ -38,7 +38,7 @@
 
                 slidingElementsSelector: 'offside-sliding-element', // String: Sliding elements selectors ('#foo, #bar')
                 disableCss3dTransforms: false,                      // Disable CSS 3d Transforms support (for testing purposes)
-                debug: true,                                        // Boolean: If true, print errors in console
+                debug: false,                                       // Boolean: If true, print errors in console
             };
 
             // User defined factory settings
