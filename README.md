@@ -103,6 +103,8 @@ It **doesn't pre-requires any specific markup**. When Offside initializes It jus
 
 `slidingElementsSelector` is a selector list of all elements which slide out when an off-canvas element slides in. It's usually the page wrapper.
 
+Use it only when you need your page to slide together with you off-canvas element.
+
 
 ### 4. Customizable options:
 

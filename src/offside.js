@@ -324,10 +324,6 @@
                     if( !offsideButtons.length ) {
                         console.error( 'Offside alert: "buttonsSelector" selector could not match any element' );
                     }
-
-                    if( !slidingElements.length ) {
-                        console.error( 'Offside alert: "slidingElements" selector could not match any element' );
-                    }
                 };
 
                 // Offside instances public methods
