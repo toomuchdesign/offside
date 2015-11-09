@@ -21,6 +21,11 @@ header {
     overflow: hidden;
 }
 
+.logo {
+    text-align: center;
+    padding: 10px;
+}
+
 /* Container */
 #container {
     position: relative;
@@ -32,7 +37,7 @@ header {
 .offside {
     padding: 20px 0;
     width: 200px;
-    background-color: #F0F0F0;
+    background-color: #FFE200;
 }
 
 /* Lists */
@@ -57,15 +62,14 @@ li > a{
     max-width: 350px;
     padding: 10px;
     margin: 0 auto 10px auto;
-    background: #000;
-    color: #FFF;
+    background: #FFE200;
+    color: #000;
     text-align: center;
     cursor: pointer;
 }
 
 .offside-button:hover {
-    background: #00b4ff;
-    color: #FFF;
+    background: #FFD900;
 }
 
 .site-overlay {
@@ -75,7 +79,7 @@ li > a{
     right: 0;
     bottom: 0;
     left: 0;
-    background-color: #121212;
+    background-color: #FFF;
     visibility: hidden;
     opacity: 0;
     cursor: pointer;
@@ -105,7 +109,7 @@ li > a{
 }
 
 .icon:hover .icon-bar {
-    background-color: #00b4ff;
+    background-color: #989898;
 }
 
 .icon:focus {
@@ -154,7 +158,7 @@ li > a{
 /* Just few cosmetic CSS for overlay fade in/out */
 .offside-js--is-open .site-overlay {
     visibility: visible;
-    opacity: .4;
+    opacity: .7;
     -webkit-transition-delay: delay 0s;
     -o-transition-delay: delay 0s;
     transition-delay: delay 0s;
