@@ -31,7 +31,7 @@
 
 All **modern browsers** and **ie9+**.
 
-Offside relies on **EventTarget.addEventListener / removeEventListener** and **querySelector / querySelectorAll** methods without any fallback.
+Offside.js relies on **EventTarget.addEventListener / removeEventListener** and **querySelector / querySelectorAll** methods without any fallback.
 
 Check relative browser compatibility:
 - [EventTarget.addEventListener / removeEventListener](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#Browser_compatibility)
@@ -79,7 +79,7 @@ bower install offside --save
   </div> 
 ```
 
-Offside is designed to work with your existing HTML.
+Offside.js is designed to work with your existing HTML.
 
 It **doesn't pre-requires any specific markup**. When Offside initializes It just adds a few classes on existing DOM elements.
 
@@ -90,7 +90,7 @@ It **doesn't pre-requires any specific markup**. When Offside initializes It jus
 <!-- Put this right before the </body> closing tag -->
   <script>
 
-    //Offside minimal setup
+    //Offside.js minimal setup
     var myOffside = offside( '#my-menu', {
         
         slidingElementsSelector:'#my-content-container',
@@ -132,7 +132,7 @@ Use it only when you need your page to slide together with you off-canvas elemen
 
 ## Public methods
 
-Offside plays well with your application. Each Offside instance exposes the following methods:
+Offside.js plays well with your application. Each Offside instance exposes the following methods:
 
 `myOffside.toggle();`
 
@@ -147,7 +147,7 @@ Offside plays well with your application. Each Offside instance exposes the foll
 
 When the first Offside element is initialized, a **singleton Offside factory** is created and used to return the first Offside instance. The factory keeps track of all initialized Offside elements.
 
-Offside is entirely based on **classes injection** and **custom callbacks**. No style is DOM injected. Never!
+Offside.js is entirely based on **classes injection** and **custom callbacks**. No style is DOM injected. Never!
 
 Classes are injected in **just 3 elements**:
   - <code>body</code>
@@ -263,6 +263,9 @@ Some ideas for the future. If you'd like to see any of the following realized, p
 - Customizable Offside classes
 - Replace callbacks with global events *(maybe)*
 - Let **slidingSide** option accept any value *(now only left/right)* *(maybe)*
+- Declare a different set of sliding elements for each Offside instance
+- Let Offside.js factory accept actual DOM elements (not only selectors)
+- Add an option to let more than one Offside instance open at same time
 
 ## Working on the repository
 
