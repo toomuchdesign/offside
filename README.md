@@ -299,7 +299,7 @@ git checkout master dist
 ## Version history
 
 
-###1.2.1 <small>*(11/12/2015)*</small>
+###1.2.1 <small>*(12/12/2015)*</small>
 - Minor optimizations
 
 ###1.2.0 <small>*(03/10/2015)*</small>
