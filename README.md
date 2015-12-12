@@ -6,7 +6,7 @@
 
 **Offside.js** comes with its own default stylesheet which make use of **CSS 3D transform**, but **you can write your own CSS** hooking your style with Offside classes. This ensures **super flexibility** and completely **decouples Offside.js from your style/markup**.
 
-Offside.js is a fast growing kid, please feel free to [drop me a line](https://twitter.com/toomuchdesign){:target="_blank"} if you use it in a project of yours!
+Offside.js is a fast growing kid, please feel free to [drop me a line](https://twitter.com/toomuchdesign) if you use it in a project of yours!
 
 ## Demos
 
