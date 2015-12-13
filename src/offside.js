@@ -223,11 +223,11 @@
                 var offside = getDomElements( el, true ) || getDomElements( '.offside', true ),    // Hello, I'm the Offside instance
                     offsideButtons = getDomElements( offsideSettings.buttonsSelector ),            // Offside toggle buttons 
                     slidingSide = offsideSettings.slidingSide,
-                    offsideClass = 'offside',                                                      // Class added to Offside instance it is intialized (eg. offside offside-left)
-                    offsideSideClass = offsideClass + '--' + slidingSide,                          // Class added to Offside instance it is intialized (eg. offside offside-left)
+                    offsideClass = 'offside',                                                      // Class added to Offside instance when initialized
+                    offsideSideClass = offsideClass + '--' + slidingSide,                          // Class added to Offside instance when initialized (eg. offside offside--left)
                     offsideOpenClass = 'is-open',                                                  // Class appended to Offside instance when open
-                    offsideBodyOpenClass = globalClass + '--' + 'is-open',                         // Class appended to body when Offside instance is open (offside-left-open / offside-right-open)
-                    offsideBodyOpenSideClass = globalClass + '--is-' + slidingSide,                // Class appended to body when Offside instance is open (offside-left-open / offside-right-open)
+                    offsideBodyOpenClass = globalClass + '--' + 'is-open',                         // Class appended to body when an Offside instance is open (offside-js--is-open)
+                    offsideBodyOpenSideClass = globalClass + '--is-' + slidingSide,                // Class appended to body when Offside instance is open (eg. offside-js--is-left / offside-js--is-open)
 
                     id = offsideId || 0;                                                           // Set Offside instance id
 
