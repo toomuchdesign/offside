@@ -30,6 +30,86 @@
         // Global Offside singleton-factory constructor
         function initOffsideFactory( options ) {
 
+            // Utility functions
+            // Shared among factory and Offside instances, too
+
+            // Check for an open Offside instance. If so close it.
+            var closeOpenOffside = function() {
+
+                // Look for an open Offside id
+                if ( !isNaN( openOffsideId ) ) {
+                    instantiatedOffsides[ openOffsideId ].close();
+                }
+            },
+
+            // Append a class to body in order to turn on elements CSS 3D transitions
+            // only when happens the first interation with an Offside instance.
+            // Otherwise we would see Offside instances being smoothly pushed
+            // out of the screen during DOM initialization.
+            turnOnCssTransitions = function() {
+                addClass( body, transitionsClass );
+            },
+
+            addClass = function( el, c ) {
+                if ( el.classList ) {
+                    el.classList.add(c);
+                } else {
+                    el.className = ( el.className + ' ' + c ).trim();
+                }
+            },
+
+            removeClass = function( el, c ) {
+                if ( el.classList ) {
+                    el.classList.remove(c);
+                } else {
+                    el.className = el.className.replace( new RegExp( '(^|\\b)' + c.split(' ').join('|') + '(\\b|$)', 'gi' ), ' ' );
+                }
+            },
+
+            addEvent = function( el, eventName, eventHandler ) {
+                el.addEventListener( eventName, eventHandler );
+            },
+
+            removeEvent = function( el, eventName, eventHandler ) {
+                el.removeEventListener( eventName, eventHandler );
+            },
+
+            // Return a DOM element from:
+            // - A string selector
+            // - An array of elements
+            // - An element
+            getDomElements = function( elements, single ) {
+
+                // "elements" is DOM element or array
+                if( typeof elements === 'object' ) {
+
+                    if( 'nodeType' in elements || isArray(elements) ) {
+                        return elements;
+                    }
+                // "elements" is a string selector
+                } else if( typeof elements === 'string' ) {
+
+                    return single === true ?
+                        document.querySelector( elements ) :
+                        document.querySelectorAll( elements );
+                }
+
+                return false;
+            },
+
+            isArray = function( el ) {
+                return Object.prototype.toString.call( el ) === '[object Array]' ? true : false;
+            },
+
+            //forEach method shared
+            forEach = function( array, fn ) {
+                for ( var i = 0; i < array.length; i++ ) {
+                    fn( array[i], i );
+                }
+            };
+
+            // Offside.js factory initialization
+
             var i,
                 factorySettings;                                    // Offside factory private settings
 
@@ -58,7 +138,7 @@
                 has3d = factorySettings.disableCss3dTransforms ? false : _has3d(),       // Browser supports CSS 3d Transforms
                 openOffsideId,                                      // Tracks opened Offside instances
                 body = document.body,
-                slidingElements = document.querySelectorAll( factorySettings.slidingElementsSelector ),         // Sliding elements
+                slidingElements = getDomElements( factorySettings.slidingElementsSelector ),     // Sliding elements
                 debug = factorySettings.debug;
 
             // Offside singleton-factory Dom initialization
@@ -71,7 +151,7 @@
                 });
 
                 // DOM Fallbacks when CSS transform 3d not available
-                if( !has3d ) {
+                if ( !has3d ) {
                     // No CSS 3d Transform fallback
                     addClass( document.documentElement, 'no-csstransforms3d' ); //Adds Modernizr-like class to HTML element when CSS 3D Transforms not available
                 }
@@ -110,57 +190,6 @@
                 return ( has3d !== undefined && has3d.length > 0 && has3d !== 'none' );
             }
 
-            // Check for an open Offside instance. If so close it.
-            var closeOpenOffside = function() {
-
-                // Look for an open Offside id
-                if ( !isNaN( openOffsideId ) ) {
-                    instantiatedOffsides[ openOffsideId ].close();
-                }
-            },
-
-            // Append a class to body in order to turn on elements CSS 3D transitions
-            // only when happens the first interation with an Offside instance.
-            // Otherwise we would see Offside instances being smoothly pushed
-            // out of the screen during DOM initialization.
-            turnOnCssTransitions = function() {
-                addClass( body, transitionsClass );
-            },
-
-            // Utility functions
-            // Shared among factory and Offside instances, too
-
-            addClass = function( el, c ) {
-                if( el.classList ) {
-                    el.classList.add(c);
-                }else {
-                    el.className = ( el.className + ' ' + c ).trim();
-                }
-            },
-
-            removeClass = function( el, c ) {
-                if( el.classList ) {
-                    el.classList.remove(c);
-                }else {
-                    el.className = el.className.replace( new RegExp( '(^|\\b)' + c.split(' ').join('|') + '(\\b|$)', 'gi' ), ' ' );
-                }
-            },
-
-            addEvent = function( el, eventName, eventHandler ) {
-                el.addEventListener( eventName, eventHandler );
-            },
-
-            removeEvent = function( el, eventName, eventHandler ) {
-                el.removeEventListener( eventName, eventHandler );
-            },
-
-            //forEach method shared
-            forEach = function( array, fn ) {
-                for ( var i = 0; i < array.length; i++ ) {
-                    fn( array[i], i );
-                }
-            };
-
             // Offside constructor
             // Set up and initialize a new Offside instance
             // Called by Offside factory "getOffsideInstance()" method
@@ -191,8 +220,8 @@
                 }
 
                 // Offside instance private properties
-                var offside = document.querySelector(el) || document.querySelector( '.offside' ),  // Hello, I'm the Offside instance
-                    offsideButtons = document.querySelectorAll( offsideSettings.buttonsSelector ), // Offside toggle buttons 
+                var offside = getDomElements( el, true ) || getDomElements( '.offside', true ),    // Hello, I'm the Offside instance
+                    offsideButtons = getDomElements( offsideSettings.buttonsSelector ),            // Offside toggle buttons 
                     slidingSide = offsideSettings.slidingSide,
                     offsideClass = 'offside',                                                      // Class added to Offside instance it is intialized (eg. offside offside-left)
                     offsideSideClass = offsideClass + '--' + slidingSide,                          // Class added to Offside instance it is intialized (eg. offside offside-left)
@@ -232,6 +261,8 @@
 
                     // Add Offside instance open class
                     addClass( offside, offsideOpenClass );
+                    console.log('offff', offside);
+
 
                     // Update open Offside instances tracker
                     openOffsideId = id;
@@ -316,11 +347,11 @@
                 // Fire console errors if DOM elements are missing
                 _offsideCheckElements = function() {
 
-                    if( !offside ) {
+                    if ( !offside ) {
                         console.error( 'Offside alert: "offside" selector could not match any element' );
                     }
 
-                    if( !offsideButtons.length ) {
+                    if ( !offsideButtons.length ) {
                         console.error( 'Offside alert: "buttonsSelector" selector could not match any element' );
                     }
                 };
