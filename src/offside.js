@@ -33,12 +33,25 @@
             // Utility functions
             // Shared among factory and Offside instances, too
 
-            // Check for an open Offside instance. If so close it.
-            var closeOpenOffside = function() {
+            // Close all open Offsides.
+            // If an Offside instance id is provided, it just closes the matching instance
+            var closeOpenOffside = function( offsideId ) {
 
                 // Look for an open Offside id
-                if ( !isNaN( openOffsideId ) ) {
-                    instantiatedOffsides[ openOffsideId ].close();
+                if ( openOffsidesId.length > 0 ) {
+
+                    // Close matching Offside instance if an ID is provided
+                    if( !isNaN( offsideId ) ) {
+
+                        instantiatedOffsides[ offsideId ].close();
+                    } else {
+
+                        // Close all Offside instances 
+                        forEach( openOffsidesId, function( offsideId ){
+                            instantiatedOffsides[ offsideId ].close();
+                        });
+                    }
+
                 }
             },
 
@@ -101,6 +114,15 @@
                 return Object.prototype.toString.call( el ) === '[object Array]' ? true : false;
             },
 
+            // Check if a value exists in an array. Returns:
+            // - array index if value exists
+            // - "false" if value is not found
+            // See: http://stackoverflow.com/a/5767357
+            isInArray = function( array, value ) {
+                var index = array.indexOf( value );
+                return index > -1 ? index : false;
+            },
+
             //forEach method shared
             forEach = function( array, fn ) {
                 for ( var i = 0; i < array.length; i++ ) {
@@ -136,7 +158,7 @@
                 instantiatedOffsides = [],                          // Array containing all instantiated offside elements
                 firstInteraction = true,                            // Keep track of first Offside interaction
                 has3d = factorySettings.disableCss3dTransforms ? false : _has3d(),       // Browser supports CSS 3d Transforms
-                openOffsideId,                                      // Tracks opened Offside instances
+                openOffsidesId = [],                                // Tracks opened Offside instances id's
                 body = document.body,
                 slidingElements = getDomElements( factorySettings.slidingElementsSelector ),     // Sliding elements
                 debug = factorySettings.debug;
@@ -237,7 +259,7 @@
 
                     // Premise: Just 1 Offside instance at time can be open.
                     // If currently toggling Offside is not already open
-                    id !== openOffsideId ? _openOffside() : _closeOffside();
+                    isInArray( openOffsidesId, id ) === false ? _openOffside() : _closeOffside();
                 },
 
                 _openOffside = function() {
@@ -263,9 +285,8 @@
                     addClass( offside, offsideOpenClass );
                     console.log('offff', offside);
 
-
                     // Update open Offside instances tracker
-                    openOffsideId = id;
+                    openOffsidesId.push( id );
 
                     // After open callback
                     offsideSettings.afterOpen();
@@ -273,21 +294,28 @@
 
                 _closeOffside = function() {
 
-                    // Before close callback
-                    offsideSettings.beforeClose();
+                    // Proceed with closing stuff only if
+                    // current Offside instance is listed among openOffsidesId array
+                    var index = isInArray( openOffsidesId, id );
 
-                    // Remove global body active class for current Offside instance
-                    removeClass( body, offsideBodyOpenClass );
-                    removeClass( body, offsideBodyOpenSideClass );
+                    if( index !== false ) {
 
-                    // Remove Offside instance open class
-                    removeClass( offside, offsideOpenClass );
+                        // Before close callback
+                        offsideSettings.beforeClose();
 
-                    // Update open Offside instance tracker (use undefined!!)
-                    openOffsideId = undefined;
+                        // Remove global body active class for current Offside instance
+                        removeClass( body, offsideBodyOpenClass );
+                        removeClass( body, offsideBodyOpenSideClass );
 
-                    // Before close callback
-                    offsideSettings.afterClose();
+                        // Remove Offside instance open class
+                        removeClass( offside, offsideOpenClass );
+
+                        // Update open Offside instances tracker
+                        openOffsidesId.splice( index, 1 );
+
+                        // Before close callback
+                        offsideSettings.afterClose();
+                    }
                 },
 
                 _closeAllOffside = function() {
