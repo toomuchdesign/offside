@@ -290,6 +290,11 @@
                     offsideSettings.afterClose();
                 },
 
+                _closeAllOffside = function() {
+
+                    closeOpenOffside();
+                },
+
                 _destroyOffside = function() {
 
                     // Before destroy callback
@@ -367,6 +372,10 @@
 
                 this.close = function() {
                     _closeOffside();
+                };
+
+                this.closeAll = function() {
+                    _closeAllOffside();
                 };
 
                 this.destroy = function() {
