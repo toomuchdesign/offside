@@ -41,13 +41,15 @@ Check relative browser compatibility:
 
 ## Usage instructions
 
-### Bower:
-You can install **Offside.js** as a [Bower](http://bower.io) dependency.
+### Install:
+You can install **Offside.js** as a [Bower](http://bower.io) or [NPM](http://www.npmjs.com) dependency.
 
 ```sh
-bower install offside
-# or
+# Bower
 bower install offside --save
+
+# NPM
+npm install offside-js --save
 ```
 
 ### 1. Link files:
@@ -111,7 +113,7 @@ Use it only when you need your page to slide together with you off-canvas elemen
 ### 4. Customizable options:
 
 ```javascript
-  var myOffside = $.offside( '#my-menu', {
+  var myOffside = offside( '#my-menu', {
       
       // Global offside options: affect all offside instances
       slidingElementsSelector: '#my-content-container', // String: Sliding elements selectors ('#foo, #bar')
@@ -129,7 +131,7 @@ Use it only when you need your page to slide together with you off-canvas elemen
   
   });
 ```
-**Global offside options** are set when first Offside instance is created. This happens because **Offside factory** is created when the first `$.offside()` call occurs.
+**Global offside options** are set when first Offside instance is created. This happens because **Offside factory** is created when the first `offside()` call occurs.
 
 
 ## Public methods
@@ -141,6 +143,8 @@ Offside.js plays well with your application. Each Offside instance exposes the f
 `myOffside.open();`
 
 `myOffside.close();`
+
+`myOffside.closeAll();`
 
 `myOffside.destroy();`
 
@@ -264,9 +268,7 @@ Some ideas for the future. If you'd like to see any of the following realized, p
 - Expose Offside factory initialization method *(now called on first Offside instance initialization)*
 - Customizable Offside classes
 - Replace callbacks with global events *(maybe)*
-- Let **slidingSide** option accept any value *(now only left/right)* *(maybe)*
 - Declare a different set of sliding elements for each Offside instance
-- Let Offside.js factory accept actual DOM elements (not only selectors)
 - Add an option to let more than one Offside instance open at same time
 
 ## Working on the repository
@@ -298,6 +300,11 @@ git checkout master dist
 
 ## Version history
 
+###1.2.2 <small>**</small>
+- New **closeAll()** method at instance level 
+- **slidingSide** option accepts any value
+- Initialization trough DOM selectors, DOM element or an array of DOM elements
+- Open instances stack refactoring
 
 ###1.2.1 <small>*(12/12/2015)*</small>
 - Minor optimizations
