@@ -1,5 +1,5 @@
 {
-  "name": "offside.js",
+  "name": "offside-js",
   "version": "1.2.2",
   "description": "Minimal JavaScript kit to push things off-canvas using CSS 3D transforms & transitions",
   "main": "dist/offside.js",
