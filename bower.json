@@ -5,7 +5,7 @@
   "authors": [
     "Andrea Carraro <me@andreacarraro.it>"
   ],
-  "description": "Minimal JavaScript kit to push things off-canvas using CSS 3D transforms & transitions",
+  "description": "Minimal JavaScript kit without library dependencies to push things off-canvas using just class manipulation",
   "main": "dist/offside.js",
   "keywords": [
     "off-canvas",
