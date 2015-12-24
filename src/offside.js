@@ -94,7 +94,8 @@
             getDomElements = function( elements, single ) {
 
                 // "elements" is DOM element or array
-                if( typeof elements === 'object' ) {
+                // Watch out: typeof null === 'object'
+                if( elements !== null && typeof elements === 'object' ) {
 
                     if( 'nodeType' in elements || isArray(elements) ) {
                         return elements;
