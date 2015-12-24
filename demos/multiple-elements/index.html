@@ -81,7 +81,8 @@
                 afterClose: function(){},                           // Function: After close callback
             });
 
-            var offsideMenu2 = offside( '#menu-2', {
+            var offsideMenu2 = offside( document.getElementById('menu-2'), {
+            //var offsideMenu2 = offside( '#menu-2', {
 
                 buttonsSelector: '.menu-btn-2',                     // String: Menu toggle buttons selectors
                 slidingSide: 'right',                               // String: Off canvas menu on left or right
