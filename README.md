@@ -1,6 +1,8 @@
-# Offside.js
+<p align="center">
+    <img src="http://toomuchdesign.github.io/offside/demos/img/offside-logo.svg" width="150" alt="Offside.js shiny logo">
+</p>
 
-<img src="http://toomuchdesign.github.io/offside/demos/img/offside-logo.svg" width="150" alt="Offside.js shiny logo">
+# Offside.js
 
 **Offside.js** is a minimal JavaScript kit **without library dependencies** to push things off-canvas **using just class manipulation**. It's goal is to provide a super-lightweigth, efficient and customizable way of handling off-canvas menus/elements on modern website and web applications.
 
@@ -56,10 +58,9 @@ npm install offside-js --save
 
 ```html
   <!-- Put these into the <head> -->
-  <link rel="stylesheet" href="offside.css">
-  <script src="offside.js"></script>
+  <link rel="stylesheet" href="dist/offside.css">
+  <script src="dist/offside.js"></script>
 ```
-
 
 ### 2. Markup example:
 
@@ -267,9 +268,10 @@ Some ideas for the future. If you'd like to see any of the following realized, p
 
 - Expose Offside factory initialization method *(now called on first Offside instance initialization)*
 - Customizable Offside classes
-- Replace callbacks with global events *(maybe)*
 - Declare a different set of sliding elements for each Offside instance
 - Add an option to let more than one Offside instance open at same time
+- Replace callbacks with global events *(maybe)*
+- Remove CSS 3D Transform Support check *(maybe)*
 
 ## Working on the repository
 
@@ -300,13 +302,15 @@ git checkout master dist
 
 ## Version history
 
-###1.2.2 <small>**</small>
+###1.2.2 <small>*(24/12/2015)*</small>
+
 - New **closeAll()** method at instance level 
 - **slidingSide** option accepts any value
 - Initialization trough DOM selectors, DOM element or an array of DOM elements
 - Open instances stack refactoring
 
 ###1.2.1 <small>*(12/12/2015)*</small>
+
 - Minor optimizations
 
 ###1.2.0 <small>*(03/10/2015)*</small>
