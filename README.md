@@ -308,6 +308,7 @@ git checkout master dist
 - **slidingSide** option accepts any value
 - Initialization trough DOM selectors, DOM element or an array of DOM elements
 - Open instances stack refactoring
+- Prevent initialization on non-exiting DOM elements
 
 ###1.2.1 <small>*(12/12/2015)*</small>
 
