@@ -1,6 +1,8 @@
-# Offside.js
+<p align="center">
+    <img src="http://toomuchdesign.github.io/offside/demos/img/offside-logo.svg" width="150" alt="Offside.js shiny logo">
+</p>
 
-<img src="http://toomuchdesign.github.io/offside/demos/img/offside-logo.svg" width="150" alt="Offside.js shiny logo">
+# Offside.js
 
 **Offside.js** is a minimal JavaScript kit **without library dependencies** to push things off-canvas **using just class manipulation**. It's goal is to provide a super-lightweigth, efficient and customizable way of handling off-canvas menus/elements on modern website and web applications.
 
@@ -41,23 +43,24 @@ Check relative browser compatibility:
 
 ## Usage instructions
 
-### Bower:
-You can install **Offside.js** as a [Bower](http://bower.io) dependency.
+### Install:
+You can install **Offside.js** as a [Bower](http://bower.io) or [NPM](http://www.npmjs.com) dependency.
 
 ```sh
-bower install offside
-# or
+# Bower
 bower install offside --save
+
+# NPM
+npm install offside-js --save
 ```
 
 ### 1. Link files:
 
 ```html
   <!-- Put these into the <head> -->
-  <link rel="stylesheet" href="offside.css">
-  <script src="offside.js"></script>
+  <link rel="stylesheet" href="dist/offside.css">
+  <script src="dist/offside.js"></script>
 ```
-
 
 ### 2. Markup example:
 
@@ -111,7 +114,7 @@ Use it only when you need your page to slide together with you off-canvas elemen
 ### 4. Customizable options:
 
 ```javascript
-  var myOffside = $.offside( '#my-menu', {
+  var myOffside = offside( '#my-menu', {
       
       // Global offside options: affect all offside instances
       slidingElementsSelector: '#my-content-container', // String: Sliding elements selectors ('#foo, #bar')
@@ -129,7 +132,7 @@ Use it only when you need your page to slide together with you off-canvas elemen
   
   });
 ```
-**Global offside options** are set when first Offside instance is created. This happens because **Offside factory** is created when the first `$.offside()` call occurs.
+**Global offside options** are set when first Offside instance is created. This happens because **Offside factory** is created when the first `offside()` call occurs.
 
 
 ## Public methods
@@ -141,6 +144,8 @@ Offside.js plays well with your application. Each Offside instance exposes the f
 `myOffside.open();`
 
 `myOffside.close();`
+
+`myOffside.closeAll();`
 
 `myOffside.destroy();`
 
@@ -263,11 +268,10 @@ Some ideas for the future. If you'd like to see any of the following realized, p
 
 - Expose Offside factory initialization method *(now called on first Offside instance initialization)*
 - Customizable Offside classes
-- Replace callbacks with global events *(maybe)*
-- Let **slidingSide** option accept any value *(now only left/right)* *(maybe)*
 - Declare a different set of sliding elements for each Offside instance
-- Let Offside.js factory accept actual DOM elements (not only selectors)
 - Add an option to let more than one Offside instance open at same time
+- Replace callbacks with global events *(maybe)*
+- Remove CSS 3D Transform Support check *(maybe)*
 
 ## Working on the repository
 
@@ -298,8 +302,16 @@ git checkout master dist
 
 ## Version history
 
+###1.2.2 <small>*(24/12/2015)*</small>
+
+- New **closeAll()** method at instance level 
+- **slidingSide** option accepts any value
+- Initialization trough DOM selectors, DOM element or an array of DOM elements
+- Open instances stack refactoring
+- Prevent initialization on non-exiting DOM elements
 
 ###1.2.1 <small>*(12/12/2015)*</small>
+
 - Minor optimizations
 
 ###1.2.0 <small>*(03/10/2015)*</small>

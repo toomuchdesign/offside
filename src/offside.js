@@ -30,6 +30,109 @@
         // Global Offside singleton-factory constructor
         function initOffsideFactory( options ) {
 
+            // Utility functions
+            // Shared among factory and Offside instances, too
+
+            // Close all open Offsides.
+            // If an Offside instance id is provided, it just closes the matching instance instead
+            var closeOpenOffside = function( offsideId ) {
+
+                // Look for an open Offside id
+                if ( openOffsidesId.length > 0 ) {
+
+                    // Close matching Offside instance if an ID is provided
+                    if( !isNaN( offsideId ) ) {
+
+                        instantiatedOffsides[ offsideId ].close();
+                    } else {
+
+                        // Close all Offside instances 
+                        forEach( openOffsidesId, function( offsideId ){
+                            instantiatedOffsides[ offsideId ].close();
+                        });
+                    }
+
+                }
+            },
+
+            // Append a class to body in order to turn on elements CSS 3D transitions
+            // only when happens the first interation with an Offside instance.
+            // Otherwise we would see Offside instances being smoothly pushed
+            // out of the screen during DOM initialization.
+            turnOnCssTransitions = function() {
+                addClass( body, transitionsClass );
+            },
+
+            addClass = function( el, c ) {
+                if ( el.classList ) {
+                    el.classList.add(c);
+                } else {
+                    el.className = ( el.className + ' ' + c ).trim();
+                }
+            },
+
+            removeClass = function( el, c ) {
+                if ( el.classList ) {
+                    el.classList.remove(c);
+                } else {
+                    el.className = el.className.replace( new RegExp( '(^|\\b)' + c.split(' ').join('|') + '(\\b|$)', 'gi' ), ' ' );
+                }
+            },
+
+            addEvent = function( el, eventName, eventHandler ) {
+                el.addEventListener( eventName, eventHandler );
+            },
+
+            removeEvent = function( el, eventName, eventHandler ) {
+                el.removeEventListener( eventName, eventHandler );
+            },
+
+            // Return a DOM element from:
+            // - A string selector
+            // - An array of elements
+            // - An element
+            getDomElements = function( elements, single ) {
+
+                // "elements" is DOM element or array
+                // Watch out: typeof null === 'object'
+                if( elements !== null && typeof elements === 'object' ) {
+
+                    if( 'nodeType' in elements || isArray(elements) ) {
+                        return elements;
+                    }
+                // "elements" is a string selector
+                } else if( typeof elements === 'string' ) {
+
+                    return single === true ?
+                        document.querySelector( elements ) :
+                        document.querySelectorAll( elements );
+                }
+
+                return false;
+            },
+
+            isArray = function( el ) {
+                return Object.prototype.toString.call( el ) === '[object Array]' ? true : false;
+            },
+
+            // Check if a value exists in an array. Returns:
+            // - array index if value exists
+            // - "false" if value is not found
+            // See: http://stackoverflow.com/a/5767357
+            isInArray = function( array, value ) {
+                var index = array.indexOf( value );
+                return index > -1 ? index : false;
+            },
+
+            //forEach method shared
+            forEach = function( array, fn ) {
+                for ( var i = 0; i < array.length; i++ ) {
+                    fn( array[i], i );
+                }
+            };
+
+            // Offside.js factory initialization
+
             var i,
                 factorySettings;                                    // Offside factory private settings
 
@@ -56,9 +159,9 @@
                 instantiatedOffsides = [],                          // Array containing all instantiated offside elements
                 firstInteraction = true,                            // Keep track of first Offside interaction
                 has3d = factorySettings.disableCss3dTransforms ? false : _has3d(),       // Browser supports CSS 3d Transforms
-                openOffsideId,                                      // Tracks opened Offside instances
+                openOffsidesId = [],                                // Tracks opened Offside instances id's
                 body = document.body,
-                slidingElements = document.querySelectorAll( factorySettings.slidingElementsSelector ),         // Sliding elements
+                slidingElements = getDomElements( factorySettings.slidingElementsSelector ),     // Sliding elements
                 debug = factorySettings.debug;
 
             // Offside singleton-factory Dom initialization
@@ -71,7 +174,7 @@
                 });
 
                 // DOM Fallbacks when CSS transform 3d not available
-                if( !has3d ) {
+                if ( !has3d ) {
                     // No CSS 3d Transform fallback
                     addClass( document.documentElement, 'no-csstransforms3d' ); //Adds Modernizr-like class to HTML element when CSS 3D Transforms not available
                 }
@@ -110,61 +213,27 @@
                 return ( has3d !== undefined && has3d.length > 0 && has3d !== 'none' );
             }
 
-            // Check for an open Offside instance. If so close it.
-            var closeOpenOffside = function() {
+            // Offside constructor wrapper
+            // It supplies a wrapper around OffsideInstance constructor
+            // to prevent instance initialization when casted on a non-existing DOM element
+            // See: http://stackoverflow.com/a/8618792
+            function createOffsideInstance( el, options, offsideId ) {
 
-                // Look for an open Offside id
-                if ( !isNaN( openOffsideId ) ) {
-                    instantiatedOffsides[ openOffsideId ].close();
-                }
-            },
+                // Check if provided element exists before using it to instantiate an Offside instance
+                var domEl = el !== undefined ?
+                    getDomElements( el, true ) :
+                    getDomElements( '.offside', true );
 
-            // Append a class to body in order to turn on elements CSS 3D transitions
-            // only when happens the first interation with an Offside instance.
-            // Otherwise we would see Offside instances being smoothly pushed
-            // out of the screen during DOM initialization.
-            turnOnCssTransitions = function() {
-                addClass( body, transitionsClass );
-            },
-
-            // Utility functions
-            // Shared among factory and Offside instances, too
-
-            addClass = function( el, c ) {
-                if( el.classList ) {
-                    el.classList.add(c);
-                }else {
-                    el.className = ( el.className + ' ' + c ).trim();
-                }
-            },
-
-            removeClass = function( el, c ) {
-                if( el.classList ) {
-                    el.classList.remove(c);
-                }else {
-                    el.className = el.className.replace( new RegExp( '(^|\\b)' + c.split(' ').join('|') + '(\\b|$)', 'gi' ), ' ' );
-                }
-            },
-
-            addEvent = function( el, eventName, eventHandler ) {
-                el.addEventListener( eventName, eventHandler );
-            },
-
-            removeEvent = function( el, eventName, eventHandler ) {
-                el.removeEventListener( eventName, eventHandler );
-            },
-
-            //forEach method shared
-            forEach = function( array, fn ) {
-                for ( var i = 0; i < array.length; i++ ) {
-                    fn( array[i], i );
-                }
-            };
+                // If provided el exists initialize an Offside instance, else return null
+                return domEl !== false ?
+                    new OffsideInstance( domEl, options, offsideId ) :
+                    null;
+            }
 
             // Offside constructor
             // Set up and initialize a new Offside instance
             // Called by Offside factory "getOffsideInstance()" method
-            function OffsideInstance( el, options, offsideId ) {
+            function OffsideInstance( domEl, options, offsideId ) {
 
                 var i,
                     offsideSettings;
@@ -191,30 +260,29 @@
                 }
 
                 // Offside instance private properties
-                var offside = document.querySelector(el) || document.querySelector( '.offside' ),  // Hello, I'm the Offside instance
-                    offsideButtons = document.querySelectorAll( offsideSettings.buttonsSelector ), // Offside toggle buttons 
-
-                    slidingSide = offsideSettings.slidingSide === 'right' ? 'right' : 'left',      // Sanitize slidingSide var
-                    offsideClass = 'offside',                                                      // Class added to Offside instance it is intialized (eg. offside offside-left)
-                    offsideSideClass = offsideClass + '--' + slidingSide,                          // Class added to Offside instance it is intialized (eg. offside offside-left)
-                    offsideOpenClass = 'is-open',                                                  // Class appended to Offside instance when open
-                    offsideBodyOpenClass = globalClass + '--' + 'is-open',                         // Class appended to body when Offside instance is open (offside-left-open / offside-right-open)
-                    offsideBodyOpenSideClass = globalClass + '--is-' + slidingSide,                // Class appended to body when Offside instance is open (offside-left-open / offside-right-open)
-
-                    id = offsideId || 0;                                                           // Set Offside instance id
+                var offside = domEl,                                                        // Hello, I'm the Offside instance
+                    offsideButtons = getDomElements( offsideSettings.buttonsSelector ),     // Offside toggle buttons 
+                    slidingSide = offsideSettings.slidingSide,
+                    offsideClass = 'offside',                                               // Class added to Offside instance when initialized
+                    offsideSideClass = offsideClass + '--' + slidingSide,                   // Class added to Offside instance when initialized (eg. offside offside--left)
+                    offsideOpenClass = 'is-open',                                           // Class appended to Offside instance when open
+                    offsideBodyOpenClass = globalClass + '--' + 'is-open',                  // Class appended to body when an Offside instance is open (offside-js--is-open)
+                    offsideBodyOpenSideClass = globalClass + '--is-' + slidingSide,         // Class appended to body when Offside instance is open (eg. offside-js--is-left / offside-js--is-open)
+                    id = offsideId || 0;                                                           // Offside instance id
 
                 // Offside instance private methods
 
                 var _toggleOffside = function() {
 
                     // Premise: Just 1 Offside instance at time can be open.
-                    // If currently toggling Offside is not already open
-                    id !== openOffsideId ? _openOffside() : _closeOffside();
+
+                    // Check currently toggling Offside status
+                    isInArray( openOffsidesId, id ) === false ? _openOffside() : _closeOffside();
                 },
 
                 _openOffside = function() {
 
-                    // Before open callback
+                    // beforeOpen callback
                     offsideSettings.beforeOpen();
 
                     // Turn on CSS transitions on first interaction with an Offside instance
@@ -235,34 +303,46 @@
                     addClass( offside, offsideOpenClass );
 
                     // Update open Offside instances tracker
-                    openOffsideId = id;
+                    openOffsidesId.push( id );
 
-                    // After open callback
+                    // afterOpen callback
                     offsideSettings.afterOpen();
                 },
 
                 _closeOffside = function() {
 
-                    // Before close callback
-                    offsideSettings.beforeClose();
+                    // Proceed with closing stuff only if
+                    // current Offside instance is listed among openOffsidesId array
+                    var index = isInArray( openOffsidesId, id );
 
-                    // Remove global body active class for current Offside instance
-                    removeClass( body, offsideBodyOpenClass );
-                    removeClass( body, offsideBodyOpenSideClass );
+                    if( index !== false ) {
 
-                    // Remove Offside instance open class
-                    removeClass( offside, offsideOpenClass );
+                        // beforeClose callback
+                        offsideSettings.beforeClose();
 
-                    // Update open Offside instance tracker (use undefined!!)
-                    openOffsideId = undefined;
+                        // Remove global body active class for current Offside instance
+                        removeClass( body, offsideBodyOpenClass );
+                        removeClass( body, offsideBodyOpenSideClass );
 
-                    // Before close callback
-                    offsideSettings.afterClose();
+                        // Remove Offside instance open class
+                        removeClass( offside, offsideOpenClass );
+
+                        // Update open Offside instances tracker
+                        openOffsidesId.splice( index, 1 );
+
+                        // afterClose callback
+                        offsideSettings.afterClose();
+                    }
+                },
+
+                _closeAllOffside = function() {
+
+                    closeOpenOffside();
                 },
 
                 _destroyOffside = function() {
 
-                    // Before destroy callback
+                    // beforeDestroy callback
                     offsideSettings.beforeDestroy();
 
                     //Close Offside intance before destroy
@@ -276,7 +356,7 @@
                     // Destroy Offside instance
                     delete instantiatedOffsides[id];
 
-                    // After destroy callback
+                    // afterDestroy callback
                     offsideSettings.afterDestroy();
                 },
 
@@ -317,11 +397,11 @@
                 // Fire console errors if DOM elements are missing
                 _offsideCheckElements = function() {
 
-                    if( !offside ) {
+                    if ( !offside ) {
                         console.error( 'Offside alert: "offside" selector could not match any element' );
                     }
 
-                    if( !offsideButtons.length ) {
+                    if ( !offsideButtons.length ) {
                         console.error( 'Offside alert: "buttonsSelector" selector could not match any element' );
                     }
                 };
@@ -337,6 +417,10 @@
 
                 this.close = function() {
                     _closeOffside();
+                };
+
+                this.closeAll = function() {
+                    _closeAllOffside();
                 };
 
                 this.destroy = function() {
@@ -364,12 +448,20 @@
                 // and register it into "instantiatedOffsides" array
                 getOffsideInstance: function( el, options ) {
 
-                    // Get length of instantiated Offsides array
-                    var offsideId = instantiatedOffsides.length || 0;
+                        // Get length of instantiated Offsides array
+                    var offsideId = instantiatedOffsides.length || 0,
 
-                    // Instantiate new Offside instance,
-                    // push it into "instantiatedOffsides" array and return it
-                    return instantiatedOffsides[ offsideId ] = new OffsideInstance( el, options, offsideId );
+                        // Instantiate new Offside instance
+                        offsideInstance = createOffsideInstance( el, options, offsideId );
+
+                    // If Offside instance is sccessfully created
+                    if ( offsideInstance !== null ) {
+
+                        // Push new instance into "instantiatedOffsides" array and return it
+                        return instantiatedOffsides[ offsideId ] = offsideInstance;
+                    }
+
+
                 }
 
             };
