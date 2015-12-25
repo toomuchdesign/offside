@@ -1,4 +1,4 @@
-/* offside-js 1.2.2 24-12-2015
+/* offside-js 1.2.3 25-12-2015
 * Minimal JavaScript kit without library dependencies to push things off-canvas using just class manipulation
 * https://github.com/toomuchdesign/offside.git
 *

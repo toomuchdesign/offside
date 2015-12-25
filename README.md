@@ -302,6 +302,10 @@ git checkout master dist
 
 ## Version history
 
+###1.2.3 <small>*(25/12/2015)*</small>
+
+- bower.json fix - *sorry!*
+
 ###1.2.2 <small>*(24/12/2015)*</small>
 
 - New **closeAll()** method at instance level 
