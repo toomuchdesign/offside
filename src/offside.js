@@ -97,7 +97,7 @@
                 // Watch out: typeof null === 'object'
                 if( elements !== null && typeof elements === 'object' ) {
 
-                    if( 'nodeType' in elements || isArray(elements) ) {
+                    if( 'nodeType' in elements || isArray( elements ) ) {
                         return elements;
                     }
                 // "elements" is a string selector
@@ -485,7 +485,7 @@
     })();
 
     // Store in window a reference to the Offside singleton factory
-    if ( typeof module !== "undefined" && module.exports ) {
+    if ( typeof module !== 'undefined' && module.exports ) {
         module.exports = offside.getInstance;
     } else {
         window.offside = offside.getInstance;
