@@ -304,7 +304,12 @@ git checkout master dist
 
 ## Version history
 
+###1.3.0 <small>*(??)*</small>
+
+- Class cleaning on Offside destroy
+
 ###1.2.4 <small>*(20/03/2016)*</small>
+
 - Fix slidingElements wrong default initialization
 - Fix getDomElements error when receives an empty string
 - Patch module.export bug ( It still relies on window object, new major release coming soon )

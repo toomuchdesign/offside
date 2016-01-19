@@ -340,26 +340,6 @@
                     closeOpenOffside();
                 },
 
-                _destroyOffside = function() {
-
-                    // beforeDestroy callback
-                    offsideSettings.beforeDestroy();
-
-                    //Close Offside intance before destroy
-                    _closeOffside();
-
-                    // Remove click event from Offside buttons
-                    forEach( offsideButtons, function( item ) {
-                        removeEvent( item, 'click', _onButtonClick );
-                    });
-
-                    // Destroy Offside instance
-                    delete instantiatedOffsides[id];
-
-                    // afterDestroy callback
-                    offsideSettings.afterDestroy();
-                },
-
                 // Offside buttons click handler
                 _onButtonClick = function( e ) {
 
@@ -381,7 +361,7 @@
                         _checkElements();
                     }
 
-                    //Add classes to Offside instance (.offside and .offside{slidingSide})
+                    // Append classes to Offside instance (.offside and .offside{slidingSide})
                     addClass( offside, offsideClass );
                     addClass( offside, offsideSideClass );
 
@@ -392,6 +372,30 @@
 
                     // Init callback
                     offsideSettings.init();
+                },
+
+                _destroyOffside = function() {
+
+                    // beforeDestroy callback
+                    offsideSettings.beforeDestroy();
+
+                    // Close Offside intance before destroy
+                    _closeOffside();
+
+                    // Remove click event from Offside buttons
+                    forEach( offsideButtons, function( item ) {
+                        removeEvent( item, 'click', _onButtonClick );
+                    });
+
+                    // Remove classes appended on init phase
+                    removeClass( offside, offsideClass );
+                    removeClass( offside, offsideSideClass );
+
+                    // Destroy Offside instance
+                    delete instantiatedOffsides[id];
+
+                    // afterDestroy callback
+                    offsideSettings.afterDestroy();
                 },
 
                 // Fire console errors if DOM elements are missing
