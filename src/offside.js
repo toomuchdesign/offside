@@ -91,21 +91,20 @@
             // - A string selector
             // - An array of elements
             // - An element
-            getDomElements = function( elements, single ) {
+            getDomElements = function( els, single ) {
 
-                // "elements" is DOM element or array
+                // "els" is DOM element or array
                 // Watch out: typeof null === 'object'
-                if( elements !== null && typeof elements === 'object' ) {
+                if( els !== null && typeof els === 'object' ) {
 
-                    if( 'nodeType' in elements || isArray( elements ) ) {
-                        return elements;
+                    if( 'nodeType' in els || isArray( els ) ) {
+                        return els;
                     }
                 // "elements" is a string selector
-                } else if( typeof elements === 'string' && elements !== '' ) {
-
+                } else if( typeof els === 'string' && els !== '' ) {
                     return single === true ?
-                        document.querySelector( elements ) :
-                        document.querySelectorAll( elements );
+                        document.querySelector( els ) :
+                        document.querySelectorAll( els );
                 }
 
                 return false;
@@ -119,15 +118,15 @@
             // - array index if value exists
             // - "false" if value is not found
             // See: http://stackoverflow.com/a/5767357
-            isInArray = function( array, value ) {
-                var index = array.indexOf( value );
+            isInArray = function( arr, value ) {
+                var index = arr.indexOf( value );
                 return index > -1 ? index : false;
             },
 
             //forEach method shared
-            forEach = function( array, fn ) {
-                for ( var i = 0; i < array.length; i++ ) {
-                    fn( array[i], i );
+            forEach = function( arr, fn ) {
+                for ( var i = 0; i < arr.length; i++ ) {
+                    fn( arr[i], i );
                 }
             };
 
