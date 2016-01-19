@@ -375,10 +375,10 @@
                 */
                
                 // Set up and initialize a new Offside instance
-                _offsideInit = function() {
+                _initOffside = function() {
 
                     if ( debug ) {
-                        _offsideCheckElements();
+                        _checkElements();
                     }
 
                     //Add classes to Offside instance (.offside and .offside{slidingSide})
@@ -395,7 +395,7 @@
                 },
 
                 // Fire console errors if DOM elements are missing
-                _offsideCheckElements = function() {
+                _checkElements = function() {
 
                     if ( !offside ) {
                         console.error( 'Offside alert: "offside" selector could not match any element' );
@@ -428,7 +428,7 @@
                 };
 
                 // Ok, init Offside instance
-                _offsideInit();
+                _initOffside();
 
             } // OffsideInstance constructor end
 
