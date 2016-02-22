@@ -41,7 +41,7 @@
                 if ( openOffsidesId.length > 0 ) {
 
                     // Close matching Offside instance if an ID is provided
-                    if( !isNaN( offsideId ) ) {
+                    if ( !isNaN( offsideId ) ) {
 
                         instantiatedOffsides[ offsideId ].close();
                     } else {
@@ -95,9 +95,9 @@
 
                 // "els" is DOM element or array
                 // Watch out: typeof null === 'object'
-                if( els !== null && typeof els === 'object' ) {
+                if ( els !== null && typeof els === 'object' ) {
 
-                    if( 'nodeType' in els || Array.isArray( els ) ) {
+                    if ( 'nodeType' in els || Array.isArray( els ) ) {
                         return els;
                     }
                 // "elements" is a string selector
@@ -119,7 +119,7 @@
                 return index > -1 ? index : false;
             },
 
-            //forEach method shared
+            // forEach shared method
             forEach = function( arr, fn ) {
                 for ( var i = 0; i < arr.length; i++ ) {
                     fn( arr[i], i );
@@ -310,7 +310,7 @@
                     // current Offside instance is listed among openOffsidesId array
                     var index = isInArray( openOffsidesId, id );
 
-                    if( index !== false ) {
+                    if ( index !== false ) {
 
                         // beforeClose callback
                         offsideSettings.beforeClose();
