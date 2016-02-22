@@ -91,43 +91,44 @@
             // - A string selector
             // - An array of elements
             // - An element
-            getDomElements = function( elements, single ) {
+            getDomElements = function( els, single ) {
 
-                // "elements" is DOM element or array
+                // "els" is DOM element or array
                 // Watch out: typeof null === 'object'
-                if( elements !== null && typeof elements === 'object' ) {
+                if( els !== null && typeof els === 'object' ) {
 
                     if( 'nodeType' in elements || isArray( elements ) ) {
                         return elements;
                     }
                 // "elements" is a string selector
                 } else if( typeof elements === 'string' && elements !== '' ) {
+                    if( 'nodeType' in els || Array.isArray( els ) ) {
+                        return els;
+                    }
+                // "els" is a string selector
+                } else if( typeof els === 'string' ) {
 
                     return single === true ?
-                        document.querySelector( elements ) :
-                        document.querySelectorAll( elements );
+                        document.querySelector( els ) :
+                        document.querySelectorAll( els );
                 }
 
                 return false;
-            },
-
-            isArray = function( el ) {
-                return Object.prototype.toString.call( el ) === '[object Array]' ? true : false;
             },
 
             // Check if a value exists in an array. Returns:
             // - array index if value exists
             // - "false" if value is not found
             // See: http://stackoverflow.com/a/5767357
-            isInArray = function( array, value ) {
-                var index = array.indexOf( value );
+            isInArray = function( arr, value ) {
+                var index = arr.indexOf( value );
                 return index > -1 ? index : false;
             },
 
             //forEach method shared
-            forEach = function( array, fn ) {
-                for ( var i = 0; i < array.length; i++ ) {
-                    fn( array[i], i );
+            forEach = function( arr, fn ) {
+                for ( var i = 0; i < arr.length; i++ ) {
+                    fn( arr[i], i );
                 }
             };
 
@@ -340,26 +341,6 @@
                     closeOpenOffside();
                 },
 
-                _destroyOffside = function() {
-
-                    // beforeDestroy callback
-                    offsideSettings.beforeDestroy();
-
-                    //Close Offside intance before destroy
-                    _closeOffside();
-
-                    // Remove click event from Offside buttons
-                    forEach( offsideButtons, function( item ) {
-                        removeEvent( item, 'click', _onButtonClick );
-                    });
-
-                    // Destroy Offside instance
-                    delete instantiatedOffsides[id];
-
-                    // afterDestroy callback
-                    offsideSettings.afterDestroy();
-                },
-
                 // Offside buttons click handler
                 _onButtonClick = function( e ) {
 
@@ -375,13 +356,13 @@
                 */
                
                 // Set up and initialize a new Offside instance
-                _offsideInit = function() {
+                _initOffside = function() {
 
                     if ( debug ) {
-                        _offsideCheckElements();
+                        _checkElements();
                     }
 
-                    //Add classes to Offside instance (.offside and .offside{slidingSide})
+                    // Append classes to Offside instance (.offside and .offside{slidingSide})
                     addClass( offside, offsideClass );
                     addClass( offside, offsideSideClass );
 
@@ -394,8 +375,32 @@
                     offsideSettings.init();
                 },
 
+                _destroyOffside = function() {
+
+                    // beforeDestroy callback
+                    offsideSettings.beforeDestroy();
+
+                    // Close Offside intance before destroy
+                    _closeOffside();
+
+                    // Remove click event from Offside buttons
+                    forEach( offsideButtons, function( item ) {
+                        removeEvent( item, 'click', _onButtonClick );
+                    });
+
+                    // Remove classes appended on init phase
+                    removeClass( offside, offsideClass );
+                    removeClass( offside, offsideSideClass );
+
+                    // Destroy Offside instance
+                    delete instantiatedOffsides[id];
+
+                    // afterDestroy callback
+                    offsideSettings.afterDestroy();
+                },
+
                 // Fire console errors if DOM elements are missing
-                _offsideCheckElements = function() {
+                _checkElements = function() {
 
                     if ( !offside ) {
                         console.error( 'Offside alert: "offside" selector could not match any element' );
@@ -428,7 +433,7 @@
                 };
 
                 // Ok, init Offside instance
-                _offsideInit();
+                _initOffside();
 
             } // OffsideInstance constructor end
 

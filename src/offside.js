@@ -97,7 +97,7 @@
                 // Watch out: typeof null === 'object'
                 if( els !== null && typeof els === 'object' ) {
 
-                    if( 'nodeType' in els || isArray( els ) ) {
+                    if( 'nodeType' in els || Array.isArray( els ) ) {
                         return els;
                     }
                 // "elements" is a string selector
@@ -108,10 +108,6 @@
                 }
 
                 return false;
-            },
-
-            isArray = function( el ) {
-                return Object.prototype.toString.call( el ) === '[object Array]' ? true : false;
             },
 
             // Check if a value exists in an array. Returns:
