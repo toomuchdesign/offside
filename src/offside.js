@@ -46,8 +46,8 @@
                         instantiatedOffsides[ offsideId ].close();
                     } else {
 
-                        // Close all Offside instances 
-                        forEach( openOffsidesId, function( offsideId ){
+                        // Close all Offside instances
+                        openOffsidesId.forEach( function( offsideId ) {
                             instantiatedOffsides[ offsideId ].close();
                         });
                     }
@@ -121,13 +121,6 @@
             isInArray = function( arr, value ) {
                 var index = arr.indexOf( value );
                 return index > -1 ? index : false;
-            },
-
-            // forEach shared method
-            forEach = function( arr, fn ) {
-                for ( var i = 0; i < arr.length; i++ ) {
-                    fn( arr[i], i );
-                }
             };
 
             // Offside.js factory initialization
@@ -168,7 +161,7 @@
             function _factoryDomInit() {
 
                 // Add class to sliding elements
-                forEach( slidingElements, function( item ){
+                slidingElements.forEach( function( item ) {
                     addClass( item, slidingElementsClass );
                 });
 
@@ -365,7 +358,7 @@
                     addClass( offside, offsideSideClass );
 
                     // Toggle Offside on click event
-                    forEach( offsideButtons, function( item ) {
+                    offsideButtons.forEach( function( item ) {
                         addEvent( item, 'click', _onButtonClick );
                     });
 
@@ -382,7 +375,7 @@
                     _closeOffside();
 
                     // Remove click event from Offside buttons
-                    forEach( offsideButtons, function( item ) {
+                    offsideButtons.forEach( function( item ) {
                         removeEvent( item, 'click', _onButtonClick );
                     });
 
