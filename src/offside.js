@@ -87,24 +87,28 @@
                 el.removeEventListener( eventName, eventHandler );
             },
 
-            // Return a DOM element from:
+            // Return a collection (array) of DOM elements from:
+            // - A DOM element
+            // - An array of DOM elements
             // - A string selector
-            // - An array of elements
-            // - An element
-            getDomElements = function( els, single ) {
+            getDomElements = function( els ) {
 
-                // "els" is DOM element or array
-                // Watch out: typeof null === 'object'
-                if ( els !== null && typeof els === 'object' ) {
+                // "els" is a DOM element
+                // http://stackoverflow.com/a/120275/2902821
+                if( els instanceof HTMLElement ){
+                    return [ els ];
+                }
 
-                    if ( 'nodeType' in els || Array.isArray( els ) ) {
-                        return els;
-                    }
-                // "elements" is a string selector
-                } else if( typeof els === 'string' && els !== '' ) {
-                    return single === true ?
-                        document.querySelector( els ) :
-                        document.querySelectorAll( els );
+                // "els" is an array
+                else if( Array.isArray( els ) ) {
+                    return els;
+                }
+
+                // "els" is a string
+                else if( typeof els === 'string' ) {
+                    // Convert Nodelist into an array
+                    // http://www.jstips.co/en/converting-a-node-list-to-an-array/
+                    return Array.apply( null, document.querySelectorAll( els ) );
                 }
 
                 return false;
@@ -216,12 +220,12 @@
 
                 // Check if provided element exists before using it to instantiate an Offside instance
                 var domEl = el !== undefined ?
-                    getDomElements( el, true ) :
-                    getDomElements( '.offside', true );
+                    getDomElements( el ) :
+                    getDomElements( '.offside' );
 
                 // If provided el exists initialize an Offside instance, else return null
                 return domEl !== false ?
-                    new OffsideInstance( domEl, options, offsideId ) :
+                    new OffsideInstance( domEl[0], options, offsideId ) :
                     null;
             }
 
