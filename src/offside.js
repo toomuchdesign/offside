@@ -22,10 +22,14 @@
 
     'use strict';
 
+    var offsideFactoryInstance = null;              // Store reference to singleton offside factory
+
     // Self-invoking function returning the object which contains
     // the "getInstance" method used for initializing
     // the Offside sigleton factory
     var offside = (function () {
+
+        //var offsideFactoryInstance = null;          // Reference to singleton Offside factory
 
         // Global Offside singleton-factory constructor
         function initOffsideFactory( options ) {
@@ -35,7 +39,7 @@
 
             // Close all open Offsides.
             // If an Offside instance id is provided, it just closes the matching instance instead
-            var closeOpenOffside = function( offsideId ) {
+            var closeAll = function( offsideId ) {
 
                 // Look for an open Offside id
                 if ( openOffsidesId.length > 0 ) {
@@ -285,7 +289,7 @@
 
                     // If another Offside instance is already open,
                     // close it before going on
-                    closeOpenOffside();
+                    closeAll();
 
                     // Set global body active class for current Offside instance
                     addClass( body, offsideBodyOpenClass );
@@ -327,9 +331,9 @@
                     }
                 },
 
-                _closeAllOffside = function() {
+                _closeAll = function() {
 
-                    closeOpenOffside();
+                    closeAll();
                 },
 
                 // Offside buttons click handler
@@ -416,7 +420,7 @@
                 };
 
                 this.closeAll = function() {
-                    _closeAllOffside();
+                    _closeAll();
                 };
 
                 this.destroy = function() {
@@ -436,8 +440,8 @@
             return {
 
                 //Offside factory public methods
-                closeOpenOffside: function() {
-                    closeOpenOffside();
+                closeAll: function() {
+                    closeAll();
                 },
 
                 // This is the method responsible for creating a new Offside instance
@@ -466,15 +470,29 @@
 
         return {
 
-            // Get the Singleton instance if one exists
-            // or create one if it doesn't
-            getInstance: function ( el, options ) {
+            // Initialize Offside factory
+            init: function ( options ) {
 
-                if ( !window.offside.factory ) {
-                    window.offside.factory = initOffsideFactory( options );
+                if ( offsideFactoryInstance === null ) {
+                    offsideFactoryInstance = initOffsideFactory( options );
+                    return true;
+                } else {
+                    return false;
+                }
+            },
+            // Initialize Offside factory (if still not)
+            // and a new offside instance
+            new: function ( el, options ) {
+
+                if ( offsideFactoryInstance === null ) {
+                    offsideFactoryInstance = initOffsideFactory( options );
                 }
 
-                return window.offside.factory.getOffsideInstance( el, options );
+                return offsideFactoryInstance.getOffsideInstance( el, options );
+            },
+
+            closeAll: function() {
+                offsideFactoryInstance.closeAll();
             }
         };
      
@@ -482,9 +500,9 @@
 
     // Store in window a reference to the Offside singleton factory
     if ( typeof module !== 'undefined' && module.exports ) {
-        module.exports = offside.getInstance;
+        module.exports = offside;
     } else {
-        window.offside = offside.getInstance;
+        window.offside = offside;
     }
 
 })( window, document );
