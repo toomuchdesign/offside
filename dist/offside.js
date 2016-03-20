@@ -485,10 +485,13 @@
     })();
 
     // Store in window a reference to the Offside singleton factory
-    if ( typeof module !== 'undefined' && module.exports ) {
-        module.exports = offside.getInstance;
-    } else {
+    if ( window ) {
         window.offside = offside.getInstance;
+    }
+
+    // Store offside reference into module.export
+    if ( typeof module !== 'undefined' && module.exports ) {
+        module.exports = window.offside;
     }
 
 })( window, document );
