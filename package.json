@@ -1,6 +1,6 @@
 {
   "name": "offside-js",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "Minimal JavaScript kit without library dependencies to push things off-canvas using just class manipulation",
   "main": "dist/offside.js",
   "repository": {
