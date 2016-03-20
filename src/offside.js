@@ -139,9 +139,9 @@
             // Default factory settings
             factorySettings = {
 
-                slidingElementsSelector: 'offside-sliding-element', // String: Sliding elements selectors ('#foo, #bar')
-                disableCss3dTransforms: false,                      // Disable CSS 3d Transforms support (for testing purposes)
-                debug: false,                                       // Boolean: If true, print errors in console
+                slidingElementsSelector: '.offside-sliding-element',    // String: Default sliding elements selectors ('#foo, #bar')
+                disableCss3dTransforms: false,                          // Disable CSS 3d Transforms support (for testing purposes)
+                debug: false,                                           // Boolean: If true, print errors in console
             };
 
             // User defined factory settings
