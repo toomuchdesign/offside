@@ -13,6 +13,14 @@
   "bugs": {
     "url": "https://github.com/toomuchdesign/offside/issues"
   },
+  "scripts": {
+    "test": "grunt jshint",
+    "setup": "npm prune && npm install && npm update",
+    "build": "npm run setup && grunt build",
+    "preversion": "npm test",
+    "version": "git add package.json",
+    "postversion": "git push && git push --tags"
+  },
   "devDependencies": {
     "grunt": "~0.4.x",
     "grunt-contrib-copy": "~0.6.x",
