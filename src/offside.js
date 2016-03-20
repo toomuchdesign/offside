@@ -101,7 +101,7 @@
                         return elements;
                     }
                 // "elements" is a string selector
-                } else if( typeof elements === 'string' ) {
+                } else if( typeof elements === 'string' && elements !== '' ) {
 
                     return single === true ?
                         document.querySelector( elements ) :
