@@ -302,6 +302,10 @@ git checkout master dist
 
 ## Version history
 
+###1.2.4 <small>*(20/03/2016)*</small>
+- Fix slidingElements wrong default initialization
+- Fix getDomElements error when receives an empty string
+
 ###1.2.3 <small>*(25/12/2015)*</small>
 
 - bower.json fix - *sorry!*
