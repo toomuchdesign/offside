@@ -184,6 +184,11 @@
             // Testing for CSS 3D Transform Support
             // https://gist.github.com/lorenzopolidori/3794226
             function _has3d() {
+
+                if ( !window.getComputedStyle ) {
+                    return false;
+                }
+
                 var el = document.createElement('p'),
                 has3d,
                 transforms = {
