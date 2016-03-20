@@ -305,6 +305,7 @@ git checkout master dist
 ###1.2.4 <small>*(20/03/2016)*</small>
 - Fix slidingElements wrong default initialization
 - Fix getDomElements error when receives an empty string
+- Patch module.export bug ( It still relies on window object, new major release coming soon )
 
 ###1.2.3 <small>*(25/12/2015)*</small>
 
