@@ -1,4 +1,4 @@
-/* offside-js 1.2.3 25-12-2015
+/* offside-js 1.2.4 20-03-2016
 * Minimal JavaScript kit without library dependencies to push things off-canvas using just class manipulation
 * https://github.com/toomuchdesign/offside.git
 *
@@ -97,11 +97,11 @@
                 // Watch out: typeof null === 'object'
                 if( elements !== null && typeof elements === 'object' ) {
 
-                    if( 'nodeType' in elements || isArray(elements) ) {
+                    if( 'nodeType' in elements || isArray( elements ) ) {
                         return elements;
                     }
                 // "elements" is a string selector
-                } else if( typeof elements === 'string' ) {
+                } else if( typeof elements === 'string' && elements !== '' ) {
 
                     return single === true ?
                         document.querySelector( elements ) :
@@ -139,9 +139,9 @@
             // Default factory settings
             factorySettings = {
 
-                slidingElementsSelector: 'offside-sliding-element', // String: Sliding elements selectors ('#foo, #bar')
-                disableCss3dTransforms: false,                      // Disable CSS 3d Transforms support (for testing purposes)
-                debug: false,                                       // Boolean: If true, print errors in console
+                slidingElementsSelector: '.offside-sliding-element',    // String: Default sliding elements selectors ('#foo, #bar')
+                disableCss3dTransforms: false,                          // Disable CSS 3d Transforms support (for testing purposes)
+                debug: false,                                           // Boolean: If true, print errors in console
             };
 
             // User defined factory settings
@@ -485,7 +485,7 @@
     })();
 
     // Store in window a reference to the Offside singleton factory
-    if ( typeof module !== "undefined" && module.exports ) {
+    if ( typeof module !== 'undefined' && module.exports ) {
         module.exports = offside.getInstance;
     } else {
         window.offside = offside.getInstance;
