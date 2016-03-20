@@ -77,7 +77,7 @@ module.exports = function(grunt) {
     grunt.registerTask(
         'default', 
         'Watches the project for changes, automatically and exports static files.', 
-        [ 'watch' ]
+        [ 'build', 'watch' ]
     );
 
     grunt.registerTask(
