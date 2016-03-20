@@ -279,7 +279,7 @@ Some ideas for the future. If you'd like to see any of the following realized, p
 
 **Offside.js is currently actively mantained**. Any open issue, pull request, contribution, idea to make Offside.js a better tool are welcome!
 
-[GruntJS](http://gruntjs.com/) is used for the build process, which means **node** and **npm** are required. If you already have them on your machine, you can install Grunt and all build dependencies using:
+[GruntJS](http://gruntjs.com/) is used for the build process, which means **node** and **npm** are required. If you already have them on your machine, you can install Grunt and build dependencies using:
 
 ```sh
 npm install -g grunt-cli
@@ -292,6 +292,8 @@ Once everything is set up, work in `src` directory and let Grunt build `dist` fi
 grunt
 # or
 grunt build
+# or
+npm run build
 ```
 
 ### Updating gh-pages branch (just a reminder)
@@ -307,6 +309,9 @@ git checkout master dist
 ###1.3.0 <small>*(??)*</small>
 
 - Class cleaning on Offside destroy
+- Switch to ES5 native methods
+- Remove offside menu classes on destroy
+- Refactor getDomElements private method
 
 ###1.2.4 <small>*(20/03/2016)*</small>
 
