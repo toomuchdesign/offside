@@ -29,8 +29,6 @@
     // the Offside sigleton factory
     var offside = (function () {
 
-        //var offsideFactoryInstance = null;          // Reference to singleton Offside factory
-
         // Global Offside singleton-factory constructor
         function initOffsideFactory( options ) {
 
