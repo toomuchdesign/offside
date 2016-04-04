@@ -25,6 +25,7 @@ Offside.js is a fast growing kid, please feel free to [drop me a line](https://t
 - Uses CSS3 3D transforms (if you want to)
 - No injected style. Offside entirely relies on classes manipulations
 - BEM-like style
+- Requirable through require('offside-js')
 - Degrades gracefully on browsers not supporting CSS3 3D transforms
 - Handles multiple off-canvas elements
 - Left/right off-canvas
@@ -270,6 +271,7 @@ Some ideas for the future. If you'd like to see any of the following realized, p
 - Customizable Offside classes
 - Declare a different set of sliding elements for each Offside instance
 - Add an option to let more than one Offside instance open at same time
+- Replace GruntJS with npm scripts task
 - Replace callbacks with global events *(maybe)*
 - Remove CSS 3D Transform Support check *(maybe)*
 
