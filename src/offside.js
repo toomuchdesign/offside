@@ -6,9 +6,6 @@
 * Available under the MIT license
 */
 
-/*jslint browser: true*/
-/*jshint -W093 */
-
 ;(function ( window, document, undefined ) {
 
     /*
@@ -461,7 +458,10 @@
                     if ( offsideInstance !== null ) {
 
                         // Push new instance into "instantiatedOffsides" array and return it
+
+                        /*jshint -W093 */
                         return instantiatedOffsides[ offsideId ] = offsideInstance;
+                        /*jshint +W093 */
                     }
 
 

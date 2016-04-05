@@ -312,6 +312,7 @@ git checkout master dist
 - Switch to ES5 native methods
 - Remove offside menu classes on destroy
 - Refactor getDomElements private method
+- Remove inline global JSHint config
 
 ###1.2.4 <small>*(20/03/2016)*</small>
 
