@@ -306,7 +306,7 @@ git checkout master dist
 
 ## Version history
 
-###1.3.0 <small>*(??)*</small>
+###1.3.0 <small>*(27/04/2016)*</small>
 
 - Class cleaning on Offside destroy
 - Switch to ES5 native methods
