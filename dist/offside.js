@@ -1,13 +1,10 @@
-/* offside-js 1.2.4 20-03-2016
+/* offside-js 1.2.4 27-04-2016
 * Minimal JavaScript kit without library dependencies to push things off-canvas using just class manipulation
 * https://github.com/toomuchdesign/offside.git
 *
 * by Andrea Carraro
 * Available under the MIT license
 */
-
-/*jslint browser: true*/
-/*jshint -W093 */
 
 ;(function ( window, document, undefined ) {
 
@@ -22,6 +19,8 @@
 
     'use strict';
 
+    var offsideFactoryInstance = null;              // Store reference to singleton offside factory
+
     // Self-invoking function returning the object which contains
     // the "getInstance" method used for initializing
     // the Offside sigleton factory
@@ -35,7 +34,7 @@
 
             // Close all open Offsides.
             // If an Offside instance id is provided, it just closes the matching instance instead
-            var closeOpenOffside = function( offsideId ) {
+            var closeAll = function( offsideId ) {
 
                 // Look for an open Offside id
                 if ( openOffsidesId.length > 0 ) {
@@ -46,8 +45,8 @@
                         instantiatedOffsides[ offsideId ].close();
                     } else {
 
-                        // Close all Offside instances 
-                        forEach( openOffsidesId, function( offsideId ){
+                        // Close all Offside instances
+                        openOffsidesId.forEach( function( offsideId ) {
                             instantiatedOffsides[ offsideId ].close();
                         });
                     }
@@ -87,25 +86,28 @@
                 el.removeEventListener( eventName, eventHandler );
             },
 
-            // Return a DOM element from:
+            // Return a collection (array) of DOM elements from:
+            // - A DOM element
+            // - An array of DOM elements
             // - A string selector
-            // - An array of elements
-            // - An element
-            getDomElements = function( els, single ) {
+            getDomElements = function( els ) {
 
-                // "els" is DOM element or array
-                // Watch out: typeof null === 'object'
-                if ( els !== null && typeof els === 'object' ) {
+                // "els" is a DOM element
+                // http://stackoverflow.com/a/120275/2902821
+                if( els instanceof HTMLElement ){
+                    return [ els ];
+                }
 
-                    if ( 'nodeType' in els || Array.isArray( els ) ) {
-                        return els;
-                    }
-                // "elements" is a string selector
-                } else if( typeof els === 'string' && els !== '' ) {
+                // "els" is an array
+                else if( Array.isArray( els ) ) {
+                    return els;
+                }
 
-                    return single === true ?
-                        document.querySelector( els ) :
-                        document.querySelectorAll( els );
+                // "els" is a string
+                else if( typeof els === 'string' ) {
+                    // Convert Nodelist into an array
+                    // http://www.jstips.co/en/converting-a-node-list-to-an-array/
+                    return Array.apply( null, document.querySelectorAll( els ) );
                 }
 
                 return false;
@@ -118,13 +120,6 @@
             isInArray = function( arr, value ) {
                 var index = arr.indexOf( value );
                 return index > -1 ? index : false;
-            },
-
-            // forEach shared method
-            forEach = function( arr, fn ) {
-                for ( var i = 0; i < arr.length; i++ ) {
-                    fn( arr[i], i );
-                }
             };
 
             // Offside.js factory initialization
@@ -165,7 +160,7 @@
             function _factoryDomInit() {
 
                 // Add class to sliding elements
-                forEach( slidingElements, function( item ){
+                slidingElements.forEach( function( item ) {
                     addClass( item, slidingElementsClass );
                 });
 
@@ -184,6 +179,11 @@
             // Testing for CSS 3D Transform Support
             // https://gist.github.com/lorenzopolidori/3794226
             function _has3d() {
+
+                if ( !window.getComputedStyle ) {
+                    return false;
+                }
+
                 var el = document.createElement('p'),
                 has3d,
                 transforms = {
@@ -217,12 +217,12 @@
 
                 // Check if provided element exists before using it to instantiate an Offside instance
                 var domEl = el !== undefined ?
-                    getDomElements( el, true ) :
-                    getDomElements( '.offside', true );
+                    getDomElements( el ) :
+                    getDomElements( '.offside' );
 
                 // If provided el exists initialize an Offside instance, else return null
                 return domEl !== false ?
-                    new OffsideInstance( domEl, options, offsideId ) :
+                    new OffsideInstance( domEl[0], options, offsideId ) :
                     null;
             }
 
@@ -289,7 +289,7 @@
 
                     // If another Offside instance is already open,
                     // close it before going on
-                    closeOpenOffside();
+                    closeAll();
 
                     // Set global body active class for current Offside instance
                     addClass( body, offsideBodyOpenClass );
@@ -331,9 +331,9 @@
                     }
                 },
 
-                _closeAllOffside = function() {
+                _closeAll = function() {
 
-                    closeOpenOffside();
+                    closeAll();
                 },
 
                 // Offside buttons click handler
@@ -362,7 +362,7 @@
                     addClass( offside, offsideSideClass );
 
                     // Toggle Offside on click event
-                    forEach( offsideButtons, function( item ) {
+                    offsideButtons.forEach( function( item ) {
                         addEvent( item, 'click', _onButtonClick );
                     });
 
@@ -379,7 +379,7 @@
                     _closeOffside();
 
                     // Remove click event from Offside buttons
-                    forEach( offsideButtons, function( item ) {
+                    offsideButtons.forEach( function( item ) {
                         removeEvent( item, 'click', _onButtonClick );
                     });
 
@@ -420,7 +420,7 @@
                 };
 
                 this.closeAll = function() {
-                    _closeAllOffside();
+                    _closeAll();
                 };
 
                 this.destroy = function() {
@@ -440,8 +440,8 @@
             return {
 
                 //Offside factory public methods
-                closeOpenOffside: function() {
-                    closeOpenOffside();
+                closeAll: function() {
+                    closeAll();
                 },
 
                 // This is the method responsible for creating a new Offside instance
@@ -458,7 +458,10 @@
                     if ( offsideInstance !== null ) {
 
                         // Push new instance into "instantiatedOffsides" array and return it
+
+                        /*jshint -W093 */
                         return instantiatedOffsides[ offsideId ] = offsideInstance;
+                        /*jshint +W093 */
                     }
 
 
@@ -470,15 +473,29 @@
 
         return {
 
-            // Get the Singleton instance if one exists
-            // or create one if it doesn't
-            getInstance: function ( el, options ) {
+            // Initialize Offside factory
+            init: function ( options ) {
 
-                if ( !window.offside.factory ) {
-                    window.offside.factory = initOffsideFactory( options );
+                if ( offsideFactoryInstance === null ) {
+                    offsideFactoryInstance = initOffsideFactory( options );
+                    return true;
+                } else {
+                    return false;
+                }
+            },
+            // Initialize Offside factory (if still not)
+            // and a new offside instance
+            new: function ( el, options ) {
+
+                if ( offsideFactoryInstance === null ) {
+                    offsideFactoryInstance = initOffsideFactory( options );
                 }
 
-                return window.offside.factory.getOffsideInstance( el, options );
+                return offsideFactoryInstance.getOffsideInstance( el, options );
+            },
+
+            closeAll: function() {
+                offsideFactoryInstance.closeAll();
             }
         };
      
@@ -486,9 +503,9 @@
 
     // Store in window a reference to the Offside singleton factory
     if ( typeof module !== 'undefined' && module.exports ) {
-        module.exports = offside.getInstance;
+        module.exports = offside;
     } else {
-        window.offside = offside.getInstance;
+        window.offside = offside;
     }
 
 })( window, document );
