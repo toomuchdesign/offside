@@ -9,6 +9,13 @@
   },
   "author": "Andrea Carraro",
   "homepage": "https://github.com/toomuchdesign/offside",
+  "keywords": [
+    "responsive",
+    "off-canvas",
+    "offcanvas",
+    "menu",
+    "navigation"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/toomuchdesign/offside/issues"
