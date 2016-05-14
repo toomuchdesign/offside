@@ -2,13 +2,6 @@
   "name": "offside-js",
   "version": "1.3.0",
   "description": "Minimal JavaScript kit without library dependencies to push things off-canvas using just class manipulation",
-  "main": "dist/offside.js",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/toomuchdesign/offside.git"
-  },
-  "author": "Andrea Carraro",
-  "homepage": "https://github.com/toomuchdesign/offside",
   "keywords": [
     "responsive",
     "off-canvas",
@@ -16,17 +9,16 @@
     "menu",
     "navigation"
   ],
+  "author": "Andrea Carraro",
   "license": "MIT",
+  "main": "dist/offside.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/toomuchdesign/offside.git"
+  },
+  "homepage": "https://github.com/toomuchdesign/offside",
   "bugs": {
     "url": "https://github.com/toomuchdesign/offside/issues"
-  },
-  "scripts": {
-    "test": "grunt jshint",
-    "setup": "npm prune && npm install && npm update",
-    "build": "npm run setup && grunt build",
-    "preversion": "npm test",
-    "version": "git add package.json",
-    "postversion": "git push && git push --tags"
   },
   "devDependencies": {
     "grunt": "~0.4.x",
@@ -38,6 +30,17 @@
     "jshint-stylish": "^2.0.1",
     "load-grunt-tasks": "^3.2.0"
   },
+  "scripts": {
+    "test": "grunt jshint",
+    "setup": "npm prune && npm install && npm update",
+    "build": "npm run setup && grunt build",
+    "preversion": "npm test",
+    "version": "git add package.json",
+    "postversion": "git push && git push --tags"
+  },
+  "files": [
+    "dist"
+  ],
   "engines": {
     "node": ">=0.11.0"
   }
