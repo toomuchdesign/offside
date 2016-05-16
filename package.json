@@ -9,7 +9,7 @@
     "menu",
     "navigation"
   ],
-  "author": "Andrea Carraro",
+  "author": "Andrea Carraro <me@andreacarraro.it>",
   "license": "MIT",
   "main": "dist/offside.js",
   "repository": {
