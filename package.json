@@ -35,7 +35,7 @@
     "setup": "npm prune && npm install && npm update",
     "build": "npm run setup && grunt build",
     "preversion": "npm test",
-    "version": "git add package.json",
+    "version": "grunt build && git add dist && git add package.json",
     "postversion": "git push && git push --tags"
   },
   "files": [
