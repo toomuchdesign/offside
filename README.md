@@ -3,6 +3,9 @@
 </p>
 
 # Offside.js
+[![Build Status][ci-img]][ci]
+[ci-img]:                       https://travis-ci.org/toomuchdesign/offside.svg
+[ci]:                           https://travis-ci.org/toomuchdesign/offside
 
 **Offside.js** is a minimal JavaScript kit **without library dependencies** to push things off-canvas **using just class manipulation**. It's goal is to provide a super-lightweigth, efficient and customizable way of handling off-canvas menus/elements on modern website and web applications.
 
