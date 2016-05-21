@@ -282,19 +282,18 @@ Some ideas for the future. If you'd like to see any of the following realized, p
 
 **Offside.js is currently actively mantained**. Any open issue, pull request, contribution, idea to make Offside.js a better tool are welcome!
 
-[GruntJS](http://gruntjs.com/) is used for the build process, which means **node** and **npm** are required. If you already have them on your machine, you can install Grunt and build dependencies using:
+Make sure you have **node** and **npm** on your machine. When ready, you can install Offside.js dependencies:
 
 ```sh
-npm install -g grunt-cli
 npm install
+# or
+npm run setup
 ```
 
-Once everything is set up, work in `src` directory and let Grunt build `dist` files using:
+Once everything is set up, work in `src` directory and build `dist` files using:
 
 ```sh
-grunt
-# or
-grunt build
+npm run watch
 # or
 npm run build
 ```

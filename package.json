@@ -21,21 +21,23 @@
     "url": "https://github.com/toomuchdesign/offside/issues"
   },
   "devDependencies": {
-    "grunt": "~0.4.x",
-    "grunt-contrib-copy": "~0.6.x",
-    "grunt-contrib-jshint": "^0.11.2",
-    "grunt-contrib-uglify": "~0.6.x",
-    "grunt-contrib-watch": "~0.6.x",
-    "grunt-replace": "~0.8.x",
+    "grunt": "~1.0.0",
+    "grunt-contrib-copy": "~1.0.0",
+    "grunt-contrib-jshint": "~1.0.0",
+    "grunt-contrib-uglify": "~1.0.0",
+    "grunt-contrib-watch": "~1.0.0",
+    "grunt-replace": "~1.0.0",
     "jshint-stylish": "^2.0.1",
     "load-grunt-tasks": "^3.2.0"
   },
   "scripts": {
-    "test": "grunt jshint",
+    "grunt": "grunt",
+    "test": "npm run grunt jshint",
     "setup": "npm prune && npm install && npm update",
-    "build": "npm run setup && grunt build",
+    "build": "npm run grunt build",
+    "watch": "npm run grunt watch",
     "preversion": "npm test",
-    "version": "grunt build && git add dist && git add package.json",
+    "version": "npm run build && git add dist && git add package.json",
     "postversion": "git push && git push --tags"
   },
   "files": [
