@@ -1,7 +1,9 @@
 ###1.3.1 <small>*(22/05/2016)*</small>
 - Fix package to rebuild dist after npm versioning
 - Setup travis CI
+- Update Grunt to version 1.x
 - Update project info files
+- Update npm dev tasks
 
 ###1.3.0 <small>*(27/04/2016)*</small>
 
