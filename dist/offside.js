@@ -1,4 +1,4 @@
-/* offside-js 1.2.4 27-04-2016
+/* offside-js 1.3.1 22-05-2016
 * Minimal JavaScript kit without library dependencies to push things off-canvas using just class manipulation
 * https://github.com/toomuchdesign/offside.git
 *
@@ -18,8 +18,6 @@
     */
 
     'use strict';
-
-    var offsideFactoryInstance = null;              // Store reference to singleton offside factory
 
     // Self-invoking function returning the object which contains
     // the "getInstance" method used for initializing
@@ -440,7 +438,7 @@
             return {
 
                 //Offside factory public methods
-                closeAll: function() {
+                closeOpenOffside: function() {
                     closeAll();
                 },
 
@@ -473,29 +471,15 @@
 
         return {
 
-            // Initialize Offside factory
-            init: function ( options ) {
+            // Get the Singleton instance if one exists
+            // or create one if it doesn't
+            getInstance: function ( el, options ) {
 
-                if ( offsideFactoryInstance === null ) {
-                    offsideFactoryInstance = initOffsideFactory( options );
-                    return true;
-                } else {
-                    return false;
-                }
-            },
-            // Initialize Offside factory (if still not)
-            // and a new offside instance
-            new: function ( el, options ) {
-
-                if ( offsideFactoryInstance === null ) {
-                    offsideFactoryInstance = initOffsideFactory( options );
+                if ( !window.offside.factory ) {
+                    window.offside.factory = initOffsideFactory( options );
                 }
 
-                return offsideFactoryInstance.getOffsideInstance( el, options );
-            },
-
-            closeAll: function() {
-                offsideFactoryInstance.closeAll();
+                return window.offside.factory.getOffsideInstance( el, options );
             }
         };
      
@@ -503,9 +487,9 @@
 
     // Store in window a reference to the Offside singleton factory
     if ( typeof module !== 'undefined' && module.exports ) {
-        module.exports = offside;
+        module.exports = offside.getInstance;
     } else {
-        window.offside = offside;
+        window.offside = offside.getInstance;
     }
 
 })( window, document );
