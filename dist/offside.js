@@ -1,13 +1,10 @@
-/* offside-js 1.2.3 25-12-2015
+/* offside-js 1.3.1 22-05-2016
 * Minimal JavaScript kit without library dependencies to push things off-canvas using just class manipulation
 * https://github.com/toomuchdesign/offside.git
 *
 * by Andrea Carraro
 * Available under the MIT license
 */
-
-/*jslint browser: true*/
-/*jshint -W093 */
 
 ;(function ( window, document, undefined ) {
 
@@ -35,19 +32,19 @@
 
             // Close all open Offsides.
             // If an Offside instance id is provided, it just closes the matching instance instead
-            var closeOpenOffside = function( offsideId ) {
+            var closeAll = function( offsideId ) {
 
                 // Look for an open Offside id
                 if ( openOffsidesId.length > 0 ) {
 
                     // Close matching Offside instance if an ID is provided
-                    if( !isNaN( offsideId ) ) {
+                    if ( !isNaN( offsideId ) ) {
 
                         instantiatedOffsides[ offsideId ].close();
                     } else {
 
-                        // Close all Offside instances 
-                        forEach( openOffsidesId, function( offsideId ){
+                        // Close all Offside instances
+                        openOffsidesId.forEach( function( offsideId ) {
                             instantiatedOffsides[ offsideId ].close();
                         });
                     }
@@ -87,48 +84,40 @@
                 el.removeEventListener( eventName, eventHandler );
             },
 
-            // Return a DOM element from:
+            // Return a collection (array) of DOM elements from:
+            // - A DOM element
+            // - An array of DOM elements
             // - A string selector
-            // - An array of elements
-            // - An element
-            getDomElements = function( elements, single ) {
+            getDomElements = function( els ) {
 
-                // "elements" is DOM element or array
-                // Watch out: typeof null === 'object'
-                if( elements !== null && typeof elements === 'object' ) {
+                // "els" is a DOM element
+                // http://stackoverflow.com/a/120275/2902821
+                if( els instanceof HTMLElement ){
+                    return [ els ];
+                }
 
-                    if( 'nodeType' in elements || isArray(elements) ) {
-                        return elements;
-                    }
-                // "elements" is a string selector
-                } else if( typeof elements === 'string' ) {
+                // "els" is an array
+                else if( Array.isArray( els ) ) {
+                    return els;
+                }
 
-                    return single === true ?
-                        document.querySelector( elements ) :
-                        document.querySelectorAll( elements );
+                // "els" is a string
+                else if( typeof els === 'string' ) {
+                    // Convert Nodelist into an array
+                    // http://www.jstips.co/en/converting-a-node-list-to-an-array/
+                    return Array.apply( null, document.querySelectorAll( els ) );
                 }
 
                 return false;
-            },
-
-            isArray = function( el ) {
-                return Object.prototype.toString.call( el ) === '[object Array]' ? true : false;
             },
 
             // Check if a value exists in an array. Returns:
             // - array index if value exists
             // - "false" if value is not found
             // See: http://stackoverflow.com/a/5767357
-            isInArray = function( array, value ) {
-                var index = array.indexOf( value );
+            isInArray = function( arr, value ) {
+                var index = arr.indexOf( value );
                 return index > -1 ? index : false;
-            },
-
-            //forEach method shared
-            forEach = function( array, fn ) {
-                for ( var i = 0; i < array.length; i++ ) {
-                    fn( array[i], i );
-                }
             };
 
             // Offside.js factory initialization
@@ -139,9 +128,9 @@
             // Default factory settings
             factorySettings = {
 
-                slidingElementsSelector: 'offside-sliding-element', // String: Sliding elements selectors ('#foo, #bar')
-                disableCss3dTransforms: false,                      // Disable CSS 3d Transforms support (for testing purposes)
-                debug: false,                                       // Boolean: If true, print errors in console
+                slidingElementsSelector: '.offside-sliding-element',    // String: Default sliding elements selectors ('#foo, #bar')
+                disableCss3dTransforms: false,                          // Disable CSS 3d Transforms support (for testing purposes)
+                debug: false,                                           // Boolean: If true, print errors in console
             };
 
             // User defined factory settings
@@ -169,7 +158,7 @@
             function _factoryDomInit() {
 
                 // Add class to sliding elements
-                forEach( slidingElements, function( item ){
+                slidingElements.forEach( function( item ) {
                     addClass( item, slidingElementsClass );
                 });
 
@@ -188,6 +177,11 @@
             // Testing for CSS 3D Transform Support
             // https://gist.github.com/lorenzopolidori/3794226
             function _has3d() {
+
+                if ( !window.getComputedStyle ) {
+                    return false;
+                }
+
                 var el = document.createElement('p'),
                 has3d,
                 transforms = {
@@ -221,12 +215,12 @@
 
                 // Check if provided element exists before using it to instantiate an Offside instance
                 var domEl = el !== undefined ?
-                    getDomElements( el, true ) :
-                    getDomElements( '.offside', true );
+                    getDomElements( el ) :
+                    getDomElements( '.offside' );
 
                 // If provided el exists initialize an Offside instance, else return null
                 return domEl !== false ?
-                    new OffsideInstance( domEl, options, offsideId ) :
+                    new OffsideInstance( domEl[0], options, offsideId ) :
                     null;
             }
 
@@ -293,7 +287,7 @@
 
                     // If another Offside instance is already open,
                     // close it before going on
-                    closeOpenOffside();
+                    closeAll();
 
                     // Set global body active class for current Offside instance
                     addClass( body, offsideBodyOpenClass );
@@ -315,7 +309,7 @@
                     // current Offside instance is listed among openOffsidesId array
                     var index = isInArray( openOffsidesId, id );
 
-                    if( index !== false ) {
+                    if ( index !== false ) {
 
                         // beforeClose callback
                         offsideSettings.beforeClose();
@@ -335,29 +329,9 @@
                     }
                 },
 
-                _closeAllOffside = function() {
+                _closeAll = function() {
 
-                    closeOpenOffside();
-                },
-
-                _destroyOffside = function() {
-
-                    // beforeDestroy callback
-                    offsideSettings.beforeDestroy();
-
-                    //Close Offside intance before destroy
-                    _closeOffside();
-
-                    // Remove click event from Offside buttons
-                    forEach( offsideButtons, function( item ) {
-                        removeEvent( item, 'click', _onButtonClick );
-                    });
-
-                    // Destroy Offside instance
-                    delete instantiatedOffsides[id];
-
-                    // afterDestroy callback
-                    offsideSettings.afterDestroy();
+                    closeAll();
                 },
 
                 // Offside buttons click handler
@@ -375,18 +349,18 @@
                 */
                
                 // Set up and initialize a new Offside instance
-                _offsideInit = function() {
+                _initOffside = function() {
 
                     if ( debug ) {
-                        _offsideCheckElements();
+                        _checkElements();
                     }
 
-                    //Add classes to Offside instance (.offside and .offside{slidingSide})
+                    // Append classes to Offside instance (.offside and .offside{slidingSide})
                     addClass( offside, offsideClass );
                     addClass( offside, offsideSideClass );
 
                     // Toggle Offside on click event
-                    forEach( offsideButtons, function( item ) {
+                    offsideButtons.forEach( function( item ) {
                         addEvent( item, 'click', _onButtonClick );
                     });
 
@@ -394,8 +368,32 @@
                     offsideSettings.init();
                 },
 
+                _destroyOffside = function() {
+
+                    // beforeDestroy callback
+                    offsideSettings.beforeDestroy();
+
+                    // Close Offside intance before destroy
+                    _closeOffside();
+
+                    // Remove click event from Offside buttons
+                    offsideButtons.forEach( function( item ) {
+                        removeEvent( item, 'click', _onButtonClick );
+                    });
+
+                    // Remove classes appended on init phase
+                    removeClass( offside, offsideClass );
+                    removeClass( offside, offsideSideClass );
+
+                    // Destroy Offside instance
+                    delete instantiatedOffsides[id];
+
+                    // afterDestroy callback
+                    offsideSettings.afterDestroy();
+                },
+
                 // Fire console errors if DOM elements are missing
-                _offsideCheckElements = function() {
+                _checkElements = function() {
 
                     if ( !offside ) {
                         console.error( 'Offside alert: "offside" selector could not match any element' );
@@ -420,7 +418,7 @@
                 };
 
                 this.closeAll = function() {
-                    _closeAllOffside();
+                    _closeAll();
                 };
 
                 this.destroy = function() {
@@ -428,7 +426,7 @@
                 };
 
                 // Ok, init Offside instance
-                _offsideInit();
+                _initOffside();
 
             } // OffsideInstance constructor end
 
@@ -441,7 +439,7 @@
 
                 //Offside factory public methods
                 closeOpenOffside: function() {
-                    closeOpenOffside();
+                    closeAll();
                 },
 
                 // This is the method responsible for creating a new Offside instance
@@ -458,7 +456,10 @@
                     if ( offsideInstance !== null ) {
 
                         // Push new instance into "instantiatedOffsides" array and return it
+
+                        /*jshint -W093 */
                         return instantiatedOffsides[ offsideId ] = offsideInstance;
+                        /*jshint +W093 */
                     }
 
 
@@ -485,7 +486,7 @@
     })();
 
     // Store in window a reference to the Offside singleton factory
-    if ( typeof module !== "undefined" && module.exports ) {
+    if ( typeof module !== 'undefined' && module.exports ) {
         module.exports = offside.getInstance;
     } else {
         window.offside = offside.getInstance;
