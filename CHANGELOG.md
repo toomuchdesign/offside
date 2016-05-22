@@ -1,4 +1,5 @@
 ###1.3.1 <small>*(22/05/2016)*</small>
+- Fix initialization error introduced in v1.3.0
 - Fix package to rebuild dist after npm versioning
 - Setup travis CI
 - Update Grunt to version 1.x
