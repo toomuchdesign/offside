@@ -3,7 +3,9 @@
 </p>
 
 # Offside.js
+
 [![Build Status][ci-img]][ci]
+
 [ci-img]:                       https://travis-ci.org/toomuchdesign/offside.svg
 [ci]:                           https://travis-ci.org/toomuchdesign/offside
 
@@ -71,7 +73,7 @@ npm install offside-js --save
 ```html
   <!-- Off-canvas toggle button -->
   <button type="button" id="my-button">Offside toggle</button>
-   
+
   <!-- Off-canvas element  -->
   <nav id="my-menu">
     <ul>
@@ -85,7 +87,7 @@ npm install offside-js --save
   <!-- Your Content -->
   <div id="my-content-container">
     ...
-  </div> 
+  </div>
 ```
 
 Offside.js is designed to work with your existing HTML.
@@ -101,7 +103,7 @@ It **doesn't pre-requires any specific markup**. When Offside initializes It jus
 
     //Offside.js minimal setup
     var myOffside = offside( '#my-menu', {
-        
+
         slidingElementsSelector:'#my-content-container',
         buttonsSelector: '#my-button, .another-button',
     });
@@ -119,12 +121,12 @@ Use it only when you need your page to slide together with you off-canvas elemen
 
 ```javascript
   var myOffside = offside( '#my-menu', {
-      
+
       // Global offside options: affect all offside instances
       slidingElementsSelector: '#my-content-container', // String: Sliding elements selectors ('#foo, #bar')
       disableCss3dTransforms: false,                    // Disable CSS 3d Transforms support (for testing purposes)
       debug: true,                                      // Boolean: If true, print errors in console
-      
+
       // Offside instance options: affect only this offside instance
       buttonsSelector: '#my-button, .another-button',   // String: Offside toggle buttons selectors ('#foo, #bar')
       slidingSide: 'right',                             // String: Offside element pushed on left or right
@@ -133,7 +135,7 @@ Use it only when you need your page to slide together with you off-canvas elemen
       afterOpen: function(){},                          // Function: After open callback
       beforeClose: function(){},                        // Function: Before close callback
       afterClose: function(){},                         // Function: After close callback    
-  
+
   });
 ```
 **Global offside options** are set when first Offside instance is created. This happens because **Offside factory** is created when the first `offside()` call occurs.
@@ -260,7 +262,7 @@ Like this:
       ...
     </nav>
     ...
-  </div> 
+  </div>
 ```
 
 When an element receives a 3D transform style, It creates a containing block for all its descendants that have been set to `position: fixed` or `position: absolute`. Read more [here](http://meyerweb.com/eric/thoughts/2011/09/12/un-fixing-fixed-elements-with-css-transforms).
