@@ -13,8 +13,6 @@
 
 **Offside.js** comes with its own default stylesheet which make use of **CSS 3D transform**, but **you can write your own CSS** hooking your style with Offside classes. This ensures **super flexibility** and completely **decouples Offside.js from your style/markup**.
 
-Offside.js is a fast growing kid, please feel free to [drop me a line](https://twitter.com/toomuchdesign) if you use it in a project of yours!
-
 ## Demos
 
 - [Single element](http://toomuchdesign.github.io/offside/demos/single-element)
@@ -110,7 +108,7 @@ It **doesn't pre-requires any specific markup**. When Offside initializes It jus
   </script>
 ```
 
-#### What "sliding elements" are?
+#### What are "sliding elements"?
 
 `slidingElementsSelector` is a selector list of all elements which slide out when an off-canvas element slides in. It's usually the page wrapper.
 
@@ -187,7 +185,7 @@ Here a brief explanation.
 
 ### 2. First offside open
 
-On first interaction with an Offside instance, <code>offside-js--interact</code> class is added to body. Sometime useful to avoid unespected CSS behaviours on startup.
+On first interaction with an Offside instance, <code>offside-js--interact</code> class is added to body. Sometime useful to avoid unexpected CSS behaviours on startup.
 
 #### Injected classes:
 ```html
@@ -282,8 +280,6 @@ Some ideas for the future. If you'd like to see any of the following realized, p
 
 ## Working on the repository
 
-**Offside.js is currently actively mantained**. Any open issue, pull request, contribution, idea to make Offside.js a better tool are welcome!
-
 Make sure you have **node** and **npm** on your machine. When ready, you can install Offside.js dependencies:
 
 ```sh
@@ -308,20 +304,9 @@ git checkout master demos
 git checkout master dist
 ```
 
-##Versioning
+## Versioning
 
-Starting from **1.3.0**, releases will be numbered with the follow format:
-
-`<major>.<minor>.<patch>`
-
-And constructed with the following guidelines:
-
-- Breaking backwards compatibility bumps the major
-- New additions without breaking backwards compatibility bumps the minor
-- Bug fixes and misc changes bump the patch
-
-For more information on semantic versioning, please visit http://semver.org/.
-
+Starting from version **1.3.0**, this library uses [semantic versioning](http://semver.org).
 
 ## Thanks to
 
