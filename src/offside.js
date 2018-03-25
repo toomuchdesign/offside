@@ -7,16 +7,6 @@
 */
 
 ;(function ( window, document, undefined ) {
-
-    /*
-    * The first time Offside is called, it creates a singleton-factory object
-    * and place it into "window.offside.factory".
-    *
-    * Offside factory serves the following purposes:
-    * - DOM initialization
-    * - Centralized Offside instances management and initialization
-    */
-
     'use strict';
 
     // Self-invoking function returning the object which contains
@@ -255,7 +245,7 @@
 
                 // Offside instance private properties
                 var offside = domEl,                                                        // Hello, I'm the Offside instance
-                    offsideButtons = getDomElements( offsideSettings.buttonsSelector ),     // Offside toggle buttons 
+                    offsideButtons = getDomElements( offsideSettings.buttonsSelector ),     // Offside toggle buttons
                     slidingSide = offsideSettings.slidingSide,
                     offsideClass = 'offside',                                               // Class added to Offside instance when initialized
                     offsideSideClass = offsideClass + '--' + slidingSide,                   // Class added to Offside instance when initialized (eg. offside offside--left)
@@ -347,7 +337,7 @@
                     return id;
                 }
                 */
-               
+
                 // Set up and initialize a new Offside instance
                 _initOffside = function() {
 
@@ -469,20 +459,30 @@
 
         } // initOffsideFactory() end
 
-        return {
+        var singleton = {
 
             // Get the Singleton instance if one exists
             // or create one if it doesn't
             getInstance: function ( el, options ) {
 
-                if ( !window.offside.factory ) {
-                    window.offside.factory = initOffsideFactory( options );
+                /*
+                * When Offside is called for the first time,
+                * inject a singleton-factory object
+                * as a static method in "offside.factory".
+                *
+                * Offside factory serves the following purposes:
+                * - DOM initialization
+                * - Centralized Offside instances management and initialization
+                */
+                if ( !singleton.getInstance.factory ) {
+                    singleton.getInstance.factory = initOffsideFactory( options );
                 }
 
-                return window.offside.factory.getOffsideInstance( el, options );
+                return singleton.getInstance.factory.getOffsideInstance( el, options );
             }
         };
-     
+
+        return singleton;
     })();
 
     // Store in window a reference to the Offside singleton factory
