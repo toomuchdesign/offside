@@ -28,12 +28,12 @@
 - Uses CSS3 3D transforms (if you want to)
 - No injected style. Offside entirely relies on classes manipulations
 - BEM-like style
-- Requirable through require('offside-js')
 - Degrades gracefully on browsers not supporting CSS3 3D transforms
 - Handles multiple off-canvas elements
 - Left/right off-canvas
 - Style agnostic
 - No need of extra classes or any specific markup.
+- Consumable as `commonJS`/`ES` module with a `require('offside-js')`
 
 ## Browser Compatibility
 
@@ -64,6 +64,13 @@ npm install offside-js --save
   <!-- Put these into the <head> -->
   <link rel="stylesheet" href="dist/offside.css">
   <script src="dist/offside.js"></script>
+```
+
+...or import as a module:
+
+```js
+  import 'offside-js/dist/offside.css';
+  import offside from 'offside-js';
 ```
 
 ### 2. Markup example:
@@ -143,15 +150,15 @@ Use it only when you need your page to slide together with you off-canvas elemen
 
 Offside.js plays well with your application. Each Offside instance exposes the following methods:
 
-`myOffside.toggle();`
+`offsideInstance.toggle();`
 
-`myOffside.open();`
+`offsideInstance.open();`
 
-`myOffside.close();`
+`offsideInstance.close();`
 
-`myOffside.closeAll();`
+`offsideInstance.closeAll();`
 
-`myOffside.destroy();`
+`offsideInstance.destroy();`
 
 
 ## How does it work?
