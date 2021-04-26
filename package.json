@@ -26,7 +26,7 @@
     "grunt-contrib-jshint": "~2.1.0",
     "grunt-contrib-uglify": "~5.0.0",
     "grunt-contrib-watch": "~1.1.0",
-    "grunt-replace": "~1.0.0",
+    "grunt-replace": "~2.0.0",
     "jshint-stylish": "^2.0.1",
     "load-grunt-tasks": "^5.0.0"
   },
